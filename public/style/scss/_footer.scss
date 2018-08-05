@@ -1,0 +1,19 @@
+.footer {
+	width: 100%;
+	padding: 2% 5%;
+	div {
+		margin: 10px 0;
+	}
+	div:last-child {
+		margin-top: 20px;
+		color: silver;
+	}
+	span {
+		color: silver;
+		cursor: pointer;
+	}
+	div, span {
+		font-size: 12px;
+	}
+
+}

@@ -1,0 +1,20 @@
+/* Including 3rd part libs */
+@import url('../vendor/reset.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+
+* {
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+/* Including components */
+@import 'header';
+@import 'top-nav';
+@import 'home';
+@import 'footer';
+
+
+
+.wrapper {
+	margin: 0 5%;
+	padding: 0;
+}

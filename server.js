@@ -4,18 +4,37 @@ const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const path = require('path')
 const mongoose = require('mongoose')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+
+mongoose.connect('mongodb://localhost:27017/hh-replica', { useNewUrlParser: true })
 
 const app = express()
 
+// Including middlewares
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json({limit: '5mb'}))
 app.use(cookieParser())
 app.use(morgan('dev'))
+app.use(session({
+	resave: true,
+	secret: 'secret',
+	name: 'hh-replica',
+	saveUninitialized: true,
+	key: 'key',
+	store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
 
 
+// app.use('/api', require('/server/routes'))
 
+// app.get('*', (req, res, next)=> {
+// 	res.redirect('/#' + req.originalUrl)
+// })
 
-app.listen(3000, ()=> {
-	console.log('Server started on port 3000...')
+const port = process.env.PORT || 3000
+
+app.listen(port, ()=> {
+	console.log(`Server listening on port ${port}...`)
 })
