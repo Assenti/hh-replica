@@ -2,19 +2,25 @@
 @import url('../vendor/reset.css');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 
-* {
+/** {
 	font-family: 'Open Sans Condensed', sans-serif;
-}
+	font-size: 14px;
+}*/
 
 /* Including components */
 @import 'header';
 @import 'top-nav';
 @import 'home';
+@import 'signup-employee';
+@import 'signin-employee';
+@import 'signup-employer';
 @import 'footer';
 
 
 
 .wrapper {
+	width: 100%;
+	height: 100%;
 	margin: 0 5%;
 	padding: 0;
 }

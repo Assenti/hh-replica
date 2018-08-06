@@ -3,13 +3,9 @@ const mongoose = require('mongoose')
 const EmployeeSchema = mongoose.Schema({
 	firstname: String,
 	lastname: String,
-	birthDate: {type: Date },
-	gender: String,
-	citizenship: String,
-	workPermition: String,
-	email: String,
-	phone: String,
-	address: String,
+	email: { type: String, unique: true},
+	accepted: { type: Boolean, default: false},
+	password: String,
 	cv: [
 		{ 
 			type: mongoose.Schema.Types.ObjectId,

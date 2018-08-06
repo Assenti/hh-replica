@@ -8,7 +8,7 @@
 	background-image: url(../../images/hh-back.jpg);
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 0 80%;
 	padding: 0 5%;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
@@ -62,28 +62,38 @@
 
 .home-auth {
 	display: block;
+	height: 310px;
+	width: 290px;
 	background-color: rgba(0, 0, 0, 0.7);
 	padding: 20px;
-	input {
-		display: block;
-		width: 100%;
-		padding: 10px;
-		margin: 10px 0;
-		outline: none;
+} 
+
+.home-sign-in-btn {
+	margin: 5px 0;
+	font-size: 16px;
+	color: blue;
+	padding: 10px;
+	background-color: transparent;
+	border: 1px solid blue;
+	cursor: pointer;
+	&:hover {
+		background-color: blue;
+		color: white;
+		transition: 0.5 ease;
 	}
-	input::placeholder {
-		color: lightgrey;
-	}
-	button {
-		margin: 5px 0;
-		font-size: 16px;
-		color: blue;
-		padding: 5px 10px;
-		background-color: transparent;
-		border: 1px solid blue;
-		cursor: pointer;
-	}
-	button:hover {
+}
+
+.home-sign-up-btn {
+	margin: 20px 0;
+	display: block;
+	width: 100%;
+	font-size: 16px;
+	color: blue;
+	padding: 10px;
+	background-color: transparent;
+	border: 1px solid blue;
+	cursor: pointer;
+	&:hover {
 		background-color: blue;
 		color: white;
 		transition: 0.5 ease;
@@ -93,19 +103,49 @@
 .home-auth-nav {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	span:first-child {
-		color: white;
-		font-weight: 600;
-		padding-right: 10px;
+	cursor: pointer;
+	color: silver;
+	span {
+		font-size: 14px;
 	}
-	span:last-child{
-		color: silver;
+	span:first-child {
+		padding-right: 15px;
+	}
+	span:hover {
+		color: white;
+		transition: 0.3 ease;
+	}
+	span.active {
+		color: white;
 	}
 }
 
+.home-sign-in-content {
+	text-align: center;
+	margin-top: 50px;
+	input {
+		display: block;
+		width: 100%;
+		padding: 10px;
+		margin: 15px 0;
+		outline: none;
+		border: 1px solid lightgrey;
+		font-size: 14px;
+	}
+	input:focus {
+		border: 1px solid blue;
+	}
+	input::placeholder {
+		color: lightgrey;
+	}
+}
+
+.home-sign-up-content {
+	margin-top: 60px;
+}
+
 .home-auth-social {
-	margin: 15px 0;
+	margin: 20px 0;
 	display: flex;
 	align-items: center;
 	span {

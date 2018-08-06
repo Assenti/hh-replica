@@ -17,5 +17,29 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider){
 		templateUrl: '/views/home.html',
 		controller: 'MainCtrl',
 		controllerAs: 'vm'
+	})
+	.state('signup-employee', {
+		url: '/employee/signup',
+		templateUrl: '/views/signup-employee.html',
+		controller: 'AuthEmployeeCtrl',
+		controllerAs: 'vm'
+	})
+	.state('signin-employee', {
+		url: '/employee/signin',
+		templateUrl: '/views/signin-employee.html',
+		controller: 'AuthEmployeeCtrl',
+		controllerAs: 'vm'
+	})
+	.state('signin-employer', {
+		url: '/employer/signin',
+		templateUrl: '/views/signin-employer.html',
+		controller: 'AuthEmployerCtrl',
+		controllerAs: 'vm'
+	})
+	.state('signup-employer', {
+		url: '/employer/signup',
+		templateUrl: '/views/signup-employer.html',
+		controller: 'AuthEmployerCtrl',
+		controllerAs: 'vm'
 	});
 }

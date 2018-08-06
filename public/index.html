@@ -10,7 +10,7 @@
 
 	<div class="header" ng-controller="HeaderCtrl as vm">
 		<div class="wrapper">
-			<div class="header-logo">
+			<div class="header-logo" ui-sref="home">
 				<img class="header-logo-hh" src="/images/headhunter-hh-kz.svg" style="width: 90px;">
 			</div>
 			<div class="header-search">
@@ -24,39 +24,63 @@
 
 	<div class="top-nav" ng-controller="TopNavCtrl as vm">
 		<div class="wrapper">
-			<div class="top-nav-items">
-				<div class="top-nav-item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy">
-					<span>Ищу работу</span>
-					<div class="top-nav-item__droplist" ng-if="vm.dropList == 'findVacancy'">
-						<div class="top-nav-item__droplist-item">Создать резюме</div>
-						<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
+			<div class="top-nav-wrapper">
+				<div class="top-nav-main">
+					<div class="header-logo" ui-sref="home" ng-if="vm.logo">
+						<img class="header-logo-hh" src="/images/hh.png" style="width: 35px;">
+					</div>
+					<div class="top-nav-items">
+						<div class="top-nav-item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy">
+							<span>Ищу работу</span>
+							<div class="top-nav-item__droplist" ng-if="vm.dropList == 'findVacancy'">
+								<div class="top-nav-item__droplist-item">Создать резюме</div>
+								<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
+							</div>
+						</div>
+						<div class="top-nav-item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee">
+							<span>Ищу сотрудников</span>
+							<div class="top-nav-item__droplist" ng-if="vm.dropList == 'findEmployee'">
+								<div class="top-nav-item__droplist-item">Создать резюме</div>
+								<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
+							</div>
+						</div>
+						<div class="top-nav-item">Помощь</div>
+						<div class="top-nav-item" ng-mouseover="vm.openDropList('companies')" ng-mouseleave="vm.closeDropList()" id="companies">
+							<span>Компании</span>
+							<div class="top-nav-item__droplist" ng-if="vm.dropList == 'companies'">
+								<div class="top-nav-item__droplist-item">Создать резюме</div>
+								<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
+							</div>
+						</div>
+						<div class="top-nav-item" ng-mouseover="vm.openDropList('projects')" ng-mouseleave="vm.closeDropList()" id="projects">
+							<span>Проекты</span>
+							<div class="top-nav-item__droplist" ng-if="vm.dropList == 'projects'">
+								<div class="top-nav-item__droplist-item">Создать резюме</div>
+								<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
+							</div>
+						</div>
+					</div>
+					<div class="top-nav-search" ng-if="vm.search">
+						<input placeholder="Я ищу...">
+						<img src="/images/search.svg">
 					</div>
 				</div>
-				<div class="top-nav-item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee">
-					<span>Ищу сотрудников</span>
-					<div class="top-nav-item__droplist" ng-if="vm.dropList == 'findEmployee'">
-						<div class="top-nav-item__droplist-item">Создать резюме</div>
-						<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
+				<div class="top-nav-auth" ng-if="vm.auth" ng-mouseover="vm.openDropList('auth')" ng-mouseleave="vm.closeDropList()" id="auth">
+					<span ng-if="!vm.session">Выйти</span>
+					<span ng-if="vm.session" >Войти</span>
+					<div class="top-nav-auth-drop" ng-if="vm.dropList == 'auth'">
+						<form class="top-nav-auth-drop-form" ng-submit="vm.signIn()">
+							<input type="email" ng-model="vm.email" placeholder="Email">
+							<input type="password" ng-model="vm.password" placeholder="Пароль">
+							<button type="submit">Войти в личный кабинет</button>
+						</form>
+						<span>Регистрация</span>
+						<div class="top-nav-auth-signup">
+							<button ui-sref="signup-employee">Соискателя</button>
+							<button ui-sref="signup-employer">Работодателя</button>
+						</div>
 					</div>
-				</div>
-				<div class="top-nav-item">Помощь</div>
-				<div class="top-nav-item" ng-mouseover="vm.openDropList('companies')" ng-mouseleave="vm.closeDropList()" id="companies">
-					<span>Компании</span>
-					<div class="top-nav-item__droplist" ng-if="vm.dropList == 'companies'">
-						<div class="top-nav-item__droplist-item">Создать резюме</div>
-						<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
-					</div>
-				</div>
-				<div class="top-nav-item" ng-mouseover="vm.openDropList('projects')" ng-mouseleave="vm.closeDropList()" id="projects">
-					<span>Проекты</span>
-					<div class="top-nav-item__droplist" ng-if="vm.dropList == 'projects'">
-						<div class="top-nav-item__droplist-item">Создать резюме</div>
-						<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
-					</div>
-				</div>
-			</div>
-			<div class="top-nav-auth">
-		
+				</div>	
 			</div>
 		</div>
 	</div>
@@ -65,10 +89,12 @@
 	<ui-view></ui-view>
 
 	<div class="footer">
-		<div>Работодателям<span> | Прайс-лист</span></div>
-		<div>Соискателям<span> | Продвижение резюме</span><span> | Работа в других городах</span></div>
-		<div>&copy; 2018 Asset Sultanov - HeadHunter - Replica. Especially for DECODE MEAN STACK Course graduation</div>
-		<div>Сегодня на сайте 22 942 вакансий, 1 834 834 резюме, 51 164 компаний</div>
+		<div class="footer-content">
+			<div>Работодателям<span> | Прайс-лист</span></div>
+			<div>Соискателям<span> | Продвижение резюме</span><span> | Работа в других городах</span></div>
+			<div>&copy; 2018 Asset Sultanov - HeadHunter - Replica. Especially for DECODE MEAN STACK Course graduation</div>
+			<div>Сегодня на сайте 22 942 вакансий, 1 834 834 резюме, 51 164 компаний</div>
+		</div>
 	</div>
 </body>
 <!-- Angular files including -->
@@ -82,4 +108,6 @@
 <script src="/js/controllers/header.js"></script>
 <script src="/js/controllers/top-nav.js"></script>
 <script src="/js/controllers/home.js"></script>
+<script src="/js/controllers/auth-employee.js"></script>
+<script src="/js/controllers/auth-employer.js"></script>
 </html>

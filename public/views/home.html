@@ -23,23 +23,24 @@
 					<small>компаний</small>
 				</div>
 			</div>
-			<form class="home-auth">
+			<form class="home-auth" ng-submit="vm.signIn()">
 				<div class="home-auth-nav">
-					<span>Войти с помощью</span>
-					<span>Регистрация</span>
+					<span ng-class="{'active': vm.registration == false}" ng-click="vm.registration = false">Войти</span>
+					<span ng-class="{'active': vm.registration == true}" ng-click="vm.registration = true">Регистрация</span>
 				</div>
-				<div class="home-auth-social">
-					<span>M</span>
-					<span>F</span>
-					<span>V</span>
-					<span>L</span>
-					<span>O</span>
-					<span>G</span>
+				<div class="home-sign-in-content" ng-if="!vm.registration">
+					<input type="text" ng-model="vm.email" placeholder="Email">
+					<input type="password" ng-model="vm.password" placeholder="Пароль">
+					<button class="home-sign-in-btn" type="submit">Войти</button>	
 				</div>
-				<input type="text" name="" placeholder="Email или телефон">
-				<input type="password" name="" placeholder="Пароль">
-				<button type="submit">Войти</button>	
+				<div class="home-sign-up-content" ng-if="vm.registration">
+					<button class="home-sign-up-btn" ui-sref="signup-employee">Для соискателей</button>
+					<button class="home-sign-up-btn" ui-sref="signup-employer">Для работодателей</button>
+				</div>
 			</form>
+
+			
+
 		</div>
 	</div>
 

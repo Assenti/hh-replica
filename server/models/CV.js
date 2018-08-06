@@ -1,6 +1,12 @@
 const mongoose = require('mongoose')
 
 const CVSchema = mongoose.Schema({
+	birthDate: {type: Date },
+	gender: String,
+	citizenship: String,
+	workPermition: String,
+	address: String,
+	phone: String,
 	position: String,
 	xpLength: Number,
 	specialization: String,
