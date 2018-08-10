@@ -1,29 +1,29 @@
 <div class="signup-employee">
 	<div class="wrapper">
 		<div class="signup-title">Регистрация соискателя</div>
-		<form class="signup-form">
+		<form class="signup-form" ng-submit="vm.signUpEmployee()">
 			<div class="signup-form-group">
 				<div class="signup-leftblock">Имя</div>
-				<input type="text" ng-model="vm.firtsname">
+				<input type="text" ng-model="vm.firstname" required>
 			</div>
 			<div class="signup-form-group">
 				<div class="signup-leftblock">Фамилия</div>
-				<input type="text" ng-model="vm.lastname">
+				<input type="text" ng-model="vm.lastname" required>
 			</div>
 			<div class="signup-form-group">
 				<div class="signup-leftblock">Email</div>
-				<input type="text" ng-model="vm.email">
+				<input type="email" ng-model="vm.email" required>
+			</div>
+			<div class="signup-form-group">
+				<div class="signup-leftblock">Телефон</div>
+				<input type="text" ng-model="vm.phone" required>
 			</div>
 			<div class="signup-form-group">
 				<div class="signup-leftblock">Пароль</div>
-				<input type="text" ng-model="vm.passwordCandidate">
+				<input type="text" ng-model="vm.password" required>
 			</div>
 			<div class="signup-form-group">
-				<div class="signup-leftblock">Повторите пароль</div>
-				<input type="text" ng-model="vm.password">
-			</div>
-			<div class="signup-form-group">
-				<button class="signup-form-btn">Зарегистрироваться</button>
+				<button type="submit" class="signup-form-btn">Зарегистрироваться</button>
 			</div>
 		</form>
 		<div class="signup-content">
@@ -38,4 +38,9 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="signup-message" ng-if="vm.success">
+	<span>Регистрация прошла успешно, пройдите пожалуйста по ссылке указанной в письме отправленное вам на почту</span>
+	<div ng-click="vm.success = false">&times;</div>
 </div>

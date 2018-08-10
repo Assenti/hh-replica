@@ -1,0 +1,71 @@
+.employer-dash {
+	padding: 2% 5%;
+	width: 100%;
+
+}
+
+.employer-dash-title {
+	font-size: 34px;
+	font-weight: 600;
+	margin: 15px 0;
+}
+
+.employer-dash-content {
+	display: flex;
+}
+
+.employer-dash-form {
+	width: 50%;
+	text-align: center;
+	margin-right: 30px;
+	input {
+		display: block;
+		width: 100%;
+		outline: none;
+		border: 1px solid lightgrey;
+		padding: 10px;
+		margin-bottom: 15px;
+	}
+	input:focus {
+		border-color: blue;
+	}
+
+	textarea {
+		width: 100%;
+		display: block;
+		outline: none;
+		padding: 10px;
+		border: 1px solid lightgrey;
+		margin: 10px 0;
+	}
+	textarea:focus {
+		border-color: blue;
+	}
+
+	button {
+		outline: none;
+		cursor: pointer;
+		padding: 10px 15px;
+		background-color: blue;
+		color: white;
+		font-size: 16px;
+	}
+	button:hover {
+		opacity: 0.9;
+	}
+}
+
+.employer-dash-vacancies {
+	width: 50%;
+	span {
+		display: block;
+		text-align: center;
+		font-size: 24px;
+		font-weight: 600;
+		width: 100%;
+	}
+	li {
+		list-style: none;
+		font-size: 14px;
+	}
+}

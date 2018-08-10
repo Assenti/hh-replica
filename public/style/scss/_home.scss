@@ -83,22 +83,7 @@
 	}
 }
 
-.home-sign-up-btn {
-	margin: 20px 0;
-	display: block;
-	width: 100%;
-	font-size: 16px;
-	color: blue;
-	padding: 10px;
-	background-color: transparent;
-	border: 1px solid blue;
-	cursor: pointer;
-	&:hover {
-		background-color: blue;
-		color: white;
-		transition: 0.5 ease;
-	}
-}
+
 
 .home-auth-nav {
 	display: flex;
@@ -120,28 +105,61 @@
 	}
 }
 
-.home-sign-in-content {
+.home-auth-content {
+	margin-top: 40px;
 	text-align: center;
-	margin-top: 50px;
+	color: white;
+}
+
+.home-auth-content-title {
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
+.home-auth-form {
+	
 	input {
-		display: block;
 		width: 100%;
+		margin: 5px 0;
 		padding: 10px;
-		margin: 15px 0;
 		outline: none;
 		border: 1px solid lightgrey;
 		font-size: 14px;
 	}
 	input:focus {
-		border: 1px solid blue;
-	}
-	input::placeholder {
-		color: lightgrey;
+		border-color: blue;
 	}
 }
 
-.home-sign-up-content {
-	margin-top: 60px;
+.home-auth-content-btn {
+	margin: 20px 0;
+	display: block;
+	width: 100%;
+	font-size: 16px;
+	padding: 10px;
+	background-color: transparent;
+	cursor: pointer;
+	outline: none;
+}
+
+.home-auth-content-btn.blue {
+	border: 1px solid blue;
+	color: blue;
+	&:hover {
+		background-color: blue;
+		color: white;
+		transition: 0.5 ease;
+	}
+}
+
+.home-auth-content-btn.red {
+	border: 1px solid red;
+	color: red;
+	&:hover {
+		background-color: red;
+		color: white;
+		transition: 0.5 ease;
+	}
 }
 
 .home-auth-social {
@@ -205,67 +223,55 @@
 /* Home Main */
 .home-main {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(4, minmax(50px, auto));
+	grid-template-columns: repeat(2, minmax(70px, auto));
+	grid-template-rows: 1fr;
 	width: 100%;
 	padding: 2% 5%;
 }
 
-.home-main-companies {
+.home-main-employers {
 	grid-column: 1 / 2;
 	grid-row: 1 / 2;
-	border-right: 1px solid grey;
-	/*padding-right: 15px;*/
-}
-
-.home-main-vacancies-today {
-	grid-column: 2 / 4;
-	grid-row: 1 / 2;
-	padding: 0 25px; 
-}
-
-.home-main-ads {
-	grid-column: 4 / 5;
-	grid-row: 1 / 2;
-}
-
-.home-main-vacancies-spec {
-	grid-column: 1 / 5;
-	grid-row: 2 / 3;
-}
-
-.home-main-secondary {
-	grid-column: 1 / 5;
-	grid-row: 3 / 4;
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: 1fr;
-}
-
-.home-main-secondary-news {
-	grid-column: 1 / 2;
-}
-
-.home-main-secondary-articles {
-	grid-column: 2 / 3;
-}
-
-.home-main-vacancies-spec {
-	grid-column: 3 / 4;
-}
-
-.home-main-vacancies-city {
-	grid-column: 4 / 5;
-}
-
-.home-main-seo {
-	grid-column: 1 / 5;
-	grid-row: 4 / 5;
+	padding: 2% 5%;
+	img {
+		width: 20px;
+	}
 	span {
-		padding: 15px 0;
-		font-size: 20px;
+		font-size: 22px;
 		font-weight: 600;
+		margin: 10px 0;
+	}
+	li {
+		list-style: none;
+		margin: 10px 0;
+		cursor: pointer;
+	}
+	li:hover {
+		color: blue;
 	}
 }
+
+.home-main-employees {
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+	padding: 2% 5%;
+	img {
+		width: 20px;
+	}
+	span {
+		font-size: 22px;
+		font-weight: 600;
+		margin: 10px 0;
+	}
+	li {
+		list-style: none;
+		margin: 10px 0;
+		cursor: pointer;
+	}
+	li:hover {
+		color: blue;
+	} 
+}
+
 
 

@@ -1,0 +1,84 @@
+<div class="employee-dash">
+	<div class="employee-dash-events">
+		<span class="employee-dash-title">Мои события</span>
+		<li class="employee-dash-events-item">
+			<i></i>
+			<span>Отклики и приглашения: <span>19</span></span>
+		</li>
+		<li class="employee-dash-events-item">
+			<i></i>
+			<span>Просмотры резюме: <span>1</span></span>
+		</li>
+		<li class="employee-dash-events-item">
+			<i></i>
+			<span>Автопоиски</span>
+		</li>
+
+		<li class="employee-dash-events-item">Ваши резюме:</li>
+		<div class="employee-dash-cvs" ng-repeat="cv in vm.user.cv" ng-bind="cv.position" ui-sref="cv({id: cv._id})"></div>
+		<li class="employee-dash-events-item">
+			<span class="employee-dash-events-item link" ng-click="vm.openCVMaker()">Создать резюме</span>
+		</li>
+	</div>
+	<div class="employee-dash-offers">
+		<span class="employee-dash-title">Рекомендованные для Вас вакансии</span>
+		<li></li>
+	</div>
+</div>
+<div class="cv" id="cvForm">
+	<span class="cv-title">Создание резюме <span class="cv-close" ng-click="vm.closeCVMaker()">&times;</span></span>
+	<div class="cv-content">
+		<form class="cv-form" ng-submit="vm.saveCV()">
+			<input class="cv-form-input" type="text" ng-model="vm.position" placeholder="Должность">
+			<input class="cv-form-input" type="text" ng-model="vm.salary" placeholder="Заработная плата">
+			<input class="cv-form-input" type="date" ng-model="vm.birthDate" placeholder="Дата рождения">
+			<div class="cv-form-input-radio">
+				<label>Муж</label>
+				<input type="radio" value="Мужской" ng-model="vm.gender">
+				<label>Жен</label>
+				<input type="radio" value="Женский" ng-model="vm.gender">
+			</div>
+			<input class="cv-form-input" type="text" ng-model="vm.citizenship" placeholder="Гражданство">
+			<input class="cv-form-input" type="text" ng-model="vm.address" placeholder="Адрес">
+			<input class="cv-form-input" type="text" ng-model="vm.phone" placeholder="Телефон">
+			<input class="cv-form-input" type="text" ng-model="vm.specialization" placeholder="Специализация">
+			<input class="cv-form-input" type="number" ng-model="vm.xpLength" placeholder="Стаж работы (лет)">
+			<input class="cv-form-input" type="text" ng-model="vm.education" placeholder="ВУЗ">
+			<input class="cv-form-input" type="text" ng-model="vm.courses" placeholder="Курсы">
+			<input class="cv-form-input" type="text" ng-model="vm.work" placeholder="Прежнее место работы">
+			<span>Навыки</span>
+			<div class="cv-form-skills">
+				<input type="text" ng-model="vm.skill" placeholder="Навык">
+				<div ng-click="vm.addSkill()">Добавить</div>
+			</div>
+			<div class="cv-form-file">
+				<input type="file" ng-file-model="vm.file" accept="image/*">
+				<label>Загрузить фото к резюме</label>
+			</div>
+			<button type="submit">Сохранить</button>
+			<button ng-click="vm.closeCVMaker()">Отмена</button>
+		</form>
+		<div class="cv-view">
+			<div class="cv-view-output" ng-bind="'Должность: ' + (vm.position)"></div>
+			<div class="cv-view-output" ng-bind="'Заработная плата: ' + (vm.salary)"></div>
+			<div class="cv-view-output" ng-bind="'Дата рождения: ' + (vm.birthDate | date)"></div>
+			<div class="cv-view-output" ng-bind="'Пол: ' + (vm.gender)"></div>
+			<div class="cv-view-output" ng-bind="'Гражданство: ' + (vm.citizenship)"></div>
+			<div class="cv-view-output" ng-bind="'Адрес: ' + (vm.address)"></div>
+			<div class="cv-view-output" ng-bind="'Контактный телефон: ' + (vm.phone)"></div>
+			<div class="cv-view-output" ng-bind="'Специализация: ' + (vm.specialization)"></div>
+			<div class="cv-view-output" ng-bind="'Стаж работы: ' + (vm.xpLength)"></div>
+			<div class="cv-view-output" ng-bind="'Образование: ' + (vm.education)"></div>
+			<div class="cv-view-output" ng-bind="'Курсы: ' + (vm.courses)"></div>
+			<div class="cv-view-output" ng-bind="'Прежнее место работы: ' + (vm.work)"></div>
+			<div class="cv-view-output">Навыки:</div>
+			<div class="cv-view-skills">
+				<div ng-repeat="skill in vm.skills">
+					<span ng-bind="skill"></span>
+					<span ng-click="vm.removeSkill($index)">&times;</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

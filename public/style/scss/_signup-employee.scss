@@ -92,3 +92,24 @@
 		margin-right: 5px;
 	}
 }
+
+.signup-message {
+	position: absolute;
+	top: 120px;
+	width: 100%;
+	background-color: rgb(46, 184, 46);
+	color: white;
+	padding: 10px 10%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	z-index: 3;
+	span {
+		font-size: 14px;
+		font-weight: 600;
+	}
+	div {
+		font-size: 20px;
+		cursor: pointer;
+	}
+}

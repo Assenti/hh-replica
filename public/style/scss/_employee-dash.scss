@@ -1,0 +1,44 @@
+.employee-dash {
+	display: flex;
+	justify-content: space-between;
+	background-color: rgb(247, 247, 247);
+	width: 100%;
+	padding: 2% 5%;
+}
+
+.employee-dash-title {
+	font-size: 20px;
+	font-weight: 600;
+	margin: 10px 0;
+}
+
+.employee-dash-offers {
+	width: 50%;
+	li {
+		list-style: none;
+		margin-bottom: 10px;
+		font-size: 14px;
+		color: rgba(0, 0, 0, 0.8);
+	}
+}
+
+.employee-dash-events {
+	width: 50%;
+}
+
+.employee-dash-events-item {
+	list-style: none;
+	margin: 10px 0;
+	font-size: 14px;
+	color: rgba(0, 0, 0, 0.8);
+	span {
+		font-size: 14px;
+	}
+}
+
+.employee-dash-events-item.link {
+	cursor: pointer;
+	&:hover {
+		color: blue;
+	}
+}

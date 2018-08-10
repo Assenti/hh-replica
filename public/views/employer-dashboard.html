@@ -1,0 +1,25 @@
+<div class="employer-dash">
+	<div class="employer-dash-title">Личный кабинет Работодателя</div>
+	<div class="employer-info">
+		<span ng-bind="vm.employer.name"></span>
+		<span ng-bind="vm.employer.site"></span>
+		<span ng-bind="vm.employer.employeesQuantity"></span>
+		<span ng-bind="vm.employer.city"></span>
+	</div>
+	<div class="employer-dash-content">
+		<form class="employer-dash-form" ng-submit="vm.createVacancy()">
+			<input type="text" ng-model="vm.position" placeholder="Должность">
+			<input type="number" ng-model="vm.xpLength" placeholder="Стаж работы">
+			<input type="text" ng-model="vm.workSchedule" placeholder="График работы">
+			<textarea ng-model="vm.requirements" placeholder="Требования"></textarea>
+			<textarea ng-model="vm.preferable" placeholder="Желательно"></textarea>
+			<textarea ng-model="vm.conditions" placeholder="Условия"></textarea>
+			<input type="text" ng-model="vm.skill" placeholder="Навыки">
+			<button type="submit">Создать резюме</button>
+		</form>
+		<div class="employer-dash-vacancies">
+			<span>Открытые вакансии</span>
+			<li></li>
+		</div>
+	</div>
+</div>

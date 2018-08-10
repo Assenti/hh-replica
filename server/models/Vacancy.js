@@ -12,7 +12,11 @@ const VacancySchema = mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Skill'
 		}
-	]
+	],
+	employer: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Employer'
+	}
 })
 
 module.exports = mongoose.model('Vacancy', VacancySchema)

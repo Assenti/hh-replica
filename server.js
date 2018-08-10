@@ -20,7 +20,6 @@ app.use(morgan('dev'))
 app.use(session({
 	resave: true,
 	secret: 'secret',
-	name: 'hh-replica',
 	saveUninitialized: true,
 	key: 'key',
 	store: new MongoStore({ mongooseConnection: mongoose.connection })

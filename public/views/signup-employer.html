@@ -1,5 +1,5 @@
 <div class="signup-employer">
-	<div class="signup-employer-form">
+	<form class="signup-employer-form" ng-submit="vm.signUpEmployer()">
 		<div class="signup-employer-form-title">Регистрация Работодателя</div>
 		<input type="text" ng-model="vm.name" placeholder="Название компании">
 		<input type="text" ng-model="vm.site" placeholder="Сайт">
@@ -11,6 +11,17 @@
 		<input type="text" ng-model="vm.lastname" placeholder="Фамилия">
 		<input type="email" ng-model="vm.email" placeholder="Email">
 		<input type="text" ng-model="vm.phone" placeholder="Телефон">
-		<button>Зарегистрировать компанию</button>
-	</div>
+		<input type="text" ng-model="vm.password" placeholder="Пароль">
+		<button type="submit">Зарегистрировать компанию</button>
+	</form>
+</div>
+
+<div class="signup-message" ng-if="vm.success">
+	<span>Регистрация прошла успешно, пройдите пожалуйста по ссылке указанной в письме отправленное вам на почту</span>
+	<div ng-click="vm.success = false">&times;</div>
+</div>
+
+<div class="signup-message" ng-if="vm.error">
+	<span>Ошибка регистрации. Пожалуйста повторите снова.</span>
+	<div ng-click="vm.error = false">&times;</div>
 </div>

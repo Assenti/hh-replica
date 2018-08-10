@@ -1,4 +1,4 @@
-.signin-employee {
+.signin{
 	position: relative;
 	top: 0;
 	left: 0;
@@ -13,38 +13,45 @@
 	padding: 15% 0;
 }
 
-.signin-employee-form {
+.signin-content {
 	width: 300px;
-	padding: 15px;
 	background-color: rgb(247, 247, 247);
+	padding: 25px;
+	display: block;
 	text-align: center;
+}
+
+.signin-title {
+	display: block;
+	text-align: center;
+	font-size: 16px;
+	margin-bottom: 15px;
+}
+
+.signin-form {
+	width: 100%;
 	input {
-		padding: 10px;
-		border: 1px solid lightgrey;
-		margin-bottom: 10px;
 		outline: none;
+		border: 1px solid grey;
+		padding: 10px;
+		margin: 10px 0;
 		width: 100%;
+		font-size: 14px;
 	}
 	input:focus {
 		border-color: blue;
 	}
 	button {
-		outline: none;
-		cursor: pointer;
-		display: block;
-		width: 100%;
-		padding: 10px 15px;
 		background-color: blue;
 		color: white;
-		margin: 15px 0;
+		padding: 10px 15px;
+		margin: 10px;
+		cursor: pointer;
 		font-size: 16px;
+		outline: none;
 	}
 	button:hover {
 		opacity: 0.8;
 	}
 }
 
-.signin-employee-form-title {
-	font-size: 20px;
-	margin: 15px 0;
-}

@@ -1,111 +1,57 @@
 const express = require('express')
 const router = express.Router()
-const multer = require('multer')
-const upload = multer({dest: 'uploads/'})
-const fs = require('fs')
-const path = require('path')
-const Joi = require('joi')
+
+const redis = require('redis')
+const editRedis = require('../edit')
+const client = redis.createClient()
+client.on('error', (err)=> console.log(`Error: ${err}`))
 
 const Employer = require('../models/Employer')
-const EmployerRep = require('../models/EmployerRepresentative')
+const User = require('../models/User')
 const Vacancy = require('../models/Vacancy')
-
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-        user: '172.3itstep2017@gmail.com', // generated ethereal user
-        pass: 'fsnihgdmbxfwhptq' // generated ethereal password
-    }
-});
-
-
-// Including & Configuring Middlewares
-router.use(passport.initialize())
-router.use(passport.session())
-passport.use(new LocalStrategy({usernameField: 'email'}, (email, password, next)=> {
-	EmployerRep.findOne({email: email, accepted: true})
-	.exec((err, representative)=> {
-		if(err || !representative) return next(err, null)
-		representative.comparePassword(password, (err, isEqual)=> {
-			if(err) return next(err, null)
-			if(isEqual) return next(null, representative)
-			return next(null, false)
-		})
-	})
-}))
-
-// Saving in session
-passport.serializeUser((representative, next)=> {
-	return next(null, representative._id)
-})
-
-// Reading data about employee
-passport.deserializeUser((id, next)=> {
-	EmployerRep.findById(id).exec((err, representative)=> {
-		return next(err, representative)
-	})
-})
-
 
 
 // END POINTS
+router.get('/:id', (req, res, next)=>{
+ 	client.get(req.params.id, (err, employer)=> {
+ 		if(err) return res.send(err)
+ 		if(employer) {
+ 			res.send(JSON.parse(employer))
+ 		} else {
+ 			Employer.findById(req.params.id).populate('vacancies')
+			.exec((err, employers)=>{
+				if(err) return res.send(err);
+					client.set(req.params.id, JSON.stringify(employer), redis.print)
+					res.send(employer);
+				})
+ 		}
+ 	})		
+ })
 
-router.post('/employer/signup', (req, res, next)=> {
-	const schema = {
-		password: Joi.string().min(3).required()
-	}
-
-	const { error } = Joi.validate(req.body, schema)
-	if(error) return res.sendStatus(400).send(error)
-
-	let representative = new EmployerRep({
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-		email: req.body.email,
-		password: req.body.password
+router.get('/', (req, res, next)=> {
+	Employer.find()
+	.exec((err, employers)=> {
+		if(err) return res.send(err)
+		res.send(employers)
 	})
+})
 
-	employee.save((err, employee)=> {
+
+router.post('/signup', (req, res, next)=> {
+	let employer = new Employer({
+		name: req.body.name,
+		site: req.body.site,
+		employeesQuantity: req.body.employeesQuantity,
+		city: req.body.city
+	})
+	employer.save((err, employer)=> {
 		if(err) res.send(err)
-		let mailOptions = {
-	        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
-	        to: employee.email, 
-	        subject: 'Sign Up Confirmation', 
-	        html: `<p>Hello Mr.${employee.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://localhost:3000/api/employee/accept/${employee._id}">Please move to link</a>` 
-	    }
-
-	    transporter.sendMail(mailOptions, (error, info)=> {
-	    	if(err) return res.sendStatus(401).send(err)
-	    	res.sendStatus(200)
-	    })
+		res.sendStatus(200)
 	})
 
 })
 
-router.get('/employee/accept/:id', (req, res, next)=>{
- 	User.findById(req.params.id)
- 		.exec((err, user)=>{
- 			if(err) return res.send(err);
- 			user.accepted = true;
- 			user.save((err, user)=>{
-				if(err) return res.send(err)
-				res.redirect('/employee/signin')
-			})
- 			
- 		})
-})
 
-router.post('/employee/signin', passport.authenticate('local'), (req, res, next)=> {
-	res.cookie('session', JSON.stringify(req.user))
-	res.send(req.user)
-})
-
-router.post('/employee/signout', (req, res, next)=> {
-	res.clearCookie('session')
-	res.sendStatus(200)
-})
 
 
 module.exports = router

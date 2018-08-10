@@ -5,8 +5,6 @@ const EmployerSchema = mongoose.Schema({
 	site: String,
 	employeesQuantity: Number,
 	city: String,
-	dateOfFoundation: { type: Date },
-	about: String,
 	vacancies: [
 		{ 
 			type: mongoose.Schema.Types.ObjectId,

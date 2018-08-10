@@ -1,0 +1,19 @@
+<div class="complete-cv">
+	<img ng-src="{{ vm.cv.link }}">
+	<div class="cv-view-output" ng-bind="'Должность: ' + (vm.cv.position)"></div>
+	<div class="cv-view-output" ng-bind="'Заработная плата: ' + (vm.cv.salary)"></div>
+	<div class="cv-view-output" ng-bind="'Дата рождения: ' + (vm.cv.birthDate | date)"></div>
+	<div class="cv-view-output" ng-bind="'Пол: ' + (vm.cv.gender)"></div>
+	<div class="cv-view-output" ng-bind="'Гражданство: ' + (vm.cv.citizenship)"></div>
+	<div class="cv-view-output" ng-bind="'Адрес: ' + (vm.cv.address)"></div>
+	<div class="cv-view-output" ng-bind="'Контактный телефон: ' + (vm.cv.phone)"></div>
+	<div class="cv-view-output" ng-bind="'Специализация: ' + (vm.cv.specialization)"></div>
+	<div class="cv-view-output" ng-bind="'Стаж работы: ' + (vm.cv.xpLength)"></div>
+	<div class="cv-view-output" ng-bind="'Образование: ' + (vm.cv.education)"></div>
+	<div class="cv-view-output" ng-bind="'Курсы: ' + (vm.cv.courses)"></div>
+	<div class="cv-view-output" ng-bind="'Прежнее место работы: ' + (vm.cv.work)"></div>
+	<div class="cv-view-output">Навыки:</div>
+	<div class="cv-view-skills">
+		<div ng-repeat="skill in vm.cv.skills" ng-bind="skill"></div>
+	</div>
+</div>
