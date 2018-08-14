@@ -1,7 +1,15 @@
 const mongoose = require('mongoose')
 
 const SkillSchema = mongoose.Schema({
-	skill: String
+	skill: String,
+	cv: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'CV'
+	},
+	vacancy: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Vacancy'
+	}
 })
 
 module.exports = mongoose.model('Skill', SkillSchema)

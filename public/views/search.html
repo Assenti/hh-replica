@@ -1,0 +1,48 @@
+<div class="search">
+	<div class="search-tools">
+		<span class="search-title">Настройки поиска</span>
+		<div class="search-tools-group">
+			<span ng-class="{'active': vm.chosenOption === 'Вакансии'}" class="search-option" ng-click="vm.uniSearch('Вакансии', 'vacancy')">Вакансии</span>
+			<span ng-class="{'active': vm.chosenOption === 'Резюме'}" class="search-option" ng-click="vm.uniSearch('Резюме', 'cv')">Резюме</span>
+			<span ng-class="{'active': vm.chosenOption === 'Компании'}" class="search-option" ng-click="vm.uniSearch('Компании', 'employer')">Компании</span>
+		</div>
+		<div class="search-tools-group">
+			<span class="search-option">Город</span>
+		</div>
+		<div class="search-tools-group">
+			<span class="search-option">Стаж работы:</span>
+			<span class="search-option">Нет опыта</span>
+			<span class="search-option">1 - 3 года</span>
+			<span class="search-option">3 - 5 лет</span>
+			<span class="search-option">6 - 10 лет</span>
+			<span class="search-option">более 10 лет</span>
+		</div>
+	</div>
+	<div class="search-results">
+		<span class="search-title">Результаты поиска</span>
+		<div class="search-results-filter">
+			<span ng-click="vm.sortToggler('position', 'name')">По алфавиту <i ng-if="vm.filter === 'position' || vm.filter === 'name'">&bigtriangleup;</i><i ng-if="vm.filter === '-position' || vm.filter === '-name'">&bigtriangledown;</i></span>
+			<span ng-click="vm.sortToggler('salary')">По заработной плате <i ng-if="vm.filter === 'salary'">&bigtriangleup;</i><i ng-if="vm.filter === '-salary'">&bigtriangledown;</i></span>
+			<div class="pagination">
+				<li class="pagination-item" ng-click="vm.prevPage()"><</li>
+				<li ng-class="{'active': vm.currentPage === (page + 1)}" class="pagination-item" ng-repeat="page in vm.pages track by $index" ng-bind="page+1" ng-click="vm.displayPage(page+1)"></li>
+				<li class="pagination-item" ng-click="vm.nextPage()">></li>
+			</div>
+		</div>
+		<li class="search-results-item" ng-repeat="result in vm.results | orderBy: vm.filter" ng-if="vm.results[0].position === undefined">
+			<span ng-if="vm.notFound">По запросу ничего не найдено</span>
+			<span ng-bind="'Компания: '+result.name"></span>
+			<span ng-bind="'Сайт: '+result.site"></span>
+			<span ng-bind="'Сотрудники: '+result.employeesQuantity"></span>
+			<span ng-bind="'Город: '+result.city"></span>
+		</li>
+		<li class="search-results-item" ng-repeat="result in vm.results | orderBy: vm.filter" ng-if="vm.results[0].name === undefined">
+			<span ng-if="vm.notFound">По запросу ничего не найдено</span>
+			<span ng-bind="'Должность: '+result.position"></span>
+			<span ng-bind="'Оклад: '+result.salary+' KZT'"></span>
+			<span ng-bind="'Стаж: '+result.xpLength+' лет'"></span>
+			<span ng-bind="'ВУЗ: '+result.education"></span>
+			<span ng-bind="'Прежний работодатель: '+result.work"></span>
+		</li>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+.message {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	padding: 5px 10px;
+	border: 1px solid;
+	border-radius: 5px;
+	box-shadow: 1px 2px grey;
+	color: white;
+	display: flex;
+	align-items: center;
+	z-index: 6;
+	font-size: 14px;
+}
+
+.message.success {
+	border-color: green;
+	background-color: rgba(0, 128, 0, 0.3);
+}
+
+.message.error {
+	border-color: red;
+	background-color: rgba(255, 0, 0, 0.3);
+}
+
+.message-close {
+	font-size: 20px;
+	margin-left: 10px;
+	cursor: pointer;
+}

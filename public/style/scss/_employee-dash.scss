@@ -9,11 +9,10 @@
 .employee-dash-title {
 	font-size: 20px;
 	font-weight: 600;
-	margin: 10px 0;
+	margin-bottom: 10px;
 }
 
 .employee-dash-offers {
-	width: 50%;
 	li {
 		list-style: none;
 		margin-bottom: 10px;
@@ -23,7 +22,6 @@
 }
 
 .employee-dash-events {
-	width: 50%;
 }
 
 .employee-dash-events-item {
@@ -40,5 +38,20 @@
 	cursor: pointer;
 	&:hover {
 		color: blue;
+	}
+}
+
+.employee-dash-cvs-item {
+	display: flex;
+	align-items: center;
+	& > span {
+		font-size: 16px;
+		margin: 5px 0;
+		margin-right: 5px;
+	}
+	& > img {
+		margin: 5px; 
+		width: 16px;
+		cursor: pointer;
 	}
 }

@@ -1,0 +1,68 @@
+<div class="vacancy">
+	<div class="vacancy-actions">
+		<span class="complete-cv-btn" ui-sref="employer({id: session.employer})" ng-if="session && session.employerAccess">
+			<img src="../images/left-chevron.svg"> Назад в кабинет</span>
+		<div>
+			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session.employerAccess">
+			<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session.employerAccess">
+			<button class="btn active" ng-if="session && !session.employerAccess" ng-click="vm.response(session)">Откликнуться</button>
+		</div>
+	</div>
+	<div class="vacancy-title" ng-bind="'Должность: ' + (vm.vacancy.position)"></div>
+	<div class="vacancy-close-editor">
+		<input class="input" type="text" ng-model="vm.objectToEdit.position" ng-if="vm.editor">
+		<span class="cv-close" ng-click="vm.closeEditor()" ng-if="vm.editor">&times;</span>
+	</div>
+	<div class="vacancy-content">
+		<span ng-bind="'Заработная плата: ' + (vm.vacancy.salary)"></span>
+		<input class="input" type="number" ng-model="vm.objectToEdit.salary" ng-if="vm.editor">
+		<span ng-bind="'Стаж работы: ' + (vm.vacancy.xpLength)+' лет'"></span>
+		<input class="input" type="number" ng-model="vm.objectToEdit.xpLength" ng-if="vm.editor">
+		<span ng-bind="'График работы: ' + (vm.vacancy.workSchedule)"></span>
+		<input class="input" type="text" ng-model="vm.objectToEdit.workSchedule" ng-if="vm.editor">
+		<span ng-bind="'Требования: ' + (vm.vacancy.requirements)"></span>
+		<textarea class="textarea" type="text" ng-model="vm.objectToEdit.requirements" ng-if="vm.editor"></textarea>
+		<span ng-bind="'Желательно: ' + (vm.vacancy.preferable)"></span>
+		<textarea class="textarea" type="text" ng-model="vm.objectToEdit.preferable" ng-if="vm.editor"></textarea>
+		<span ng-bind="'Условия: ' + (vm.vacancy.conditions)"></span>
+		<textarea class="textarea" type="text" ng-model="vm.objectToEdit.conditions" ng-if="vm.editor"></textarea>	
+	</div>
+	<span>Навыки:</span>
+	<div class="vacancy-skills-block">
+		<input class="input" type="text" ng-model="vm.skill" ng-if="vm.editor">
+		<i class="employer-dash-skill-add" ng-click="vm.addSkill()" title="Добавить навык" ng-if="vm.editor">&plus;</i>
+	</div>
+	<div class="vacancy-skills" ng-if="!vm.editor">
+		<li ng-repeat="skill in vm.skills">
+			<span class="skill" ng-bind="skill.skill"></span>
+		</li>
+	</div>
+	<div class="vacancy-skills" ng-if="vm.editor">
+		<li ng-repeat="skill in vm.skillsToEdit">
+			<span class="skill" ng-bind="skill"></span>
+			<span class="delete-skill" ng-click="vm.removeSkill($index)" ng-if="vm.editor">&times;</span>
+		</li>
+	</div>
+	<button class="btn active" ng-click="vm.editVacancy()" ng-if="vm.editor">Сохранить изменения</button>		
+	<button class="btn disable" ng-click="vm.closeEditor()" ng-if="vm.editor">Отмена</button>	
+</div>
+
+
+<div class="modal-backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
+	<div class="modal-window">
+		<span>Вы уверены что хотите удалить?</span>
+		<button class="btn active" ng-click="vm.deleteVacancy()">Удалить</button>
+		<button class="btn disable" ng-click="vm.closeModal()">Отмена</button>
+	</div>
+</div>
+
+
+<span class="message success" ng-if="vm.success">
+	Отклик успшено отправлен.
+	<i class="message-close" ng-click="vm.success = false">&times;</i>
+</span>
+
+<span class="message error" ng-if="vm.error">
+	Произошла ошибка, повторите попытку.
+	<i class="message-close" ng-click="vm.error = false">&times;</i>
+</span>

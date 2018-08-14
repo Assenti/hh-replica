@@ -4,69 +4,162 @@ const router = express.Router()
 const Employer = require('../models/Employer')
 const User = require('../models/User')
 const Vacancy = require('../models/Vacancy')
+const Skill = require('../models/Skill')
 
-const redis = require('redis')
-const editRedis = require('../edit')
-const client = redis.createClient()
-client.on('error', (err)=> console.log(`Error: ${err}`))
+// const redis = require('redis')
+// const editRedis = require('../edit')
+// const client = redis.createClient()
+// client.on('error', (err)=> console.log(`Error: ${err}`))
 
 
 // END POINTS
+router.get('/', (req, res, next)=> {
+	Vacancy.find().exec((err, vacancies)=> {
+		if(err) return res.send(err)
+		res.send(vacancies)
+	})
+})
+
+router.get('/search/:page', (req, res, next)=>{
+ 	Vacancy.find().skip((req.params.page - 1) * 5)
+ 		.limit(5)
+ 		.exec((err, vacancies)=>{
+ 			if(err) return res.send(err);
+ 			Vacancy.countDocuments().exec((err, count)=>{
+ 				if(err) return res.send(err)
+ 				res.send({results: vacancies, count: count});
+ 			})
+ 			
+ 		})
+})
+
+router.get('/:id', (req, res, next)=> {
+	Vacancy.findById(req.params.id)
+	.exec((err, vacancy)=> {
+		if(err) return res.send(err)
+		Skill.find({ vacancy: req.params.id })
+		.exec((err, skills)=> {
+			if(err) return res.send(err)
+			Employer.findById(vacancy.employer)
+			.exec((err, employer)=> {
+				if(err) return res.send(err)
+				res.send({vacancy: vacancy, skills: skills, users: employer.users })
+			})
+		})
+	})
+})
+
+router.get('/search/:query', (req, res, next)=> {
+	const myRexExp = new RegExp(`${req.params.query}`, 'i')
+	Vacancy.find({ position: myRexExp })
+	.limit(5)
+	.exec((err, vacancies)=> {
+		if(err) return res.send(err)
+		res.send(vacancies)
+	})
+})
+
+router.post('/responsed/:id', (req, res, next)=> {
+	Vacancy.findById(req.params.id)
+	.exec((err, vacancy)=> {
+		vacancy.responses.push(req.body.user_id)
+		vacancy.save((err, result)=> {
+			if(err) return res.send(err)
+			res.sendStatus(200)
+		})
+	})
+})
 
 router.post('/:id', (req, res, next)=> {
-	Employer.findById(req.params.id).exec((err, employer)=> {
+	Employer.findById(req.params.id)
+	.exec((err, employer)=> {
 		if(err) return res.send(err)
-		var vacancy = new Vacancy({
+		let skills = req.body.skills
+		let vacancy = new Vacancy({
 			position: req.body.position,
+			salary: req.body.salary,
 			xpLength: req.body.xpLength,
 			workSchedule: req.body.workSchedule,
 			requirements: req.body.requirements,
 			preferable: req.body.preferable,
-			conditions: req.body.conditions
+			conditions: req.body.conditions,
+			employer: employer._id
 		})
+
 		vacancy.save((err, vacancy)=> {
 			if(err) return res.send(err)
 			employer.vacancies.push(vacancy._id)
 			employer.save((err, employer)=> {
 				if(err) return res.send(err)
-				res.send(vacancy)
-				editRedis.edit(vacancy.employer)
+				for(let i = 0; i < skills.length; i++){
+					let skill = new Skill({
+						skill: skills[i],
+						vacancy: vacancy._id
+					});
+					skill.save((err, skill)=> {
+						if(err) return res.send(err)
+					})
+				 }
+				 res.send(vacancy)
+				})
+			})
+		})			
+	})	
+
+router.delete('/:employer_id/:vacancy_id', (req, res, next)=>{
+	Employer.findById(req.params.employer_id)
+	.exec((err, employer)=> {
+		if(err) return res.send(err)
+		let updatedVacancies = employer.vacancies.filter((vacancy) => vacancy != req.params.vacancy_id)
+		employer.vacancies = updatedVacancies
+		employer.save((err, result)=> {
+			Vacancy.remove({_id: req.params.vacancy_id })
+			.exec((err, result)=> {
+				if(err) return res.send(err)
+				res.sendStatus(200)
 			})
 		})
-	})	
+	})
 })
 
-// router.delete('/:comment_id/:post_id', (req, res, next)=>{
-// 	Comment.remove({_id: req.params.comment_id})
-// 	.exec((err, result)=> {
-// 		if(err) return res.send(err)
-// 		Post.findById(req.params.post_id)
-// 		.exec((err, post)=>{
-// 			if(err) return res.send(err)
-// 			post.comments = post.comments.filter((comment) => comment != req.params.comment_id)
-// 			post.save((err, post)=> {
-// 				if(err) return res.send(err)
-// 				res.sendStatus(200)
-// 				editRedis.edit(post)
-// 			})
-// 		})
-// 	})
-// })
+router.put('/', (req, res, next)=> {
+	Vacancy.findById(req.body._id)
+	.exec((err, vacancy)=> {
+		if(err) return res.send(err)
+		vacancy.position = req.body.position
+		vacancy.salary = req.body.salary
+		vacancy.xpLength = req.body.xpLength
+		vacancy.workSchedule = req.body.workSchedule
+		vacancy.requirements = req.body.requirements
+		vacancy.preferable = req.body.preferable
+		vacancy.conditions = req.body.conditions
+		vacancy.save((err, result)=> {
+			Skill.find({ vacancy: req.body._id })
+			.exec((err, skills)=> {
+				if(err) return res.send(err)
+				let skillsFromDb = [];
+				for(let i = 0; i < skills.length; i++){
+					skillsFromDb.push(skills[i].skill)
+				}
+				let uniqueSkills1 = skillsFromDb.filter((elem) => req.body.skills.indexOf(elem) === -1)
+				let uniqueSkills2 = req.body.skills.filter((elem) => skillsFromDb.indexOf(elem) === -1)
+				let newSkills = uniqueSkills1.concat(uniqueSkills2)
 
-// router.put('/', (req, res, next)=> {
-// 	Comment.findById(req.body._id)
-// 	.exec((err, comment)=> {
-// 		if(err) return res.send(err)
-// 		else {
-// 			comment.body = req.body.body;
-// 			comment.save((err, result)=> {
-// 				if(err) return res.send(err)
-// 				res.sendStatus(200)
-// 				editRedis.edit(comment.post)
-// 			})
-// 		}	
-// 	})
-// })
+				for(var i = 0; i < newSkills.length; i++){
+					let skill = new Skill({
+						skill: newSkills[i],
+						vacancy: req.body._id
+					});
+					skill.save((err, skill)=> {
+						if(err) return res.send(err)
+						res.sendStatus(200)
+					})
+				}
+
+			})
+		})	
+	})
+})
 
 
 

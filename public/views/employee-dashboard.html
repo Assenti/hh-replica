@@ -1,51 +1,46 @@
 <div class="employee-dash">
 	<div class="employee-dash-events">
-		<span class="employee-dash-title">Мои события</span>
+		<div class="employee-dash-title">Мои события</div>
 		<li class="employee-dash-events-item">
 			<i></i>
-			<span>Отклики и приглашения: <span>19</span></span>
+			<span ng-bind="'Приглашения: '+vm.invites"></span>
 		</li>
-		<li class="employee-dash-events-item">
-			<i></i>
-			<span>Просмотры резюме: <span>1</span></span>
-		</li>
-		<li class="employee-dash-events-item">
-			<i></i>
-			<span>Автопоиски</span>
-		</li>
-
-		<li class="employee-dash-events-item">Ваши резюме:</li>
-		<div class="employee-dash-cvs" ng-repeat="cv in vm.user.cv" ng-bind="cv.position" ui-sref="cv({id: cv._id})"></div>
-		<li class="employee-dash-events-item">
-			<span class="employee-dash-events-item link" ng-click="vm.openCVMaker()">Создать резюме</span>
-		</li>
+		<button class="btn active" ng-click="vm.openCVMaker()" ng-if="session && !session.employerAccess">Создать резюме</button>
+	</div>
+	<div class="employee-dash-cvs">
+		<div class="employee-dash-title">Мои резюме</div>
+		<div class="employee-dash-cvs-item" ng-repeat="cv in vm.cvs">
+			<span ng-bind="cv.position + ' - ' + cv.salary +' KZT'"></span>
+			<img src="../images/scroll.svg" ui-sref="cv({id: cv._id})" title="Перейти к резюме">
+			<img src="../images/trash.svg" ng-click="vm.openModal(cv, $index)" ng-if="session && !session.employerAccess" title="Удалить">
+			<img src="../images/invitation.svg" ng-if="session && !session.employerAccess && cv.responses.length > 0" title="Приглашение">
+		</div>
 	</div>
 	<div class="employee-dash-offers">
-		<span class="employee-dash-title">Рекомендованные для Вас вакансии</span>
-		<li></li>
+		<div class="employee-dash-title">Рекомендованные вакансии</div>
+		<li ng-repeat="vacancy in vm.vacancies" ng-bind="vacancy.position"></li>
 	</div>
 </div>
 <div class="cv" id="cvForm">
 	<span class="cv-title">Создание резюме <span class="cv-close" ng-click="vm.closeCVMaker()">&times;</span></span>
 	<div class="cv-content">
 		<form class="cv-form" ng-submit="vm.saveCV()">
-			<input class="cv-form-input" type="text" ng-model="vm.position" placeholder="Должность">
-			<input class="cv-form-input" type="text" ng-model="vm.salary" placeholder="Заработная плата">
-			<input class="cv-form-input" type="date" ng-model="vm.birthDate" placeholder="Дата рождения">
+			<input class="cv-form-input" type="text" ng-model="vm.position" placeholder="Должность" required>
+			<input class="cv-form-input" type="text" ng-model="vm.salary" placeholder="Заработная плата" required>
+			<input class="cv-form-input" type="date" ng-model="vm.birthDate" placeholder="Дата рождения" required>
 			<div class="cv-form-input-radio">
 				<label>Муж</label>
-				<input type="radio" value="Мужской" ng-model="vm.gender">
+				<input type="radio" value="Мужчина" ng-model="vm.gender" required>
 				<label>Жен</label>
-				<input type="radio" value="Женский" ng-model="vm.gender">
+				<input type="radio" value="Женщина" ng-model="vm.gender">
 			</div>
-			<input class="cv-form-input" type="text" ng-model="vm.citizenship" placeholder="Гражданство">
-			<input class="cv-form-input" type="text" ng-model="vm.address" placeholder="Адрес">
-			<input class="cv-form-input" type="text" ng-model="vm.phone" placeholder="Телефон">
-			<input class="cv-form-input" type="text" ng-model="vm.specialization" placeholder="Специализация">
-			<input class="cv-form-input" type="number" ng-model="vm.xpLength" placeholder="Стаж работы (лет)">
-			<input class="cv-form-input" type="text" ng-model="vm.education" placeholder="ВУЗ">
-			<input class="cv-form-input" type="text" ng-model="vm.courses" placeholder="Курсы">
-			<input class="cv-form-input" type="text" ng-model="vm.work" placeholder="Прежнее место работы">
+			<input class="cv-form-input" type="text" ng-model="vm.citizenship" placeholder="Гражданство" required>
+			<input class="cv-form-input" type="text" ng-model="vm.address" placeholder="Адрес" required>
+			<input class="cv-form-input" type="text" ng-model="vm.specialization" placeholder="Специализация" required>
+			<input class="cv-form-input" type="number" ng-model="vm.xpLength" placeholder="Стаж работы (лет)" required>
+			<input class="cv-form-input" type="text" ng-model="vm.education" placeholder="ВУЗ" required>
+			<input class="cv-form-input" type="text" ng-model="vm.courses" placeholder="Курсы" required>
+			<input class="cv-form-input" type="text" ng-model="vm.work" placeholder="Прежнее место работы" required>
 			<span>Навыки</span>
 			<div class="cv-form-skills">
 				<input type="text" ng-model="vm.skill" placeholder="Навык">
@@ -55,8 +50,8 @@
 				<input type="file" ng-file-model="vm.file" accept="image/*">
 				<label>Загрузить фото к резюме</label>
 			</div>
-			<button type="submit">Сохранить</button>
-			<button ng-click="vm.closeCVMaker()">Отмена</button>
+			<button class="btn active" type="submit">Сохранить</button>
+			<button class="btn disable" ng-click="vm.closeCVMaker()">Закрыть</button>
 		</form>
 		<div class="cv-view">
 			<div class="cv-view-output" ng-bind="'Должность: ' + (vm.position)"></div>
@@ -65,7 +60,6 @@
 			<div class="cv-view-output" ng-bind="'Пол: ' + (vm.gender)"></div>
 			<div class="cv-view-output" ng-bind="'Гражданство: ' + (vm.citizenship)"></div>
 			<div class="cv-view-output" ng-bind="'Адрес: ' + (vm.address)"></div>
-			<div class="cv-view-output" ng-bind="'Контактный телефон: ' + (vm.phone)"></div>
 			<div class="cv-view-output" ng-bind="'Специализация: ' + (vm.specialization)"></div>
 			<div class="cv-view-output" ng-bind="'Стаж работы: ' + (vm.xpLength)"></div>
 			<div class="cv-view-output" ng-bind="'Образование: ' + (vm.education)"></div>
@@ -80,5 +74,23 @@
 			</div>
 		</div>
 	</div>
-	
+</div>
+
+<span class="message success" ng-if="vm.success">
+	Резюме успшено добавлено.
+	<i class="message-close" ng-click="vm.success = false">&times;</i>
+</span>
+
+<span class="message error" ng-if="vm.error">
+	Произошла ошибка, повторите попытку.
+	<i class="message-close" ng-click="vm.error = false">&times;</i>
+</span>
+
+
+<div class="modal-backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
+	<div class="modal-window">
+		<span>Вы уверены что хотите удалить?</span>
+		<button class="btn active" ng-click="vm.deleteCV()">Удалить</button>
+		<button class="btn disable" ng-click="vm.closeModal()">Отмена</button>
+	</div>
 </div>

@@ -223,7 +223,7 @@
 /* Home Main */
 .home-main {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(70px, auto));
+	grid-template-columns: repeat(3, minmax(70px, auto));
 	grid-template-rows: 1fr;
 	width: 100%;
 	padding: 2% 5%;
@@ -232,45 +232,36 @@
 .home-main-employers {
 	grid-column: 1 / 2;
 	grid-row: 1 / 2;
-	padding: 2% 5%;
-	img {
-		width: 20px;
-	}
-	span {
-		font-size: 22px;
-		font-weight: 600;
-		margin: 10px 0;
-	}
-	li {
-		list-style: none;
-		margin: 10px 0;
-		cursor: pointer;
-	}
-	li:hover {
-		color: blue;
+	padding: 15px;
+}
+
+.home-main-vacancies {
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+	padding: 15px;
+}
+
+.home-main-block-title {
+	font-size: 22px;
+	font-weight: 600;
+	margin: 10px 0;
+}
+
+.home-main-block-item {
+	list-style: none;
+	margin: 15px 0;
+	cursor: pointer;
+	& > span {
+		display: block;
+		margin: 5px 0;
+		color: grey;
 	}
 }
 
-.home-main-employees {
-	grid-column: 2 / 3;
+.home-main-cvs {
+	grid-column: 3 / 4;
 	grid-row: 1 / 2;
-	padding: 2% 5%;
-	img {
-		width: 20px;
-	}
-	span {
-		font-size: 22px;
-		font-weight: 600;
-		margin: 10px 0;
-	}
-	li {
-		list-style: none;
-		margin: 10px 0;
-		cursor: pointer;
-	}
-	li:hover {
-		color: blue;
-	} 
+	padding: 15px;
 }
 
 

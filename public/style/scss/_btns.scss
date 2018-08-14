@@ -1,0 +1,31 @@
+.btn {
+	outline: none;
+	cursor: pointer;
+	padding: 10px 15px;
+	margin: 10px 5px;
+	font-size: 16px;
+
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+.btn.active {
+	background-color: blue;
+	color: white;
+}
+
+.btn.disable {
+	background-color: grey;
+	color: white;
+}
+
+.btn.active-transparent {
+	border-color: blue;
+	color: blue;
+}
+
+.btn.disable-transparent {
+	border-color: grey;
+	color: grey;
+}

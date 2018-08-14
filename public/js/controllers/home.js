@@ -7,6 +7,7 @@ function MainCtrl($http, $scope, $rootScope, $state){
 
 	vm.registration = false;
 	vm.employerAuth = false;
+	vm.success = vm.error = false;
 
 	vm.signIn = function(){
 		var data = {
@@ -17,14 +18,16 @@ function MainCtrl($http, $scope, $rootScope, $state){
 		$http.post('/api/user/signin', data)
 		.success(function(response){
 			$rootScope.session = response;
-			if(response.employerAccess) {
-				$state.go('employer/' + response._id);
+			if(response.employerAccess){
+				$state.go('employer', {id: response.employer});
 			} else {
-				$state.go('/user/' + response._id);
+				$state.go('user', {id: response._id});
 			}
+			vm.success = true;
 		})
 		.error(function(err){
 			console.log(err);
+			vm.error = true;
 		});
 	}
 
@@ -44,12 +47,19 @@ function MainCtrl($http, $scope, $rootScope, $state){
 			console.log(err);
 		})
 
-	// $http.get('/api/cv')
-	// 	.success(function(response){
-	// 		vm.cvsQuantity = response;
-	// 	})
-	// 	.error(function(err){
-	// 		console.log(err);
-	// 	})
+	$http.get('/api/cv')
+		.success(function(response){
+			vm.cvs = response;
+		})
+		.error(function(err){
+			console.log(err);
+		})
 
+	$http.get('/api/vacancy')
+		.success(function(response){
+			vm.vacancies = response;
+		})
+		.error(function(err){
+			console.log(err);
+		})
 }

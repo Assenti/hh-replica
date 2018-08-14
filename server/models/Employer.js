@@ -11,10 +11,16 @@ const EmployerSchema = mongoose.Schema({
 			ref: 'Vacancy'
 		}
 	],
-	representatives: [
+	users: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'EmployerRepresentative'
+			ref: 'User'
+		}
+	],
+	invited: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'CV'
 		}
 	],
 	date: {

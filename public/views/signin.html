@@ -8,3 +8,13 @@
 		</form>
 	</div>
 </div>
+
+<span class="message success" ng-if="vm.success">
+	Авторизация прошла успешно
+	<i class="message-close" ng-click="vm.success = false">&times;</i>
+</span>
+
+<span class="message error" ng-if="vm.error">
+	Не верно введены Email или пароль
+	<i class="message-close" ng-click="vm.error = false">&times;</i>
+</span>

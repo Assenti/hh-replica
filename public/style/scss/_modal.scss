@@ -1,0 +1,26 @@
+.modal-backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal-window {
+	width: 300px;
+	background-color: rgb(247, 247, 247);
+	z-index: 3;
+	box-shadow: 1px 2px black;
+	padding: 15px;
+	text-align: center;
+	span {
+		margin-top: 10px;
+		font-size: 16px;
+		font-weight: 600;
+	}
+}

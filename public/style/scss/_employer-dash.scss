@@ -1,71 +1,177 @@
 .employer-dash {
 	padding: 2% 5%;
 	width: 100%;
-
 }
 
 .employer-dash-title {
-	font-size: 34px;
+	font-size: 30px;
 	font-weight: 600;
-	margin: 15px 0;
+	margin: 10px 0;
 }
 
-.employer-dash-content {
+.employer-dash-header {
 	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.employer-dash-info {
+	padding: 15px;
+	& > div {
+		margin: 5px;
+		font-size: 16px;
+	}
+}
+
+.employer-dash-vacancies {
+	padding: 15px;
+}
+
+.employer-dash-managers {
+	padding: 15px;
+}
+
+.employer-dash-block-title {
+	display: block;
+	font-size: 20px;
+	width: 100%;
+	color: grey;
+	margin: 10px 0;
+}
+
+.employer-dash-block-item {
+	display: flex;
+	align-items: center;
+	& > span {
+		font-size: 16px;
+		margin: 5px 0;
+		margin-right: 5px;
+	}
+	& > img {
+		margin: 5px; 
+		width: 16px;
+		cursor: pointer;
+	}
+}
+.employer-dash-content {
+	width: 100%;
+	display: none;
+}
+
+.employer-dash-content-title {
+	font-size: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 10px 0;
+	& > span {
+		font-size: 30px;
+		cursor: pointer;
+	}
 }
 
 .employer-dash-form {
-	width: 50%;
-	text-align: center;
-	margin-right: 30px;
-	input {
+	width: 100%;
+	button {
+		outline: none;
+		cursor: pointer;
+		padding: 10px 15px;
+		font-size: 16px;
+		color: white;
+	}
+	button:hover {
+		opacity: 0.9;
+	}
+	button.active {
+		background-color: blue;
+	}
+	button.disable {
+		background-color: grey;
+	}
+}
+
+.employer-dash-form-group {
+	display: flex;
+	align-items: flex-start;
+	margin: 10px 0;
+	width: 100%;
+	& > span {
 		display: block;
-		width: 100%;
+		margin-left: 10px;
+		font-size: 14px;
+		padding: 10px;
+	}
+	& > input {
+		display: block;
+		width: 50%;
 		outline: none;
 		border: 1px solid lightgrey;
 		padding: 10px;
-		margin-bottom: 15px;
+		font-size: 14px;
 	}
-	input:focus {
+	& > input:focus {
 		border-color: blue;
 	}
-
-	textarea {
-		width: 100%;
+	& > textarea {
+		width: 50%;
 		display: block;
 		outline: none;
 		padding: 10px;
 		border: 1px solid lightgrey;
 		margin: 10px 0;
+		font-size: 14px;
 	}
-	textarea:focus {
+	& > textarea:focus {
 		border-color: blue;
-	}
-
-	button {
-		outline: none;
-		cursor: pointer;
-		padding: 10px 15px;
-		background-color: blue;
-		color: white;
-		font-size: 16px;
-	}
-	button:hover {
-		opacity: 0.9;
 	}
 }
 
-.employer-dash-vacancies {
-	width: 50%;
-	span {
-		display: block;
-		text-align: center;
-		font-size: 24px;
-		font-weight: 600;
-		width: 100%;
+.employer-dash-skill-add {
+	cursor: pointer;
+	color: blue;
+	font-size: 34px;
+	font-weight: 600;
+	margin-left: 10px;
+}
+
+.employer-dash-skills {
+	margin: 15px 0;
+	display: flex;
+	align-items: center;
+	& > div {
+		border: 1px solid grey;
+		padding: 5px;
+		border-radius: 5px;
+		margin-right: 5px;
 	}
-	li {
-		list-style: none;
+	& > div > span:first-child {
 		font-size: 14px;
+	}
+	& > div > span:last-child {
+		font-size: 22px;
+		margin-left: 5px;
+		cursor: pointer;
+		color: red;
+	}
+}
+
+.employer-dash-skills-input {
+	display: flex;
+	align-items: center;
+	margin: 15px 0;
+	input {
+		width: 80%;
+		margin: 0;
+	}
+	div {
+		background-color: blue;
+		border: 1px solid blue;
+		cursor: pointer;
+		outline: none;
+		color: white;
+		font-size: 16px;
+		padding: 10px 15px;
+		width: 20%;
+		text-align: center;
 	}
 }

@@ -32,19 +32,6 @@
 		font-size: 16px;
 		font-weight: 600;
 	}
-
-	button {
-		background-color: blue;
-		color: white;
-		font-size: 16px;
-		padding: 10px 15px;
-		margin: 10px 10px;
-		outline: none;
-		cursor: pointer;
-	}
-	button:hover {
-		opacity: 0.8;
-	}
 }
 
 .cv-form-input {
@@ -155,8 +142,138 @@
 .complete-cv {
 	padding: 2% 5%;
 	width: 100%;
-	img {
-		width: 100px;
-		border: 1px solid grey;
+	input {
+		width: 50%;
 	}
+}
+
+.complete-cv-btn {
+	cursor: pointer;
+	color: grey;
+	margin: 5px 0;
+	font-size: 14px;
+	&:hover {
+		opacity: 0.7;
+	}
+	& > img {
+		margin-right: 2px;
+		height: 10px;
+	}
+}
+
+.complete-cv-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 30px 0;
+	border-bottom: 1px solid lightgrey;
+
+	img {
+		width: 150px;
+		margin-right: 20px;
+	}
+}
+
+.complete-cv-info {
+	display: flex;
+	align-items: flex-start;
+
+
+}
+
+.complete-cv-info-contacts {
+	& > span {
+		display: block;
+		margin: 10px 0;
+		font-size: 14px;
+	}
+	& > span:first-child {
+		font-size: 26px;
+	}
+}
+
+.complete-cv-actions {
+	& > img {
+		width: 20px;
+		margin: 0 15px;
+		cursor: pointer;
+	}
+	& > img:hover {
+		opacity: 0.7;
+	}
+}
+
+.complete-cv-editor-close {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.complete-cv-position-info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 70%;
+	padding: 15px 0;
+
+	& > span {
+		font-size: 20px;
+	}
+}
+
+.complete-cv-work-info {
+	padding: 5px 0;
+	width: 70%;
+	span {
+		display: block;
+		font-size: 16px;
+		margin: 10px 0;
+	}
+	span:first-child {
+		font-size: 20px;
+		color: grey;
+	}
+}
+
+.complete-cv-skills-info {
+	padding: 5px 0;
+	width: 70%;
+	span {
+		display: block;
+		margin: 10px 0;
+		font-size: 20px;
+		color: grey;
+	}
+}
+
+.complete-cv-skills {
+	display: flex;
+	align-items: center;
+	& > div {
+		border: 1px solid lightgrey;
+		font-size: 14px;
+		padding: 5px 10px;
+		border-radius: 5px;
+		margin-right: 5px;
+	}
+}
+
+.complete-cv-education-info {
+	padding: 5px 0;
+	width: 70%;
+	span {
+		display: block;
+		font-size: 16px;
+		margin: 10px 0;
+	}
+	span:first-child {
+		font-size: 20px;
+		color: grey;
+	}
+}
+
+.complete-cv-title {
+	font-size: 22px;
+	font-weight: 600;
+	margin: 15px;
 }

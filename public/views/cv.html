@@ -1,19 +1,91 @@
 <div class="complete-cv">
-	<img ng-src="{{ vm.cv.link }}">
-	<div class="cv-view-output" ng-bind="'Должность: ' + (vm.cv.position)"></div>
-	<div class="cv-view-output" ng-bind="'Заработная плата: ' + (vm.cv.salary)"></div>
-	<div class="cv-view-output" ng-bind="'Дата рождения: ' + (vm.cv.birthDate | date)"></div>
-	<div class="cv-view-output" ng-bind="'Пол: ' + (vm.cv.gender)"></div>
-	<div class="cv-view-output" ng-bind="'Гражданство: ' + (vm.cv.citizenship)"></div>
-	<div class="cv-view-output" ng-bind="'Адрес: ' + (vm.cv.address)"></div>
-	<div class="cv-view-output" ng-bind="'Контактный телефон: ' + (vm.cv.phone)"></div>
-	<div class="cv-view-output" ng-bind="'Специализация: ' + (vm.cv.specialization)"></div>
-	<div class="cv-view-output" ng-bind="'Стаж работы: ' + (vm.cv.xpLength)"></div>
-	<div class="cv-view-output" ng-bind="'Образование: ' + (vm.cv.education)"></div>
-	<div class="cv-view-output" ng-bind="'Курсы: ' + (vm.cv.courses)"></div>
-	<div class="cv-view-output" ng-bind="'Прежнее место работы: ' + (vm.cv.work)"></div>
-	<div class="cv-view-output">Навыки:</div>
-	<div class="cv-view-skills">
-		<div ng-repeat="skill in vm.cv.skills" ng-bind="skill"></div>
+	<span class="complete-cv-btn" ui-sref="user({id: session._id})" ng-if="session && !session.employerAccess"><img src="../images/left-chevron.svg"> Назад в кабинет</span>
+	<div class="complete-cv-header">
+		<div class="complete-cv-info">
+			<img ng-src="{{ vm.cv.link || '../images/no-image.png' }}">
+			<div class="complete-cv-info-contacts">
+				<span ng-bind="(vm.user.firstname)+' '+(vm.user.lastname)"></span>
+				<span ng-bind="(vm.cv.gender)+', родился '+(vm.cv.birthDate | date)"></span>
+				<span ng-bind="'Контактный телефон: '+(vm.user.phone)"></span>
+				<span ng-bind="'Email: '+(vm.user.email)"></span>
+				<span ng-bind="'Адрес: ' + (vm.cv.address)"></span>
+				<span ng-bind="'Гражданство: ' + (vm.cv.citizenship)"></span>
+			</div>
+		</div>
+		<div class="complete-cv-actions">
+			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session && !session.employerAccess">
+			<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session && !session.employerAccess">
+			<button class="btn active" ng-if="session.employerAccess" ng-click="vm.invite(session)">Пригласить</button>
+		</div>
+	</div>
+	<div class="complete-cv-editor-close">
+		<input class="input" type="date" ng-model="vm.objectToEdit.birthDate" ng-if="vm.editor">
+		<span class="cv-close" ng-click="vm.closeEditor()" ng-if="vm.editor">&times;</span>
+	</div>
+	<input class="input" type="text" ng-model="vm.objectToEdit.address" ng-if="vm.editor">
+	<div class="complete-cv-position-info">
+		<span ng-bind="vm.cv.position"></span>
+		<span ng-bind="(vm.cv.salary)+' KZT'"></span>
+	</div>
+	<input class="input" type="text" ng-model="vm.objectToEdit.position" ng-if="vm.editor">
+	<input class="input" type="number" ng-model="vm.objectToEdit.salary" ng-if="vm.editor">
+	<div class="complete-cv-work-info">
+		<span ng-bind="'Опыт работы '+(vm.cv.xpLength)+' год'"></span>
+		<span ng-bind="'Прежнее место работы: '+(vm.cv.work)"></span>
+	</div>
+	<input class="input" type="text" ng-model="vm.objectToEdit.xpLength" ng-if="vm.editor">
+	<input class="input" type="text" ng-model="vm.objectToEdit.work" ng-if="vm.editor">
+	<div class="complete-cv-skills-info">
+		<span>Ключевые навыки:</span>
+		<div class="complete-cv-skills">
+			<div ng-repeat="skill in vm.skills" ng-bind="skill.skill"></div>
+		</div>
+	</div>
+	<div class="vacancy-skills-block">
+		<input class="input" type="text" ng-model="vm.skill" ng-if="vm.editor">
+		<i class="employer-dash-skill-add" ng-click="vm.addSkill()" title="Добавить навык" ng-if="vm.editor">&plus;</i>
+	</div>
+	<div class="vacancy-skills" ng-if="vm.editor">
+		<li ng-repeat="skill in vm.skillsToEdit">
+			<span class="skill" ng-bind="skill"></span>
+			<span class="delete-skill" ng-click="vm.removeSkill($index)" ng-if="vm.editor">&times;</span>
+		</li>
+	</div>
+	<div class="complete-cv-education-info">
+		<span>Высшее образование:</span>
+		<span ng-bind="'Учебное заведение: ' + (vm.cv.education)"></span>
+		<span ng-bind="'Специализация: ' + (vm.cv.specialization)"></span>
+	</div>
+	<input class="input" type="text" ng-model="vm.objectToEdit.education" ng-if="vm.editor">
+	<input class="input" type="text" ng-model="vm.objectToEdit.specialization" ng-if="vm.editor">
+	<div class="complete-cv-education-info">
+		<span>Повышение квалификации, курсы:</span>
+		<span ng-bind="'Учебное заведение: ' + (vm.cv.courses)"></span>
+	</div>
+	<input class="input" type="text" ng-model="vm.objectToEdit.courses" ng-if="vm.editor">
+	<div>
+		<button class="btn active" ng-click="vm.editCV()" ng-if="vm.editor">Сохранить изменения</button>		
+		<button class="btn disable" ng-click="vm.closeEditor()" ng-if="vm.editor">Отмена</button>	
 	</div>
 </div>
+
+
+
+<div class="modal-backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
+	<div class="modal-window">
+		<span>Вы уверены что хотите удалить?</span>
+		<button class="btn active" ng-click="vm.deleteCV()">Удалить</button>
+		<button class="btn disable" ng-click="vm.closeModal()">Отмена</button>
+	</div>
+</div>
+
+
+<span class="message success" ng-if="vm.success">
+	Приглашение успшено отправлено.
+	<i class="message-close" ng-click="vm.success = false">&times;</i>
+</span>
+
+<span class="message error" ng-if="vm.error">
+	Произошла ошибка, повторите попытку.
+	<i class="message-close" ng-click="vm.error = false">&times;</i>
+</span>

@@ -10,21 +10,42 @@
 
 	<div class="header" ng-controller="HeaderCtrl as vm">
 		<div class="header-logo" ui-sref="home">
-			<img class="header-logo-hh" src="/images/headhunter-hh-kz.svg" style="width: 90px;">
+			<img src="/images/headhunter-hh-kz.svg">
 		</div>
 		<div class="header-search-group">
 			<div class="header-search">
-				<input class="header-search-input" type="text" name="" placeholder="Я ищу...">
-				<div class="header-search-options">
-					<span class="header-search-options-btn" ng-bind="vm.chosenOption" ng-click="vm.openOptions()"></span>
+				<input type="text" ng-model="vm.query" ng-keyup="vm.keyWatcher($event)" placeholder="Я ищу...">
+				<div class="header-search-results" ng-if="vm.startSearch">
+					<li ng-repeat="result in vm.found_vacancies" 
+						
+						ng-bind="result.position"
+						ng-click="vm.closeSearch()" 
+						ui-sref="vacancy({ id: result._id })"
+						></li>
+					<li ng-repeat="result in vm.found_cvs" 
+						ng-bind="result.position" 
+						 
+						ng-click="vm.closeSearch()" 
+						ui-sref="cv({ id: result._id })"
+						></li>
+					<li ng-repeat="result in vm.found_employers"
+						ng-bind="result.name" 
+						
+						ng-click="vm.closeSearch()" 
+						ui-sref="employer({ id: result._id })"
+						></li>
+					<li ng-if="vm.notFound">Нет совпадений</li>
+				</div>
+				<div class="header-search-options" ng-mouseover="vm.openOptions()" ng-mouseleave="vm.closeOptions()">
+					<div class="header-search-options-btn" ng-bind="vm.chosenOption" ></div>
 					<div class="header-search-options-droplist" ng-if="vm.open">
 						<span class="header-search-option" ng-click="vm.choose('Вакансии')">Вакансии</span>
 						<span class="header-search-option" ng-click="vm.choose('Резюме')">Резюме</span>
 						<span class="header-search-option" ng-click="vm.choose('Компании')">Компании</span>
 					</div>
 				</div>
-				<div class="header-search-btn">Найти</div>
-				<div class="header-search-extra">Расширенный поиск</div>
+				<div class="header-search-btn" ng-click="vm.find()">Найти</div>
+				<span class="header-search-advanced" ui-sref="search">Расширенный поиск</span>
 			</div>
 		</div>
 		<img class="header-languages" src="./images/rus.jpg"></img>
@@ -71,13 +92,21 @@
 					</div>
 				</div>
 
-				<div ng-bind="sessionEmployee.name"></div>
-				<div ng-bind="sessionRep.name"></div>
-
-				<!-- Auth -->
-				<div class="top-nav-auth">
-					<span ng-if="session" ng-click="vm.signout()">Выйти</span>
+				<!-- Auth Block on Top Nav -->
+				<div class="top-nav-auth"  ng-if="session" ng-mouseover="vm.openDropList('auth')" ng-mouseleave="vm.closeDropList()" id="auth">
+					<div class="top-nav-auth-title">
+						<img src="/images/user.svg">
+						<span ng-bind="(session.firstname)+' '+(session.lastname)"></span>
+					</div>
+					<div class="top-nav-auth-droplist" ng-if="vm.dropList == 'auth'">
+						<span ng-if="session.employerAccess" ui-sref="employer({id: session.employer})">Кабинет</span>
+						<span ng-if="session.employerAccess" ui-sref="account({id: session._id})">Настройки аккаунта</span>
+						<span ng-if="!session.employerAccess" ui-sref="user({id: session._id})">Кабинет</span>
+						<span ng-if="!session.employerAccess" ui-sref="account({id: session._id})">Настройки аккаунта</span>
+						<span ng-click="vm.signout()">Выйти</span>
+					</div>
 				</div>	
+
 			</div>
 		</div>
 	</div>
@@ -112,4 +141,7 @@
 <script src="/js/controllers/employee-dashboard.js"></script>
 <script src="/js/controllers/employer-dashboard.js"></script>
 <script src="/js/controllers/cv.js"></script>
+<script src="/js/controllers/vacancy.js"></script>
+<script src="/js/controllers/account.js"></script>
+<script src="/js/controllers/search.js"></script>
 </html>

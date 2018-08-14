@@ -5,22 +5,27 @@ const CVSchema = mongoose.Schema({
 	gender: String,
 	citizenship: String,
 	address: String,
-	phone: String,
 	position: String,
 	xpLength: Number,
 	specialization: String,
 	salary: Number,
 	education: String,
 	courses: String,
-	workPlace: String,
-	employee: {
+	work: String,
+	user: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Employee'
+		ref: 'User'
 	},
 	skills: [ 
 		{ 
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Skill'
+		}
+	],
+	responses: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Employer'
 		}
 	],
 	date: { 

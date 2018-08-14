@@ -29,7 +29,7 @@
 		<div class="signup-content">
 			<div class="signup-leftblock">
 				<span class="signup-content-text">Уже зарегистрированы?</span>
-				<a class="signup-content-link" ui-sref="signin-employee">Войти</a>
+				<a class="signup-content-link" ui-sref="signin">Войти</a>
 			</div>				
 			<div class="signup-content-social">
 				<span class="signup-content-text">
@@ -40,7 +40,18 @@
 	</div>
 </div>
 
-<div class="signup-message" ng-if="vm.success">
-	<span>Регистрация прошла успешно, пройдите пожалуйста по ссылке указанной в письме отправленное вам на почту</span>
-	<div ng-click="vm.success = false">&times;</div>
+
+<div class="spinner-backdrop" ng-show="vm.isLoading">
+	<div class="spinner"></div>
 </div>
+
+
+<span class="message success" ng-if="vm.success">
+	Регистрация прошла успешно, пройдите по ссылке указанной в письме отправленное вам на почту.
+	<i class="message-close" ng-click="vm.success = false">&times;</i>
+</span>
+
+<span class="message error" ng-if="vm.error">
+	Произошла ошибка при регистрации, повторите еще раз.
+	<i class="message-close" ng-click="vm.erro = false">&times;</i>
+</span>

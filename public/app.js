@@ -53,5 +53,23 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider){
 		templateUrl: '/views/cv.html',
 		controller: 'CVCtrl',
 		controllerAs: 'vm'
+	})
+	.state('vacancy', {
+		url: '/vacancy/:id',
+		templateUrl: '/views/vacancy.html',
+		controller: 'VacancyCtrl',
+		controllerAs: 'vm'
+	})
+	.state('account', {
+		url: '/user/account/:id',
+		templateUrl: '/views/account.html',
+		controller: 'AccountCtrl',
+		controllerAs: 'vm'
+	})
+	.state('search', {
+		url: '/search',
+		templateUrl: '/views/search.html',
+		controller: 'SearchCtrl',
+		controllerAs: 'vm'
 	});
 }

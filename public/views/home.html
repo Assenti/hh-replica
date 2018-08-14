@@ -11,15 +11,15 @@
 		<div class="home-right">
 			<div class="home-statistics">
 				<div>
-					<span>1 834 818</span>
+					<span ng-bind="vm.cvs.length"></span>
 					<small>резюме</small>
 				</div>
 				<div>
-					<span>55 555</span>
+					<span ng-bind="vm.vacancies.length"></span>
 					<small>вакансий</small>
 				</div>
 				<div>
-					<span>51 000</span>
+					<span ng-bind="vm.employers.length"></span>
 					<small>компаний</small>
 				</div>
 			</div>
@@ -31,8 +31,8 @@
 				<div class="home-auth-content" ng-if="!vm.registration">
 					<div class="home-auth-content-title">Войти в личный кабинет</div>
 					<form class="home-auth-form" ng-submit="vm.signIn()">
-						<input type="email" ng-model="vm.email" placeholder="Email">
-						<input type="password" ng-model="vm.password" placeholder="Пароль">
+						<input type="email" ng-model="vm.email" placeholder="Email" required>
+						<input type="password" ng-model="vm.password" placeholder="Пароль" required>
 						<button class="home-auth-content-btn blue" type="submit">Войти в личный кабинет</button>
 					</form>
 				</div>
@@ -66,14 +66,41 @@
 
 	<div class="home-main">
 		<div class="home-main-employers">
-			<span><img src="../images/king-crown.svg"> Лучшие Работодатели</span>
-			<li ng-repeat="employer in vm.employers" ng-bind="employer.name" ui-sref="employer({id: employer._id})"></li>
+			<span class="home-main-block-title">Лучшие Работодатели</span>
+			<li class="home-main-block-item" ng-repeat="employer in vm.employers" ui-sref="employer({id: employer._id})">
+				<span ng-bind="(employer.name)"></span>
+				<span ng-bind="'Местонахождение: '+(employer.city)"></span>
+				<span ng-bind="'Штат: '+(employer.employeesQuantity)+' чел.'"></span>
+				<span ng-bind="'Вакансий: '+(employer.vacancies.length)"></span>
+			</li>
 		</div>
-		<div class="home-main-employees">
-			<span><img src="../images/thumb-up.svg"> Рекомендуемые Соискатели</span>
-			<li ng-repeat="user in vm.users" ng-bind="(user.firstname) + ' ' + (user.lastname)" ui-sref="user({id: user._id})"></li>
+		<div class="home-main-vacancies">
+			<span class="home-main-block-title">Вакансии в Казахстане</span>
+			<li class="home-main-block-item" ng-repeat="vacancy in vm.vacancies" ui-sref="vacancy({id: vacancy._id})">
+				<span ng-bind="(vacancy.position)"></span>
+				<span ng-bind="(vacancy.salary)+' KZT'"></span>
+				<span ng-bind="'Опыт не менее: '+(vacancy.xpLength)+' лет'"></span>
+			</li>
+		</div>
+		<div class="home-main-cvs">
+			<span class="home-main-block-title">Резюме Соискателей</span>
+			<li class="home-main-block-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id})">
+				<span ng-bind="(cv.position)"></span>
+				<span ng-bind="(cv.salary)+' KZT'"></span>
+				<span ng-bind="'Опыт работы: '+(cv.xpLength)+' лет'"></span>
+			</li>
 		</div>
 	</div>
 
 </div>
+
+<span class="message success" ng-if="vm.success">
+	Авторизация прошла успешно
+	<i class="message-close" ng-click="vm.success = false">&times;</i>
+</span>
+
+<span class="message error" ng-if="vm.error">
+	Не верно введены Email или пароль
+	<i class="message-close" ng-click="vm.error = false">&times;</i>
+</span>
 
