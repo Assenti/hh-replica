@@ -34,7 +34,8 @@ function HeaderCtrl($http, $scope){
 		if(!vm.query){ return }
 		$http.get('/api/vacancy/search/' + vm.query)
 		.success(function(response){
-			vm.found_vacancies = response;
+			vm.found_vacancies = response.results;
+			console.log(response);
 			if(response.length === 0){
 				vm.notFound = true;
 			}
@@ -48,7 +49,7 @@ function HeaderCtrl($http, $scope){
 		if(!vm.query){ return }
 		$http.get('/api/cv/search/' + vm.query)
 		.success(function(response){
-			vm.found_cvs = response;
+			vm.found_cvs = response.results;
 			console.log(response);
 			if(response.length === 0){
 				vm.notFound = true;
@@ -63,7 +64,7 @@ function HeaderCtrl($http, $scope){
 		if(!vm.query){ return }
 		$http.get('/api/employer/search/' + vm.query)
 		.success(function(response){
-			vm.found_employers = response;
+			vm.found_employers = response.results;
 			if(response.length === 0){
 				vm.notFound = true;
 			}

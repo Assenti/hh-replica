@@ -109,7 +109,7 @@ router.post('/file/:id', upload.single('file'), (req, res, next)=>{
 							if(err) return res.send(err)
 						})
 					}
-					res.sendStatus(200)
+					res.sendStatus(200).end(cv)
 				})
 			})
 		})
@@ -152,7 +152,7 @@ router.post('/:id', (req, res, next)=>{
 						if(err) return res.send(err)
 					})
 				}
-				res.sendStatus(200)
+				res.send(cv)
 			})
 		})
 	})

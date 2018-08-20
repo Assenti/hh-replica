@@ -9,6 +9,7 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 	vm.pages = [];
 	vm.allPages = [];
 	vm.toggler = false;
+	vm.xp = null;
 
 	$http.get('/api/vacancy/search/' + vm.currentPage)
 	.success(function(response){

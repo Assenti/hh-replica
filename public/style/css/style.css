@@ -1,11 +1,18 @@
 @charset "UTF-8";
 /* Including 3rd part libs */
 @import url("../vendor/reset.css");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300");
-/** {
-	font-family: 'Open Sans Condensed', sans-serif;
-	font-size: 14px;
-}*/
+@font-face {
+  font-family: OpenSansCondensed;
+  src: url("../../fonts/Open_Sans_Condensed/OpenSansCondensed-Light.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: OpenSans;
+  src: url("../../fonts/Open_Sans/OpenSans-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 /* Including components */
 .header {
   width: 100%;
@@ -15,6 +22,7 @@
   justify-content: space-between;
   background-color: #f7f7f7;
   padding: 0 5%;
+  font-family: OpenSans;
 }
 
 .header-logo {
@@ -45,7 +53,7 @@
   width: 100%;
   height: 100%;
   padding: 10px;
-  font-size: 14px;
+  font-size: 15px;
 }
 .header-search > input:focus {
   border-color: blue;
@@ -73,12 +81,12 @@
 }
 
 .header-search-btn {
+  font-size: 16px;
   margin-left: 5px;
   background-color: blue;
   color: white;
   height: 100%;
-  font-size: 16px;
-  padding: 10px 25px;
+  padding: 15px 25px;
   cursor: pointer;
   opacity: 0.8;
 }
@@ -117,6 +125,7 @@
 
 .header-search-options-btn {
   padding: 9px;
+  padding: 15px;
   font-size: 16px;
   height: 100%;
   border: 1px solid lightgrey;
@@ -124,7 +133,8 @@
 }
 
 .header-search-advanced {
-  font-size: 12px;
+  font-family: OpenSansCondensed;
+  font-size: 14px;
   color: grey;
   padding: 5px;
   margin: 0 5px;
@@ -144,9 +154,10 @@
   height: 40px;
   background-color: rgba(0, 0, 0, 0.8);
   border-bottom: 1px solid rgba(0, 0, 0, 0.8);
-  color: white;
+  color: #fafafa;
   display: flex;
   align-items: center;
+  font-family: OpenSansCondensed;
 }
 
 .top-nav-wrapper {
@@ -170,8 +181,8 @@
 }
 
 .top-nav-item {
-  font-size: 13px;
-  padding: 15px;
+  font-size: 15px;
+  padding: 12px 15px;
   position: relative;
   cursor: pointer;
   height: 100%;
@@ -180,7 +191,7 @@
   background-color: #e60000;
 }
 .top-nav-item span {
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .top-nav-item__droplist {
@@ -194,7 +205,7 @@
 }
 
 .top-nav-item__droplist-item {
-  font-size: 13px;
+  font-size: 15px;
   color: black;
   cursor: pointer;
   padding: 10px;
@@ -223,7 +234,7 @@
 }
 
 .top-nav-auth {
-  font-size: 13px;
+  font-size: 15px;
   padding: 10px;
   position: relative;
   height: 100%;
@@ -238,7 +249,7 @@
   height: 100%;
 }
 .top-nav-auth-title span {
-  font-size: 12px;
+  font-size: 15px;
 }
 .top-nav-auth-title img {
   height: 30px;
@@ -258,82 +269,16 @@
   display: block;
   padding: 10px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 15px;
   color: black;
 }
 .top-nav-auth-droplist > span:hover {
   background-color: #f0f0f0;
 }
 
-/*
-.top-nav-auth-drop {
-	position: absolute;
-	right: 0;
-	top: 100%;
-	width: 100%;
-	padding: 15px;
-	background-color: rgb(253, 253, 253);
-	box-shadow: 1px 2px lightgrey;
-	z-index: 3;
-	text-align: center;
-	& > span {
-		display: block;
-		cursor: default;
-		font-size: 12px;
-		color: lightgrey;
-		margin-bottom: 10px;
-	}
-}
-
-.top-nav-auth-drop-form {
-	input {
-		font-size: 14px;
-		width: 100%;
-		padding: 10px;
-		margin-bottom: 10px;
-		outline: none;
-		border: 1px solid lightgrey;
-	}
-	input:focus {
-		border-color: blue;
-	}
-	input::placeholder {
-		color: lightgrey;
-	}
-	button {
-		display: block;
-		width: 100%;
-		background-color: blue;
-		color: white;
-		padding: 10px;
-		margin: 15px 0;
-		cursor: pointer;
-		outline: none;
-		font-size: 14px;
-	}
-}
-
-.top-nav-auth-signup {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	button {
-		padding: 10px;
-		margin: 10px 5px;
-		font-size: 12px;
-		border: 1px solid lightgrey;
-		background-color: rgb(247, 247, 247);
-		outline: none;
-		cursor: pointer;
-	}
-	button:hover {
-		color: red;
-		border-color: silver;
-		transition: 0.4s ease;
-	}
-}*/
 .home {
   width: 100%;
+  font-family: OpenSans;
 }
 
 /* Home top styles */
@@ -592,6 +537,7 @@
 
 .signup-employee {
   padding: 3% 15px;
+  font-family: OpenSans;
 }
 
 .signup-title {
@@ -609,6 +555,7 @@
   margin: 25px 0;
 }
 .signup-form-group input {
+  font-size: 14px;
   width: 100%;
   outline: none;
   padding: 10px;
@@ -696,6 +643,7 @@
   align-items: center;
   justify-content: center;
   padding: 15% 0;
+  font-family: OpenSans;
 }
 
 .signin-content {
@@ -753,6 +701,7 @@
   align-items: center;
   justify-content: center;
   padding: 5% 0;
+  font-family: OpenSans;
 }
 
 .signup-employer-form {
@@ -761,27 +710,31 @@
   background-color: #f7f7f7;
   text-align: center;
 }
-.signup-employer-form div {
+.signup-employer-form > div {
   font-size: 20px;
   margin-top: 10px;
 }
-.signup-employer-form span {
+.signup-employer-form > span {
   font-size: 14px;
   color: grey;
   margin-bottom: 10px;
   display: block;
 }
-.signup-employer-form input {
+.signup-employer-form > input {
+  font-size: 14px;
   padding: 10px;
   border: 1px solid lightgrey;
   margin-bottom: 10px;
   outline: none;
   width: 100%;
 }
-.signup-employer-form input:focus {
+.signup-employer-form > input:focus {
   border-color: blue;
 }
-.signup-employer-form button {
+.signup-employer-form > input::placeholder {
+  color: silver;
+}
+.signup-employer-form > button {
   outline: none;
   cursor: pointer;
   display: block;
@@ -792,7 +745,7 @@
   margin: 15px 0;
   font-size: 16px;
 }
-.signup-employer-form button:hover {
+.signup-employer-form > button:hover {
   opacity: 0.8;
 }
 
@@ -807,6 +760,7 @@
   background-color: #f7f7f7;
   width: 100%;
   padding: 2% 5%;
+  font-family: OpenSans;
 }
 
 .employee-dash-title {
@@ -857,6 +811,7 @@
 .employer-dash {
   padding: 2% 5%;
   width: 100%;
+  font-family: OpenSans;
 }
 
 .employer-dash-title {
@@ -1036,6 +991,7 @@
 .cv {
   padding: 2% 5%;
   display: none;
+  font-family: OpenSans;
 }
 
 .cv-close {
@@ -1062,12 +1018,6 @@
   margin: 15px;
   width: 50%;
 }
-.cv-form span {
-  display: block;
-  margin-top: 15px;
-  font-size: 16px;
-  font-weight: 600;
-}
 
 .cv-form-input {
   width: 100%;
@@ -1079,6 +1029,14 @@
 }
 .cv-form-input:focus {
   border-color: blue;
+}
+
+.cv-form-output {
+  font-size: 14px;
+  font-weight: 600;
+  color: green;
+  padding: 5px;
+  margin: 10px 0;
 }
 
 .cv-form-input-radio {
@@ -1106,25 +1064,26 @@
   align-items: center;
   width: 100%;
   margin: 10px 0;
+  position: relative;
 }
-.cv-form-skills input {
+.cv-form-skills > input {
   border: 1px solid lightgrey;
-  width: 80%;
+  width: 100%;
   outline: none;
   padding: 10px;
   font-size: 14px;
 }
-.cv-form-skills input:focus {
+.cv-form-skills > input:focus {
   border-color: blue;
 }
-.cv-form-skills div {
+.cv-form-skills > span {
+  position: absolute;
+  right: 0;
+  padding: 5px;
   cursor: pointer;
-  background-color: blue;
-  border: 1px solid blue;
-  color: white;
-  padding: 10px;
-  width: 20%;
-  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+  color: blue;
 }
 
 .cv-form-file {
@@ -1177,6 +1136,7 @@
 .complete-cv {
   padding: 2% 5%;
   width: 100%;
+  font-family: OpenSans;
 }
 .complete-cv input {
   width: 50%;
@@ -1224,6 +1184,7 @@
 
 .complete-cv-actions > img {
   width: 20px;
+  height: 20px;
   margin: 0 15px;
   cursor: pointer;
 }
@@ -1308,6 +1269,7 @@
 .vacancy {
   width: 100%;
   padding: 2% 5%;
+  font-family: OpenSans;
 }
 .vacancy input {
   width: 50%;
@@ -1502,6 +1464,7 @@
   padding: 2% 5%;
   display: flex;
   justify-content: space-between;
+  font-family: OpenSans;
 }
 
 .account-info {
@@ -1580,6 +1543,7 @@
   padding: 2% 5%;
   display: flex;
   justify-content: space-between;
+  font-family: OpenSans;
 }
 
 .search-title {
@@ -1686,6 +1650,7 @@
 .footer {
   width: 100%;
   padding: 0 5%;
+  font-family: OpenSans;
 }
 
 .footer-content {

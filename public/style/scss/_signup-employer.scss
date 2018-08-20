@@ -11,6 +11,7 @@
 	align-items: center;
 	justify-content: center;
 	padding: 5% 0;
+	font-family: OpenSans;
 }
 
 .signup-employer-form {
@@ -18,27 +19,31 @@
 	padding: 15px;
 	background-color: rgb(247, 247, 247);
 	text-align: center;
-	div {
+	& > div {
 		font-size: 20px;
 		margin-top: 10px;
 	}
-	span {
+	& > span {
 		font-size: 14px;
 		color: grey;
 		margin-bottom: 10px;
 		display: block;
 	}
-	input {
+	& > input {
+		font-size: 14px;
 		padding: 10px;
 		border: 1px solid lightgrey;
 		margin-bottom: 10px;
 		outline: none;
 		width: 100%;
 	}
-	input:focus {
+	& > input:focus {
 		border-color: blue;
 	}
-	button {
+	& > input::placeholder {
+		color: silver;
+	}
+	& > button {
 		outline: none;
 		cursor: pointer;
 		display: block;
@@ -49,7 +54,7 @@
 		margin: 15px 0;
 		font-size: 16px;
 	}
-	button:hover {
+	& > button:hover {
 		opacity: 0.8;
 	}
 }

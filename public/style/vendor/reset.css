@@ -19,9 +19,9 @@ time, mark, audio, video, input, textarea {
  margin: 0;
  padding: 0;
  border: 0;
- font: inherit;
- font-family: 'Exo 2', sans-serif;
- font-size: 16px;
+ /*font: inherit;*/
+/* font-family: 'Exo 2', sans-serif;
+ font-size: 16px;*/
  vertical-align: baseline;
  box-sizing: border-box;
 }

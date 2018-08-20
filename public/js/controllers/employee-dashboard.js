@@ -101,7 +101,16 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope){
 
 	vm.closeCVMaker = function(){
 		$("#cvForm").slideUp("slow");
+		vm.reset();
    	};
+
+   	vm.reset = function(){
+   		vm.skills = [];
+   		vm.position = vm.gender = vm.citizenship = vm.address = '';
+   		vm.specialization = vm.education = vm.courses = vm.work = '';
+   		vm.salary = vm.xpLength = 0;
+   		vm.birthDate = '';
+   	}
 
    	vm.modal = false;
    	vm.openModal = function(cv, index){

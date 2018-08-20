@@ -13,7 +13,7 @@
 			<span class="employer-dash-block-title">Открытые вакансии:</span>
 			<span class="employer-dash-block-item" ng-repeat="vacancy in vm.employer.vacancies">
 				<span ng-bind="(vacancy.position)+' - '+(vacancy.salary)+' KZT'"></span>
-				<img src="../images/scroll.svg" ui-sref="vacancy({id: vacancy._id})" title="Перейти к вакансии" ng-if="session">
+				<img src="../images/info-circle.svg" ui-sref="vacancy({id: vacancy._id})" title="Перейти к вакансии" ng-if="session">
 				<img src="../images/trash.svg" ng-click="vm.openModal(vacancy, $index)" title="Удалить" ng-if="session && session.employerAccess">
 				<img src="../images/invitation.svg" ng-if="session && session.employerAccess && vacancy.responses.length > 0" title="Отклик">
 			</span>

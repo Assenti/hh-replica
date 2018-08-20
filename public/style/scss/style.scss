@@ -1,11 +1,19 @@
 /* Including 3rd part libs */
 @import url('../vendor/reset.css');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 
-/** {
-	font-family: 'Open Sans Condensed', sans-serif;
-	font-size: 14px;
-}*/
+@font-face {
+	font-family: OpenSansCondensed;
+ 	src: url("../../fonts/Open_Sans_Condensed/OpenSansCondensed-Light.ttf");
+ 	font-weight: normal;
+ 	font-style: normal;
+}
+
+@font-face {
+	font-family: OpenSans;
+ 	src: url('../../fonts/Open_Sans/OpenSans-Regular.ttf');
+ 	font-weight: normal;
+ 	font-style: normal;
+}
 
 /* Including components */
 @import 'header';
@@ -27,7 +35,6 @@
 @import 'search';
 @import 'pagination';
 @import 'footer';
-
 
 
 .wrapper {

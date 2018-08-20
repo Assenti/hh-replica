@@ -17,20 +17,20 @@
 				<input type="text" ng-model="vm.query" ng-keyup="vm.keyWatcher($event)" placeholder="Я ищу...">
 				<div class="header-search-results" ng-if="vm.startSearch">
 					<li ng-repeat="result in vm.found_vacancies" 
-						
+						ng-if="vm.chosenOption === 'Вакансии'"
 						ng-bind="result.position"
 						ng-click="vm.closeSearch()" 
 						ui-sref="vacancy({ id: result._id })"
 						></li>
 					<li ng-repeat="result in vm.found_cvs" 
 						ng-bind="result.position" 
-						 
+						ng-if="vm.chosenOption === 'Резюме'" 
 						ng-click="vm.closeSearch()" 
 						ui-sref="cv({ id: result._id })"
 						></li>
 					<li ng-repeat="result in vm.found_employers"
 						ng-bind="result.name" 
-						
+						ng-if="vm.chosenOption === 'Компании'"
 						ng-click="vm.closeSearch()" 
 						ui-sref="employer({ id: result._id })"
 						></li>
@@ -99,10 +99,10 @@
 						<span ng-bind="(session.firstname)+' '+(session.lastname)"></span>
 					</div>
 					<div class="top-nav-auth-droplist" ng-if="vm.dropList == 'auth'">
-						<span ng-if="session.employerAccess" ui-sref="employer({id: session.employer})">Кабинет</span>
-						<span ng-if="session.employerAccess" ui-sref="account({id: session._id})">Настройки аккаунта</span>
-						<span ng-if="!session.employerAccess" ui-sref="user({id: session._id})">Кабинет</span>
-						<span ng-if="!session.employerAccess" ui-sref="account({id: session._id})">Настройки аккаунта</span>
+						<span ng-if="session.employerAccess" ui-sref="employer({id: session.employer})" ng-click="vm.closeDropList()">Кабинет</span>
+						<span ng-if="session.employerAccess" ui-sref="account({id: session._id})" ng-click="vm.closeDropList()">Настройки аккаунта</span>
+						<span ng-if="!session.employerAccess" ui-sref="user({id: session._id})" ng-click="vm.closeDropList()">Кабинет</span>
+						<span ng-if="!session.employerAccess" ui-sref="account({id: session._id})" ng-click="vm.closeDropList()">Настройки аккаунта</span>
 						<span ng-click="vm.signout()">Выйти</span>
 					</div>
 				</div>	
@@ -123,15 +123,15 @@
 		</div>
 	</div>
 </body>
-<!-- Angular files including -->
+<!-- Angular files importing -->
 <script src="/js/vendor/ng.min.js"></script>
 <script src="/js/vendor/ng-route.min.js"></script>
 <script src="/js/vendor/ng-cookies.min.js"></script>
 
-<!-- jQuery including -->
+<!-- jQuery importing -->
 <script src="/js/vendor/jquery.min.js"></script>
 
-<!-- App files inclduing -->
+<!-- App files importing -->
 <script src="/app.js"></script>
 <script src="/js/vendor/file.js"></script>
 <script src="/js/controllers/header.js"></script>
