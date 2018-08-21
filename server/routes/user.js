@@ -10,10 +10,10 @@ const CV = require('../models/CV')
 const Employer = require('../models/Employer')
 const Vacancy = require('../models/Vacancy')
 
-const redis = require('redis')
-const editRedis = require('../edit')
-const client = redis.createClient()
-client.on('error', (err)=> console.log(`Error: ${err}`))
+// const redis = require('redis')
+// const editRedis = require('../edit')
+// const client = redis.createClient()
+// client.on('error', (err)=> console.log(`Error: ${err}`))
 
 
 const transporter = nodemailer.createTransport({
