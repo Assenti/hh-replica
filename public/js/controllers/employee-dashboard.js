@@ -29,8 +29,6 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope){
 		console.log(err);
 	})
 
-
-
 	vm.addSkill = function(){
 		vm.skills.push(vm.skill);
 	}

@@ -6,12 +6,14 @@
   src: url("../../fonts/Open_Sans_Condensed/OpenSansCondensed-Light.ttf");
   font-weight: normal;
   font-style: normal;
+  font-display: fallback;
 }
 @font-face {
   font-family: OpenSans;
   src: url("../../fonts/Open_Sans/OpenSans-Regular.ttf");
   font-weight: normal;
   font-style: normal;
+  font-display: fallback;
 }
 /* Including components */
 .header {
@@ -34,6 +36,7 @@
 }
 .header-logo > img {
   width: 90px;
+  cursor: pointer;
 }
 
 .header-search-group {
@@ -1361,16 +1364,17 @@
   align-items: center;
   z-index: 6;
   font-size: 14px;
+  font-family: OpenSans;
 }
 
 .message.success {
-  border-color: green;
-  background-color: rgba(0, 128, 0, 0.3);
+  border-color: #008080;
+  background-color: #00b3b3;
 }
 
 .message.error {
-  border-color: red;
-  background-color: rgba(255, 0, 0, 0.3);
+  border-color: #cc0000;
+  background-color: #ff5050;
 }
 
 .message-close {
@@ -1398,6 +1402,7 @@
   z-index: 3;
   box-shadow: 1px 2px black;
   padding: 15px;
+  font-family: OpenSans;
   text-align: center;
 }
 .modal-window span {
@@ -1631,6 +1636,7 @@
   justify-content: center;
   height: 30px;
   width: 30px;
+  font-family: OpenSans;
   font-size: 16px;
   border: 1px solid lightgrey;
   background-color: #ebebeb;

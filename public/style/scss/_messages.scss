@@ -11,16 +11,17 @@
 	align-items: center;
 	z-index: 6;
 	font-size: 14px;
+	font-family: OpenSans;
 }
 
 .message.success {
-	border-color: green;
-	background-color: rgba(0, 128, 0, 0.3);
+	border-color: #008080;
+	background-color: #00b3b3;
 }
 
 .message.error {
-	border-color: red;
-	background-color: rgba(255, 0, 0, 0.3);
+	border-color: #cc0000;
+	background-color: #ff5050;
 }
 
 .message-close {

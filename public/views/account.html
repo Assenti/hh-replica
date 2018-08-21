@@ -4,7 +4,7 @@
 		<div ng-bind="'Email: ' + vm.user.email"></div>
 		<div>
 			<span ng-bind="'Телефон: ' + vm.user.phone"></span>
-			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session" style="width: 15px;">
+			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session" style="width: 17px;">
 		</div>
 		
 		<input class="input" type="text" ng-model="vm.objectToEdit.phone" ng-if="vm.editor">
@@ -28,5 +28,5 @@
 
 <span class="message error" ng-if="vm.message">
 	Перед удалением необходимо добавить другого менеджера
-	<i class="message-close" ng-click="vm.message = false">&times;</i>
+	<span class="message-close" ng-click="vm.message = false">&times;</span>
 </span>
