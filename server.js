@@ -11,6 +11,7 @@ mongoose.connect('mongodb://localhost:27017/hh-replica', { useNewUrlParser: true
 
 const app = express()
 
+
 // Including & Configuring Middlewares
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({extended:true}))
@@ -24,6 +25,7 @@ app.use(session({
 	key: 'key',
 	store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
+
 
 app.use('/api', require('./server/routes'))
 
