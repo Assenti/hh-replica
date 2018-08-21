@@ -109,8 +109,7 @@ router.delete('/account/:id', (req, res, next)=> {
 					User.remove({_id: req.params.id })
 					.exec((err, deletetationResult)=> {
 						if(err) return res.send(err)
-						res.clearCookie('session')
-						res.sendStatus(200)
+						res.redirect('/signout')
 					})
 				})
 			})

@@ -5,7 +5,7 @@
 			<img ng-src="{{ vm.cv.link || '../images/no-image.png' }}">
 			<div class="complete-cv-info-contacts">
 				<span ng-bind="(vm.user.firstname)+' '+(vm.user.lastname)"></span>
-				<span ng-bind="(vm.cv.gender)+', родился '+(vm.cv.birthDate | date)"></span>
+				<span ng-bind="(vm.cv.gender)+', родился '+(vm.cv.birthDate | myDate)"></span>
 				<span ng-bind="'Контактный телефон: '+(vm.user.phone)"></span>
 				<span ng-bind="'Email: '+(vm.user.email)"></span>
 				<span ng-bind="'Адрес: ' + (vm.cv.address)"></span>
@@ -25,7 +25,7 @@
 	<input class="input" type="text" ng-model="vm.objectToEdit.address" ng-if="vm.editor">
 	<div class="complete-cv-position-info">
 		<span ng-bind="vm.cv.position"></span>
-		<span ng-bind="(vm.cv.salary)+' KZT'"></span>
+		<span ng-bind="(vm.cv.salary | salary)+' KZT'"></span>
 	</div>
 	<input class="input" type="text" ng-model="vm.objectToEdit.position" ng-if="vm.editor">
 	<input class="input" type="number" ng-model="vm.objectToEdit.salary" ng-if="vm.editor">

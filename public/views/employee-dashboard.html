@@ -10,10 +10,10 @@
 	<div class="employee-dash-cvs">
 		<div class="employee-dash-title">Мои резюме</div>
 		<div class="employee-dash-cvs-item" ng-repeat="cv in vm.cvs">
-			<span ng-bind="cv.position + ' - ' + cv.salary +' KZT'"></span>
+			<span ng-bind="cv.position + ' - ' + (cv.salary | salary) +' KZT'"></span>
 			<img src="../images/info-circle.svg" ui-sref="cv({id: cv._id})" title="Перейти к резюме">
 			<img src="../images/trash.svg" ng-click="vm.openModal(cv, $index)" ng-if="session && !session.employerAccess" title="Удалить">
-			<img src="../images/invitation.svg" ng-if="session && !session.employerAccess && cv.responses.length > 0" title="Приглашение">
+			<img src="../images/invitation.svg" ng-if="session && !session.employerAccess && cv.responses.length > 0" title="Приглашение" ng-repeat="response in cv.responses track by $index" ui-sref="employer({id: response })">
 		</div>
 	</div>
 	<div class="employee-dash-offers">
@@ -29,8 +29,8 @@
 			<span class="cv-form-output" ng-bind="vm.position" ng-if="vm.position != null"></span>
 			<input class="cv-form-input" type="number" ng-model="vm.salary" placeholder="Заработная плата*" required>
 			<span class="cv-form-output" ng-bind="vm.salary+' KZT'" ng-if="vm.salary > 0"></span>
-			<input class="cv-form-input" type="date" ng-model="vm.birthDate" placeholder="Дата рождения*" required>
-			<span class="cv-form-output" ng-bind="vm.birthDate | date" ng-if="vm.birthDate != null"></span>
+			<input class="cv-form-input" type="text" ng-model="vm.birthDate" placeholder="Дата рождения* гггг-мм-дд" required>
+			<span class="cv-form-output" ng-bind="vm.birthDate " ng-if="vm.birthDate != null"></span>
 			<div class="cv-form-input-radio">
 				<label>Муж</label>
 				<input type="radio" value="Мужчина" ng-model="vm.gender" required>

@@ -78,7 +78,7 @@
 			<span class="home-main-block-title">Вакансии в Казахстане</span>
 			<li class="home-main-block-item" ng-repeat="vacancy in vm.vacancies" ui-sref="vacancy({id: vacancy._id})">
 				<span ng-bind="(vacancy.position)"></span>
-				<span ng-bind="(vacancy.salary)+' KZT'"></span>
+				<span ng-bind="(vacancy.salary | salary)+' KZT'"></span>
 				<span ng-bind="'Опыт не менее: '+(vacancy.xpLength)+' лет'"></span>
 			</li>
 		</div>
@@ -86,7 +86,7 @@
 			<span class="home-main-block-title">Резюме Соискателей</span>
 			<li class="home-main-block-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id})">
 				<span ng-bind="(cv.position)"></span>
-				<span ng-bind="(cv.salary)+' KZT'"></span>
+				<span ng-bind="(cv.salary | salary)+' KZT'"></span>
 				<span ng-bind="'Опыт работы: '+(cv.xpLength)+' лет'"></span>
 			</li>
 		</div>

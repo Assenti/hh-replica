@@ -14,7 +14,7 @@
 		<span class="cv-close" ng-click="vm.closeEditor()" ng-if="vm.editor">&times;</span>
 	</div>
 	<div class="vacancy-content">
-		<span ng-bind="'Заработная плата: ' + (vm.vacancy.salary)"></span>
+		<span ng-bind="'Заработная плата: ' + (vm.vacancy.salary | salary)+ ' KZT'"></span>
 		<input class="input" type="number" ng-model="vm.objectToEdit.salary" ng-if="vm.editor">
 		<span ng-bind="'Стаж работы: ' + (vm.vacancy.xpLength)+' лет'"></span>
 		<input class="input" type="number" ng-model="vm.objectToEdit.xpLength" ng-if="vm.editor">

@@ -12,7 +12,7 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 		vm.vacancy = response.vacancy;
 		vm.skills = response.skills;
 		vm.employerReps = response.users;
-		console.log(response);
+		
 	})
 	.error(function(err){
 		console.log(err);

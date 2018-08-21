@@ -35,7 +35,7 @@ function HeaderCtrl($http, $scope){
 		$http.get('/api/vacancy/search/' + vm.query)
 		.success(function(response){
 			vm.found_vacancies = response.results;
-			console.log(response);
+			
 			if(response.length === 0){
 				vm.notFound = true;
 			}
@@ -50,7 +50,7 @@ function HeaderCtrl($http, $scope){
 		$http.get('/api/cv/search/' + vm.query)
 		.success(function(response){
 			vm.found_cvs = response.results;
-			console.log(response);
+			
 			if(response.length === 0){
 				vm.notFound = true;
 			}

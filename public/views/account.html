@@ -8,7 +8,7 @@
 		</div>
 		
 		<input class="input" type="text" ng-model="vm.objectToEdit.phone" ng-if="vm.editor">
-		<div ng-bind="'Дата регистрации: ' + (vm.user.date | date)"></div>
+		<div ng-bind="'Дата регистрации: ' + (vm.user.date | myDate)"></div>
 		<button class="btn active" ng-click="vm.editAccount()" ng-if="vm.editor">Сохранить</button>
 		<button class="btn disable" ng-click="vm.closeEditor()" ng-if="vm.editor">Отмена</button>
 	</div>
