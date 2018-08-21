@@ -205,7 +205,7 @@ router.post('/signup/manager/:id', (req, res, next)=> {
 			        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
 			        to: user.email, 
 			        subject: 'Sign Up Confirmation', 
-			        html: `<p>Hello Mr.${newUser.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://localhost:3000/api/user/accept/${newUser._id}">Please move to link</a>` 
+			        html: `<p>Hello Mr.${newUser.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://206.189.15.76:3002/api/user/accept/${newUser._id}">Please move to link</a>` 
 			    }
 
 			    transporter.sendMail(mailOptions, (error, info)=> {
