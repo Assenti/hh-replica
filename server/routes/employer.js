@@ -1,11 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-// const redis = require('redis')
-// const editRedis = require('../edit')
-// const client = redis.createClient()
-// client.on('error', (err)=> console.log(`Error: ${err}`))
-
 const Employer = require('../models/Employer')
 const User = require('../models/User')
 const Vacancy = require('../models/Vacancy')

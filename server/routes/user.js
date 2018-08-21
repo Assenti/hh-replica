@@ -10,11 +10,6 @@ const CV = require('../models/CV')
 const Employer = require('../models/Employer')
 const Vacancy = require('../models/Vacancy')
 
-// const redis = require('redis')
-// const editRedis = require('../edit')
-// const client = redis.createClient()
-// client.on('error', (err)=> console.log(`Error: ${err}`))
-
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -151,7 +146,7 @@ router.post('/signup', (req, res, next)=> {
 		        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
 		        to: user.email, 
 		        subject: 'Sign Up Confirmation', 
-		        html: `<p>Hello Mr.${user.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://localhost:3000/api/user/accept/${user._id}">Please move to link</a>` 
+		        html: `<p>Hello Mr.${user.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://206.189.15.76:3002/api/user/accept/${user._id}">Please move to link</a>` 
 		    }
 
 		    transporter.sendMail(mailOptions, (error, info)=> {
@@ -168,7 +163,7 @@ router.post('/signup', (req, res, next)=> {
 		        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
 		        to: user.email, 
 		        subject: 'Sign Up Confirmation', 
-		        html: `<p>Hello Mr.${user.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://localhost:3000/api/user/accept/${user._id}">Please move to link</a>` 
+		        html: `<p>Hello Mr.${user.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://206.189.15.76:3002/api/user/accept/${user._id}">Please move to link</a>` 
 		    }
 
 		    transporter.sendMail(mailOptions, (error, info)=> {

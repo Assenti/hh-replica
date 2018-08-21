@@ -6,11 +6,6 @@ const User = require('../models/User')
 const Vacancy = require('../models/Vacancy')
 const Skill = require('../models/Skill')
 
-// const redis = require('redis')
-// const editRedis = require('../edit')
-// const client = redis.createClient()
-// client.on('error', (err)=> console.log(`Error: ${err}`))
-
 
 // END POINTS
 router.get('/', (req, res, next)=> {

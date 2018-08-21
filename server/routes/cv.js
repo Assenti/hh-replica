@@ -10,10 +10,6 @@ const CV = require('../models/CV')
 const Skill = require('../models/Skill')
 const Employer = require('../models/Employer')
 
-// const redis = require('redis')
-// const editRedis = require('../edit')
-// const client = redis.createClient()
-// client.on('error', (err)=> console.log(`Error: ${err}`))
 
 router.get('/', (req, res, next)=> {
 	CV.find()
