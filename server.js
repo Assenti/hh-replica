@@ -25,7 +25,6 @@ app.use(session({
 	store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-
 app.use('/api', require('./server/routes'))
 
 app.get('*', (req, res, next)=> {
