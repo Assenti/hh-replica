@@ -141,17 +141,22 @@ router.post('/signup', (req, res, next)=> {
 		user.employer = employer._id
 		user.save((err, user)=> {
 			if(err) res.send(err)
-			let mailOptions = {
-		        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
-		        to: user.email, 
-		        subject: 'Sign Up Confirmation', 
-		        html: `<p>Hello Mr.${user.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://142.93.229.118:3002/api/user/accept/${user._id}">Please move to link</a>` 
-		    }
+			employer.users.push(user._id)
+			employer.save((err, employer)=> {
+				if(err) return res.send(err)
+				let mailOptions = {
+			        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
+			        to: user.email, 
+			        subject: 'Sign Up Confirmation', 
+			        html: `<p>Hello Mr.${user.lastname}. Please finish your registration on HeadHunter.kz - Replica.</p><a href="http://142.93.229.118:3002/api/user/accept/${user._id}">Please move to link</a>` 
+			    }
 
-		    transporter.sendMail(mailOptions, (error, info)=> {
-		    	if(err) return res.sendStatus(401).send(err)
-		    	res.sendStatus(200)
-		    	})
+			    transporter.sendMail(mailOptions, (error, info)=> {
+			    	if(err) return res.sendStatus(401).send(err)
+			    	res.sendStatus(200)
+			    	})
+				})
+			
 			})
 
 		})

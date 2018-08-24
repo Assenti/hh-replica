@@ -13,8 +13,8 @@
 			</div>
 		</div>
 		<div class="complete-cv-actions">
-			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session && !session.employerAccess">
-			<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session && !session.employerAccess">
+			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session._id == vm.cv.user && !session.employerAccess">
+			<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session._id == vm.cv.user && !session.employerAccess">
 			<button class="btn active" ng-if="session.employerAccess" ng-click="vm.invite(session)">Пригласить</button>
 		</div>
 	</div>

@@ -4,11 +4,23 @@ const multer = require('multer')
 const upload = multer({dest: 'uploads/'})
 const fs = require('fs')
 const path = require('path')
+const nodemailer = require('nodemailer')
 
 const User = require('../models/User')
 const CV = require('../models/CV')
 const Skill = require('../models/Skill')
 const Employer = require('../models/Employer')
+
+
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, 
+    auth: {
+        user: '172.3itstep2017@gmail.com', 
+        pass: 'fsnihgdmbxfwhptq' 
+    }
+});
 
 
 router.get('/', (req, res, next)=> {
@@ -175,7 +187,23 @@ router.post('/responsed/:id', (req, res, next)=> {
 				employer.invited.push(req.params.id)
 				employer.save((err, success)=> {
 					if(err) return res.send(err)
-					res.sendStatus(200)
+					User.findById(cv.user)
+					.exec((err, user)=> {
+					if (err) return res.send(err)
+					let mailOptions = {
+				        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
+				        to: user.email, 
+				        subject: 'Приглашение на собеседование', 
+				        html: `<p>Здравствуйте, ${user.firstname} ${user.lastname}, Ваше резюме <a href="http://142.93.229.118:3002/cv/${cv._id}">${cv.position}</a> заинтересовало работодателя.</p>
+				        	   <p>Вас пригласили на собеседование компания
+				        	   <a href="http://142.93.229.118:3002/employer/${employer._id}"> ${employer.name}.</a></p>`
+				    }
+
+				    transporter.sendMail(mailOptions, (error, info)=> {
+				    	if(err) return res.sendStatus(401).send(err)
+				    	res.sendStatus(200)
+				    	})
+					})
 				})
 			})
 		})
