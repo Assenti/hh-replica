@@ -1516,7 +1516,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: white;
   z-index: 6;
 }
 

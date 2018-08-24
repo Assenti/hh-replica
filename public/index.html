@@ -7,7 +7,9 @@
 	<base href="/">
 </head>
 <body>
-	<div ng-show="IsLoading" class="spinner" ng-controller="PreloaderCtrl as vm"></div>
+	<div class="spinner-backdrop" ng-controller="PreloaderCtrl as vm" ng-show="IsLoading">
+		<div class="spinner"></div>
+	</div>
 	<div class="header" ng-controller="HeaderCtrl as vm">
 		<div class="header-logo" ui-sref="home">
 			<img src="/images/headhunter-hh-kz.svg">
