@@ -1,5 +1,5 @@
 <div class="complete-cv">
-	<span class="complete-cv-btn" ui-sref="user({id: session._id})" ng-if="session && !session.employerAccess"><img src="../images/left-chevron.svg"> Назад в кабинет</span>
+	<span class="complete-cv-btn" ui-sref="user({id: session._id})" ng-if="session._id == vm.cv.user && !session.employerAccess"><img src="../images/left-chevron.svg"> Назад в кабинет</span>
 	<div class="complete-cv-header">
 		<div class="complete-cv-info">
 			<img ng-src="{{ vm.cv.link || '../images/no-image.png' }}">
