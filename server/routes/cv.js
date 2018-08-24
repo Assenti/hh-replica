@@ -268,6 +268,20 @@ router.put('/', (req, res, next)=> {
 })
 
 
+router.delete('/response/:cv_id/:employer_id', (req, res, next)=> {
+	CV.findById(req.params.cv_id)
+	.exec((err, cv)=> {
+		if(err) return res.send(err)
+		let index = cv.responses.indexOf(req.params.employer_id)
+		cv.responses.splice(index, 1)
+		cv.save((err, cv)=> {
+			if(err) return res.send(err)
+			res.sendStatus(200)
+		})
+	})
+})
+
+
 
 
 module.exports = router

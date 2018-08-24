@@ -73,35 +73,41 @@ router.post('/responsed/:id', (req, res, next)=> {
 			if(err) return res.send(err)
 			Employer.findById(vacancy.employer)
 			.exec((err, employer)=> {
-				console.log(employer)
+				console.log(employer.invited)
 				if(err) return res.send(err)
-				User.find({employer: employer._id})
-				.exec((err, users)=> {
-					console.log(users)
+				console.log(req.body.cv_id)
+				employer.invited.push(req.body.cv_id)
+				console.log(employer.invited)
+				employer.save((err, employer)=> {
 					if(err) return res.send(err)
-					User.findById(req.body.user_id)
-					.exec((err, responsed_user)=> {
+					User.find({employer: employer._id})
+					.exec((err, users)=> {
 						if(err) return res.send(err)
-						let addresses = [];
-						for(var i = 0; i < users.length; i++){
-							addresses[i] = {
-					        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
-					        to: users[i].email, 
-					        subject: 'Отклик на размещенную вакансию', 
-					        html: `<p>Здравствуйте, ${users[i].firstname} ${users[i].lastname}.</p>
-					        	   <p>На размещенную Вами вакансию 
-					        	   <a href="http://142.93.229.118:3002/vacancy/${vacancy._id}">${vacancy.position}</a> 
-					        	   пришел отклик от ${responsed_user.firstname} ${responsed_user.lastname} с резюме
-					        	   <a href="http://142.93.229.118:3002/cv/${req.body.cv_id}">${req.body.cv_position}.</a></p>`   
-					    	}
-					    	transporter.sendMail(addresses[i], (error, info)=> {
-					    		if(err) return res.sendStatus(401).send(err)
-					    	})
-						}
-						res.sendStatus(200)
-					    
+						User.findById(req.body.user_id)
+						.exec((err, responsed_user)=> {
+							if(err) return res.send(err)
+							let addresses = [];
+							for(var i = 0; i < users.length; i++){
+								addresses[i] = {
+						        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
+						        to: users[i].email, 
+						        subject: 'Отклик на размещенную вакансию', 
+						        html: `<p>Здравствуйте, ${users[i].firstname} ${users[i].lastname}.</p>
+						        	   <p>На размещенную Вами вакансию 
+						        	   <a href="http://142.93.229.118:3002/vacancy/${vacancy._id}">${vacancy.position}</a> 
+						        	   пришел отклик от ${responsed_user.firstname} ${responsed_user.lastname} с резюме
+						        	   <a href="http://142.93.229.118:3002/cv/${req.body.cv_id}">${req.body.cv_position}.</a></p>`   
+						    	}
+						    	transporter.sendMail(addresses[i], (error, info)=> {
+						    		if(err) return res.sendStatus(401).send(err)
+						    	})
+							}
+							res.sendStatus(200)
+						    
+						})
 					})
 				})
+				
 			})
 		})
 	})
@@ -149,6 +155,7 @@ router.delete('/:employer_id/:vacancy_id', (req, res, next)=>{
 		if(err) return res.send(err)
 		let updatedVacancies = employer.vacancies.filter((vacancy) => vacancy != req.params.vacancy_id)
 		employer.vacancies = updatedVacancies
+		employer.invited = []
 		employer.save((err, result)=> {
 			Vacancy.remove({_id: req.params.vacancy_id })
 			.exec((err, result)=> {

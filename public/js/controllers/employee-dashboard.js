@@ -130,4 +130,14 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope){
 		});
 	}
 
+	vm.removeResponse = function(cv, response){
+		$http.delete('/api/cv/response/' + cv._id + '/' + response)
+		.success(function(response){
+			console.log(response);
+		})
+		.error(function(err){
+			console.log(err);
+		});
+	}
+
 }

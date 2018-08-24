@@ -13,7 +13,12 @@
 			<span ng-bind="cv.position + ' - ' + (cv.salary | salary) +' KZT'"></span>
 			<img src="../images/info-circle.svg" ui-sref="cv({id: cv._id})" title="Перейти к резюме">
 			<img src="../images/trash.svg" ng-click="vm.openModal(cv, $index)" ng-if="session && !session.employerAccess" title="Удалить">
-			<img src="../images/invitation.svg" ng-if="session && !session.employerAccess && cv.responses.length > 0" title="Приглашение" ng-repeat="response in cv.responses track by $index" ui-sref="employer({id: response })">
+			<img src="../images/invitation.svg" 
+				 ng-if="session && !session.employerAccess && cv.responses.length > 0" 
+				 title="Приглашение" 
+				 ng-repeat="response in cv.responses track by $index"
+				 ng-click="vm.removeResponse(cv, response)" 
+				 ui-sref="employer({id: response })">
 		</div>
 	</div>
 	<div class="employee-dash-offers">

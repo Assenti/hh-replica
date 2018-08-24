@@ -107,6 +107,20 @@ function EmployerDashboardCtrl($http, $scope, $state, $rootScope){
    		})
    	}
 
+   	vm.removeInvite = function(invite, vacancy){
+   		$http.delete('/api/employer/' + $state.params.id + '/' + invite + '/' + vacancy._id)
+   		.success(function(response){
+   			var invites = vm.employer.invited.filter(function(inv){
+   				return inv != invite;
+   			})
+   			vm.employer.invited = invites;
+   			console.log(response);
+   		})
+   		.error(function(err){
+   			console.log(err);
+   		})
+   	}
+
 }
 
 

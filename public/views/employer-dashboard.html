@@ -15,7 +15,13 @@
 				<span ng-bind="(vacancy.position)+' - '+(vacancy.salary | salary)+' KZT'"></span>
 				<img src="../images/info-circle.svg" ui-sref="vacancy({id: vacancy._id})" title="Перейти к вакансии" ng-if="session">
 				<img src="../images/trash.svg" ng-click="vm.openModal(vacancy, $index)" title="Удалить" ng-if="session && session.employerAccess">
-				<img src="../images/invitation.svg" ng-if="session && session.employerAccess && vacancy.responses.length > 0" title="Отклик" ng-repeat="response in vacancy.responses track by $index" ui-sref="user({id: response })">
+				<img src="../images/invitation.svg" 
+					 ng-if="session && session.employerAccess && vacancy.responses.length > 0" 
+					 title="Отклик" 
+					 ng-repeat="invite in vm.employer.invited" 
+					 ui-sref="cv({id: invite })"
+					 ng-click="vm.removeInvite(invite, vacancy)"
+					 >
 			</span>
 		</div>
 		<div class="employer-dash-managers" ng-if="session && session.employerAccess">
