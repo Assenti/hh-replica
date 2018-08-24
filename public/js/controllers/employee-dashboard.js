@@ -9,7 +9,7 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope){
 	vm.success = false;
 	vm.error = false;
 	
-	$http.get('/api/cv')
+	$http.get('/api/cv/user/' + $rootScope.session._id)
 	.success(function(response){
 		vm.cvs = response;
 		for(var i = 0; i < vm.cvs.length; i++){

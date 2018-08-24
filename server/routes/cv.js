@@ -19,6 +19,14 @@ router.get('/', (req, res, next)=> {
 	})
 })
 
+router.get('/user/:id', (req, res, next)=> {
+	CV.find({user: req.params.id })
+	.exec((err, cvs)=> {
+		if(err) return res.send(err)
+		res.send(cvs)
+	})
+})
+
 router.get('/search/:page', (req, res, next)=>{
  	CV.find().skip((req.params.page - 1) * 5)
  		.limit(5)
