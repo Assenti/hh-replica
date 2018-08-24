@@ -18,19 +18,37 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 		console.log(err);
 	})
 
+
+
 	vm.success = false;
 	vm.error = false;
 	vm.response = function(user){
+		var element = document.getElementById('select');
+		var cvId = element.options[element.selectedIndex].value;
+		var cvPosition = element.options[element.selectedIndex].text;
 		var data = {
-			user_id: user._id
+			user_id: user._id,
+			cv_position: cvPosition,
+			cv_id: cvId
 		}
+		console.log(data);
 		$http.post('/api/vacancy/responsed/' + $state.params.id, data)
+			.success(function(response){
+				vm.success = true;
+			})
+			.error(function(err){
+				console.log(err);
+				vm.error = true;
+			})
+	}
+
+	vm.getUser = function(user){
+		$http.get('/api/user/' + user._id)
 		.success(function(response){
-			vm.success = true;
+			vm.user = response;
 		})
 		.error(function(err){
 			console.log(err);
-			vm.error = true;
 		})
 	}
 

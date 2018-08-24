@@ -91,9 +91,8 @@ router.post('/responsed/:id', (req, res, next)=> {
 					        html: `<p>Здравствуйте, ${users[i].firstname} ${users[i].lastname}.</p>
 					        	   <p>На размещенную Вами вакансию 
 					        	   <a href="http://142.93.229.118:3002/vacancy/${vacancy._id}">${vacancy.position}</a> 
-					        	   пришел отклик от 
-					        	   <a href="http://142.93.229.118:3002/user/${responsed_user._id}">${responsed_user.firstname} ${responsed_user.lastname}.</a> 
-					        	  </p>`
+					        	   пришел отклик от ${responsed_user.firstname} ${responsed_user.lastname} с резюме
+					        	   <a href="http://142.93.229.118:3002/cv/${req.body.cv_id}">${req.body.cv_position}.</a></p>`   
 					    	}
 					    	transporter.sendMail(addresses[i], (error, info)=> {
 					    		if(err) return res.sendStatus(401).send(err)

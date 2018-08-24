@@ -1333,6 +1333,29 @@
   margin-right: 5px;
 }
 
+.response-block {
+  width: 40%;
+}
+
+.response-block-footer {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.response-title {
+  margin: 5px 0;
+  font-size: 14px;
+  color: grey;
+}
+
+.response-options {
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+  padding: 10px;
+  border-radius: 3px;
+}
+
 .skill {
   font-size: 14px;
 }

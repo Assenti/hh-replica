@@ -5,9 +5,20 @@
 		<div>
 			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session.employerAccess">
 			<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session.employerAccess">
-			<button class="btn active" ng-if="session && !session.employerAccess" ng-click="vm.response(session)">Откликнуться</button>
 		</div>
 	</div>
+
+	<div class="response-block">
+		<div class="response-title">Выберите резюме для отклика на вакансию</div>
+		<select class="response-options" id="select" ng-if="session && !session.employerAccess" ng-click="vm.getUser(session)">
+			<option selected disabled hidden>Выберите резюме</option>
+			<option ng-repeat="cv in vm.user.cv" ng-bind="cv.position" value="{{cv._id}}"></option>
+		</select>
+		<div class="response-block-footer">
+			<span class="btn active" ng-click="vm.response(session)">Отправить отклик</span>
+		</div>
+	</div>
+
 	<div class="vacancy-title" ng-bind="'Должность: ' + (vm.vacancy.position)"></div>
 	<div class="vacancy-close-editor">
 		<input class="input" type="text" ng-model="vm.objectToEdit.position" ng-if="vm.editor">
