@@ -30,10 +30,7 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 		});
 	}
 
-	
-
 	vm.signUpEmployee = function(){
-		vm.isLoading = true;
 		var data = {
 			firstname: vm.firstname,
 			lastname: vm.lastname,
@@ -41,17 +38,17 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 			password: vm.password,
 			phone: vm.phone
 		}
-
-		$http.post('/api/user/signup', data)
-		.success(function(response){
-			vm.isLoading = false;
-			vm.success = true;
-		})
-		.error(function(err){
-			console.log(err);
-			vm.error = true;
-			vm.isLoading = false;
-		});
+		// vm.isLoading = true;
+		// $http.post('/api/user/signup', data)
+		// .success(function(response){
+		// 	vm.isLoading = false;
+		// 	vm.success = true;
+		// })
+		// .error(function(err){
+		// 	console.log(err);
+		// 	vm.error = true;
+		// 	vm.isLoading = false;
+		// });
 	}
 
 	vm.signUpEmployer = function(){

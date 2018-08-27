@@ -16,6 +16,7 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 		vm.results = response.results;
 		vm.count = response.count;
 		vm.allPages = new Array(Math.ceil(vm.count / 5));
+
 		for(var i = 0; i < vm.allPages.length; i++){
 			vm.allPages[i] = i;
 		}
@@ -54,6 +55,7 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 		$http.get('/api/' + api + '/search/' + vm.currentPage)
 			.success(function(response){
 				vm.results = response.results;
+
 			})
 			.error(function(err){
 				console.log(err);
@@ -71,6 +73,7 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 		.success(function(response){
 			vm.results = response.results;
 			vm.count = response.count;
+			console.log(vm.results);
 			if(vm.results.length === 0){
 				vm.notFound = true;
 			}

@@ -20,6 +20,7 @@ function EmployerDashboardCtrl($http, $scope, $state, $rootScope){
 		if(vm.skill != null) {
 			vm.skills.push(vm.skill);
 		}
+		vm.skill = '';
 	}
 	vm.removeSkill = function(index){
 		vm.skills.splice(index, 1);

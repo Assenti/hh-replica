@@ -1,14 +1,14 @@
 <div class="home">
 	<div class="home-top">
-		<div class="home-left">
+		<div class="home-title">
 			<h1>Найди работу мечты</h1>
-			<div class="home-left-btns">
-				<button ui-sref="signin">Разместить резюме</button>
-				<button ui-sref="signin">Опубликовать вакансию</button>
+			<div class="home-title-btns">
+				<div ui-sref="signin">Разместить резюме</div>
+				<div ui-sref="signin">Опубликовать вакансию</div>
 			</div>
 		</div>
 
-		<div class="home-right">
+		<div class="home-auth-stats-block ">
 			<div class="home-statistics">
 				<div>
 					<span ng-bind="vm.cvs.length"></span>
@@ -31,15 +31,15 @@
 				<div class="home-auth-content" ng-if="!vm.registration">
 					<div class="home-auth-content-title">Войти в личный кабинет</div>
 					<form class="home-auth-form" ng-submit="vm.signIn()">
-						<input type="email" ng-model="vm.email" placeholder="Email" required>
-						<input type="password" ng-model="vm.password" placeholder="Пароль" required>
-						<button class="home-auth-content-btn blue" type="submit">Войти в личный кабинет</button>
+						<input class="input" type="email" ng-model="vm.email" placeholder="Email" required>
+						<input class="input" type="password" ng-model="vm.password" placeholder="Пароль" required>
+						<button class="home-auth-content-btn" type="submit">Войти в личный кабинет</button>
 					</form>
 				</div>
 				<div class="home-auth-content" ng-if="vm.registration">
 					<span>Регистрация</span>
-					<button class="home-auth-content-btn red" ui-sref="signup-employee">Для соискателей</button>
-					<button class="home-auth-content-btn red" ui-sref="signup-employer">Для работодателей</button>
+					<button class="home-auth-content-btn" ui-sref="signup-employee">Для соискателей</button>
+					<button class="home-auth-content-btn" ui-sref="signup-employer">Для работодателей</button>
 				</div>
 			</div>
 		</div>
@@ -96,11 +96,11 @@
 
 <span class="message success" ng-if="vm.success">
 	Авторизация прошла успешно
-	<i class="message-close" ng-click="vm.success = false">&times;</i>
+	<span class="message-close" ng-click="vm.success = false">&times;</span>
 </span>
 
 <span class="message error" ng-if="vm.error">
 	Не верно введены Email или пароль
-	<i class="message-close" ng-click="vm.error = false">&times;</i>
+	<span class="message-close" ng-click="vm.error = false">&times;</span>
 </span>
 

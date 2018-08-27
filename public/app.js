@@ -54,6 +54,12 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider){
 		controller: 'CVCtrl',
 		controllerAs: 'vm'
 	})
+	.state('newcv', {
+		url: '/newcv',
+		templateUrl: '/views/newcv.html',
+		controller: 'NewCVCtrl',
+		controllerAs: 'vm'
+	})
 	.state('vacancy', {
 		url: '/vacancy/:id',
 		templateUrl: '/views/vacancy.html',

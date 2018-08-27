@@ -28,7 +28,7 @@
 		</li>
 		<li class="search-results-item" ng-repeat="result in vm.results | orderBy: vm.filter | filter:vm.xp.xpLength" ng-if="vm.results[0].name === undefined">
 			<span ng-if="vm.notFound">По запросу ничего не найдено</span>
-			<span ng-bind="'Должность: '+result.position"></span>
+			<a ng-bind="'Должность: '+result.position"></a>
 			<span ng-bind="'Оклад: '+(result.salary | salary)+' KZT'"></span>
 			<span ng-bind="'Стаж: '+result.xpLength+' лет'"></span>
 		</li>

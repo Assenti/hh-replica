@@ -1,18 +1,18 @@
 <div class="signup-employer">
 	<form class="signup-employer-form" ng-submit="vm.signUpEmployer()">
 		<div class="signup-employer-form-title">Регистрация Работодателя</div>
-		<input type="text" ng-model="vm.name" placeholder="Название компании" required>
-		<input type="text" ng-model="vm.site" placeholder="Сайт" required>
-		<input type="text" ng-model="vm.employeesQuantity" placeholder="Количество сотрудников" required>
-		<input type="text" ng-model="vm.city" placeholder="Город" required>
+		<input class="input" type="text" ng-model="vm.name" name="name" placeholder="Название компании" required>
+		<input class="input" type="text" ng-model="vm.site" name="site" placeholder="Сайт" required>
+		<input class="input" type="text" ng-model="vm.employeesQuantity" name="employeesQuantity" placeholder="Количество сотрудников" required>
+		<input class="input" type="text" ng-model="vm.city" name="city" placeholder="Город" required>
 		<div>Контактное лицо</div>
 		<span>(конфиденциально)</span>
-		<input type="text" ng-model="vm.firstname" placeholder="Имя" required>
-		<input type="text" ng-model="vm.lastname" placeholder="Фамилия" required>
-		<input type="email" ng-model="vm.email" placeholder="Email" required>
-		<input type="text" ng-model="vm.phone" placeholder="Телефон" required>
-		<input type="text" ng-model="vm.password" placeholder="Пароль" required>
-		<button type="submit">Зарегистрировать компанию</button>
+		<input class="input" type="text" ng-model="vm.firstname" name="firstname" placeholder="Имя" required>
+		<input class="input" type="text" ng-model="vm.lastname" name="lastname" placeholder="Фамилия" required>
+		<input class="input" type="email" ng-model="vm.email" name="email" placeholder="Email" required>
+		<input class="input" type="tel" pattern="[0-9]{10}" name="phone" ng-model="vm.phone" placeholder="Телефон" required>
+		<input class="input" type="password" ng-model="vm.password" placeholder="Пароль" required>
+		<button class="btn" type="submit">Зарегистрировать компанию</button>
 	</form>
 </div>
 

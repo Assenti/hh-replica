@@ -20,7 +20,9 @@ const transporter = nodemailer.createTransport({
 
 // END POINTS
 router.get('/', (req, res, next)=> {
-	Vacancy.find().exec((err, vacancies)=> {
+	Vacancy.find()
+	.populate('employer')
+	.exec((err, vacancies)=> {
 		if(err) return res.send(err)
 		res.send(vacancies)
 	})
@@ -41,6 +43,7 @@ router.get('/search/:page', (req, res, next)=>{
 
 router.get('/:id', (req, res, next)=> {
 	Vacancy.findById(req.params.id)
+	.populate('employer')
 	.exec((err, vacancy)=> {
 		if(err) return res.send(err)
 		Skill.find({ vacancy: req.params.id })

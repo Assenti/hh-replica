@@ -30,16 +30,17 @@
 }
 
 .top-nav-item {
-	font-size: 15px;
+	font-size: 16px;
 	padding: 12px 15px;
 	position: relative;
 	cursor: pointer;
 	height: 100%;
 	&:hover {
-		background-color: rgb(230, 0, 0);
+		background-color: crimson;
+		transition: .1s ease;
 	}
 	span {
-		font-size: 15px;
+		font-size: 16px;
 	}
 }
 
@@ -54,10 +55,11 @@
 }
 
 .top-nav-item__droplist-item {
-	font-size: 15px;
+	font-size: 16px;
 	color: rgb(0, 0, 0);
 	cursor: pointer;
 	padding: 10px;
+	border-bottom: 1px solid #e8e8e8;
 	&:hover {
 		background-color: rgb(245, 245, 245);
 	}
@@ -83,12 +85,13 @@
 }
 
 .top-nav-auth {
-	font-size: 15px;
+	font-size: 16px;
 	padding: 10px;
 	position: relative;
 	height: 100%;
 	&:hover {
-		background-color: rgb(230, 0, 0);
+		background-color: crimson;
+		transition: .1s ease;
 	}
 }
 
@@ -97,7 +100,7 @@
 	align-items: center;
 	height: 100%;
 	span {
-		font-size: 15px;
+		font-size: 16px;
 	}
 	img {
 		height: 30px;
@@ -116,8 +119,9 @@
 	& > span {
 		display: block;
 		padding: 10px;
+		border-bottom: 1px solid #e8e8e8;
 		cursor: pointer;
-		font-size: 15px;
+		font-size: 16px;
 		color: black;
 	}
 	& > span:hover {

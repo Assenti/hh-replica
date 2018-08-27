@@ -2,12 +2,14 @@
 	<div class="employer-dash-title" ng-if="session && session.employerAccess">Личный кабинет Работодателя</div>
 	<div class="employer-dash-header">
 		<div class="employer-dash-info">
-			<div ng-bind="'Наименование компании: ' + (vm.employer.name)"></div>
-			<div ng-bind="'Сайт компании: ' + (vm.employer.site)"></div>
-			<div ng-bind="'Количество сотрудников компании: ' + (vm.employer.employeesQuantity)+' сотрудников'"></div>
-			<div ng-bind="'Местонахождение головного офиса: ' + (vm.employer.city)"></div>
-			<button class="btn active" ng-click="vm.openVacancyMaker()" ng-if="session && session.employerAccess">Создать вакансию</button>
-			<button class="btn active" ng-click="vm.openManagerAdder()" ng-if="session && session.employerAccess">Добавить менеджера</button>
+			<span ng-bind="'Наименование компании: ' + (vm.employer.name)"></span>
+			<span ng-bind="'Сайт компании: ' + (vm.employer.site)"></span>
+			<span ng-bind="'Количество сотрудников компании: ' + (vm.employer.employeesQuantity)+' сотрудников'"></span>
+			<span ng-bind="'Местонахождение головного офиса: ' + (vm.employer.city)"></span>
+			<div class="employer-dash-btns">
+				<button class="btn btn_dashboard" ng-click="vm.openVacancyMaker()" ng-if="session && session.employerAccess">Создать вакансию</button>
+				<button class="btn btn_manager" ng-click="vm.openManagerAdder()" ng-if="session && session.employerAccess">Добавить менеджера</button>
+			</div>
 		</div>
 		<div class="employer-dash-vacancies">
 			<span class="employer-dash-block-title">Открытые вакансии:</span>
@@ -63,18 +65,20 @@
 				<textarea ng-model="vm.conditions" placeholder="Условия"></textarea>
 				<span ng-bind="'Условия: '+(vm.conditions)"></span>
 			</div>
-			<div class="employer-dash-form-group">
-				<input type="text" ng-model="vm.skill" placeholder="Навык">
-				<i class="employer-dash-skill-add" ng-click="vm.addSkill()" title="Добавить навык">&plus;</i>
+
+			<div class="employer-dash-skills-group">
+				<input class="input" type="text" ng-model="vm.skill" placeholder="Навык">
+				<div class="employer-dash-skill-add" ng-click="vm.addSkill()" title="Добавить навык">&plus;</div>
 			</div>
+
 			<div class="employer-dash-skills">
-				<div ng-repeat="skill in vm.skills">
+				<div class="skills" ng-repeat="skill in vm.skills">
 					<span ng-bind="skill"></span>
 					<span ng-click="vm.removeSkill($index)">&times;</span>
 				</div>
 			</div>
-			<button class="active" type="submit">Создать вакансию</button>
-			<button class="disable" type="reset" ng-click="vm.closeVacancyMaker()">Отмена</button>
+			<button class="btn btn_dashboard" type="submit">Создать вакансию</button>
+			<button class="btn btn_disable" type="reset" ng-click="vm.closeVacancyMaker()">Отмена</button>
 		</form>
 	</div>
 
@@ -98,7 +102,7 @@
 			<div class="employer-dash-form-group">
 				<input type="text" ng-model="vm.password" placeholder="Пароль">
 			</div>
-			<button class="active" type="submit">Создать резюме</button>
+			<button class="active" type="submit">Добавить</button>
 			<button class="disable" type="reset" ng-click="vm.closeManagerAdder()">Отмена</button>
 		</form>
 	</div>

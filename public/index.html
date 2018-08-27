@@ -20,31 +20,21 @@
 				<div class="header-search-results" ng-if="vm.startSearch">
 					<li ng-repeat="result in vm.found_vacancies" 
 						ng-if="vm.chosenOption === 'Вакансии'"
-						ng-bind="result.position"
 						ng-click="vm.closeSearch()" 
-						ui-sref="vacancy({ id: result._id })"
-						></li>
+						><a ui-sref="vacancy({ id: result._id })" ng-bind="result.position"></a></li>
 					<li ng-repeat="result in vm.found_cvs" 
-						ng-bind="result.position" 
 						ng-if="vm.chosenOption === 'Резюме'" 
 						ng-click="vm.closeSearch()" 
-						ui-sref="cv({ id: result._id })"
-						></li>
+						><a ui-sref="cv({ id: result._id })" ng-bind="result.position" ></a></li>
 					<li ng-repeat="result in vm.found_employers"
-						ng-bind="result.name" 
 						ng-if="vm.chosenOption === 'Компании'"
 						ng-click="vm.closeSearch()" 
-						ui-sref="employer({ id: result._id })"
-						></li>
+						><a ui-sref="employer({ id: result._id })" ng-bind="result.name" ></a></li>
 					<li ng-if="vm.notFound">Нет совпадений</li>
 				</div>
-				<div class="header-search-options" ng-mouseover="vm.openOptions()" ng-mouseleave="vm.closeOptions()">
-					<div class="header-search-options-btn" ng-bind="vm.chosenOption" ></div>
-					<div class="header-search-options-droplist" ng-if="vm.open">
-						<span class="header-search-option" ng-click="vm.choose('Вакансии')">Вакансии</span>
-						<span class="header-search-option" ng-click="vm.choose('Резюме')">Резюме</span>
-						<span class="header-search-option" ng-click="vm.choose('Компании')">Компании</span>
-					</div>
+				<div class="header-search-select">
+					<select ng-model="vm.chosenOption" ng-options="choice as choice for choice in vm.choices"></select>
+					<img src="./images/sort-arrows.svg">
 				</div>
 				<div class="header-search-btn" ng-click="vm.find()">Найти</div>
 				<span class="header-search-advanced" ui-sref="search">Расширенный поиск</span>
@@ -146,6 +136,7 @@
 <script src="/js/controllers/employee-dashboard.js"></script>
 <script src="/js/controllers/employer-dashboard.js"></script>
 <script src="/js/controllers/cv.js"></script>
+<script src="/js/controllers/newcv.js"></script>
 <script src="/js/controllers/vacancy.js"></script>
 <script src="/js/controllers/account.js"></script>
 <script src="/js/controllers/search.js"></script>

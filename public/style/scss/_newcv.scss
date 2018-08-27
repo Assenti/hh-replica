@@ -1,0 +1,117 @@
+.newcv {
+	padding: 30px 5%;
+	font-family: Roboto;
+}
+
+.newcv-back-link {
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+	cursor: pointer;
+	color: grey;
+	margin-bottom: 25px;
+	font-size: 14px;
+	&:hover {
+		color: cornflowerblue;
+		transition: .3s ease;
+	}
+	& > img {
+		margin-right: 2px;
+		height: 16px;
+	}
+}
+
+.newcv-title {
+	font-size: 24px;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.newcv-form {
+	margin: 15px 0;
+}
+
+.newcv-form-field {
+	display: flex;
+	align-items: center;
+	margin: 10px 0;
+	height: 40px;
+}
+
+.newcv-data {
+	display: flex;
+	align-items: center;
+	padding: 0 10px;
+	height: calc(100% - 2px);
+	width: 40%;
+	border: 1px solid crimson;
+	margin-left: 10px;
+
+	& > span {
+		font-size: 14px;
+		margin-right: 5px;
+	}
+}
+
+.newcv-data.filled {
+	border-color: lightgreen;
+}
+
+.newcv-form-input-radio {	
+	display: flex;
+	align-items: center;
+	outline: none;
+	margin: 10px 0;
+	label {
+		margin-right: 5px;
+		font-size: 14px;
+		color: grey;
+	}
+	input {
+		margin-right: 15px;
+		padding: 10px;
+		font-size: 14px;
+	}
+	input:focus {
+		border-color: blue;
+	}
+}
+
+.newcv-form-skills {
+	display: flex;
+	align-items: center;
+	width: 40%;
+	height: 40px;
+	margin: 10px 0;
+	& > input {
+		width: 95%;
+	}
+	& > input::placeholder {
+		color: lightgrey;
+	}
+}
+
+.newcv-form-file {
+	position: relative;
+	width: 40%;
+	border: 1px solid lightgrey;
+	margin-left: 10px;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+
+	label {
+		position: absolute;
+		right: 10px;
+		color: lightgrey;
+		font-size: 14px;
+	}
+}
+
+.newcv-view-skills {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}

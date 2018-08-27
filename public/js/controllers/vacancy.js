@@ -6,33 +6,44 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 	var vm = this;
 	vm.editor = false;
 	vm.skillsToEdit = [];
+	vm.success = false;
+	vm.error = false;
+	vm.noCV = false;
+
 
 	$http.get('/api/vacancy/' + $state.params.id)
 	.success(function(response){
 		vm.vacancy = response.vacancy;
 		vm.skills = response.skills;
 		vm.employerReps = response.users;
-		
 	})
 	.error(function(err){
 		console.log(err);
 	})
 
-
-
-	vm.success = false;
-	vm.error = false;
-	vm.response = function(user){
-		var element = document.getElementById('select');
-		var cvId = element.options[element.selectedIndex].value;
-		var cvPosition = element.options[element.selectedIndex].text;
+	if($rootScope.session != undefined) {
+		$http.get('/api/user/' + $rootScope.session._id)
+		.success(function(response){
+			vm.cvs = response.cv;
+			vm.cvs.unshift({ position: 'Выберите резюме' })
+			vm.selected = vm.cvs[0];
+		})
+		.error(function(err){
+			console.log(err);
+		})
+	}
+	
+	vm.response = function(){
 		var data = {
-			user_id: user._id,
-			cv_position: cvPosition,
-			cv_id: cvId
+			user_id: $rootScope.session._id,
+			cv_position: vm.selected.position,
+			cv_id: vm.selected._id
 		}
-		console.log(data);
-		$http.post('/api/vacancy/responsed/' + $state.params.id, data)
+
+		if(vm.selected.position == 'Выберите резюме' || vm.selected.position == undefined){
+			vm.noCV = true;
+		} else {
+			$http.post('/api/vacancy/responsed/' + $state.params.id, data)
 			.success(function(response){
 				vm.success = true;
 			})
@@ -40,16 +51,7 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 				console.log(err);
 				vm.error = true;
 			})
-	}
-
-	vm.getUser = function(user){
-		$http.get('/api/user/' + user._id)
-		.success(function(response){
-			vm.user = response;
-		})
-		.error(function(err){
-			console.log(err);
-		})
+		}
 	}
 
 	vm.modal = false;
@@ -64,6 +66,7 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 		if(vm.skill != null) {
 			vm.skillsToEdit.push(vm.skill);
 		}
+		vm.skill = '';
 	}
 	vm.removeSkill = function(index){
 		vm.skillsToEdit.splice(index, 1);

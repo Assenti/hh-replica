@@ -11,7 +11,7 @@
 	align-items: center;
 	justify-content: center;
 	padding: 5% 0;
-	font-family: OpenSans;
+	font-family: Roboto;
 }
 
 .signup-employer-form {
@@ -30,32 +30,23 @@
 		display: block;
 	}
 	& > input {
-		font-size: 14px;
-		padding: 10px;
-		border: 1px solid lightgrey;
-		margin-bottom: 10px;
-		outline: none;
+		margin-bottom: 5px;
 		width: 100%;
-	}
-	& > input:focus {
-		border-color: blue;
 	}
 	& > input::placeholder {
-		color: silver;
+		color: grey;
 	}
 	& > button {
-		outline: none;
-		cursor: pointer;
 		display: block;
 		width: 100%;
-		padding: 10px 15px;
-		background-color: blue;
+		background-color: cornflowerblue;
 		color: white;
 		margin: 15px 0;
 		font-size: 16px;
 	}
 	& > button:hover {
-		opacity: 0.8;
+		background-color: blue;
+		transition: .2s ease;
 	}
 }
 

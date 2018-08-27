@@ -5,19 +5,15 @@ HeaderCtrl.$inject = ['$http', '$scope'];
 function HeaderCtrl($http, $scope){
 	var vm = this;
 	vm.chosenOption = 'Вакансии';
+	vm.choices = ['Вакансии', 'Резюме', 'Компании'];
 	vm.open = false;
 	vm.startSearch = false;
 	vm.notFound = false;
-
+	
 	vm.openOptions = function(){
 		vm.open = true;
 	}
 	vm.closeOptions = function(){
-		vm.open = false;
-	}
-
-	vm.choose = function(option){
-		vm.chosenOption = option;
 		vm.open = false;
 	}
 

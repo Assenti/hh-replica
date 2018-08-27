@@ -1,10 +1,11 @@
 .employee-dash {
 	display: flex;
-	justify-content: space-between;
-	background-color: rgb(247, 247, 247);
+	flex-wrap: wrap;
+	background-color: rgb(249, 249, 249);
 	width: 100%;
-	padding: 2% 5%;
-	font-family: OpenSans;
+	height: calc(100vh - 300px);
+	padding: 20px 5%;
+	font-family: Roboto;
 }
 
 .employee-dash-title {
@@ -13,16 +14,10 @@
 	margin-bottom: 10px;
 }
 
-.employee-dash-offers {
-	li {
-		list-style: none;
-		margin-bottom: 10px;
-		font-size: 14px;
-		color: rgba(0, 0, 0, 0.8);
-	}
-}
-
 .employee-dash-events {
+	padding-right: 50px;
+	margin-bottom: 50px;
+	border-right: 1px solid lightgrey;
 }
 
 .employee-dash-events-item {
@@ -42,17 +37,77 @@
 	}
 }
 
-.employee-dash-cvs-item {
+.employee-dash-cvs {
+	padding-left: 50px;
+	padding-right: 100px;
+	margin-bottom: 50px;
+	border-right: 1px solid lightgrey;
+}
+
+.employee-dash-cv {
+	margin: 10px 0;
+}
+
+.employee-dash-cv-head {
 	display: flex;
 	align-items: center;
-	& > span {
-		font-size: 16px;
+	& > a {
+		text-decoration: none;
+		color: cornflowerblue;
+		font-size: 18px;
 		margin: 5px 0;
 		margin-right: 5px;
 	}
+	& > a:hover {
+		color: crimson;
+		transition: .3s ease;
+	}
 	& > img {
 		margin: 5px; 
-		width: 16px;
+		width: 14px;
 		cursor: pointer;
 	}
 }
+
+.employee-dash-cv-footer {
+	display: block;
+	font-size: 12px;
+	color: grey;
+}
+
+.employee-dash-offers {
+	padding: 0 50px;
+}
+
+.employee-dash-offer {
+	margin: 10px 0;
+}
+
+.employee-dash-offer-head {
+	margin: 5px 0;
+	& > a {
+		text-decoration: none;
+		cursor: pointer;
+		font-size: 18px;
+	}
+	& > a:hover {
+		color: crimson;
+		transition: .3s ease;
+	}
+}
+
+.employee-dash-offer-body {
+	font-size: 14px;
+	margin: 5px 0;
+	color: grey;
+}
+
+.employee-dash-offer-footer {
+	font-size: 14px;
+	color: grey;
+	margin: 5px 0;
+}
+
+
+
+

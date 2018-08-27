@@ -2,19 +2,19 @@
 	<div class="signin-content">
 		<div class="signin-title">Вход в личный кабинет</div>
 		<form class="signin-form" ng-submit="vm.signIn()">
-			<input type="email" ng-model="vm.email" placeholder="Email">
-			<input type="password" ng-model="vm.password" placeholder="Пароль">
-			<button type="submit">Войти в личный кабинет</button>
+			<input class="input" type="email" ng-model="vm.email" placeholder="Email">
+			<input class="input" type="password" ng-model="vm.password" placeholder="Пароль">
+			<button class="btn btn_signup-form" type="submit">Войти в личный кабинет</button>
 		</form>
 	</div>
 </div>
 
 <span class="message success" ng-if="vm.success">
 	Авторизация прошла успешно
-	<i class="message-close" ng-click="vm.success = false">&times;</i>
+	<span class="message-close" ng-click="vm.success = false">&times;</span>
 </span>
 
 <span class="message error" ng-if="vm.error">
 	Не верно введены Email или пароль
-	<i class="message-close" ng-click="vm.error = false">&times;</i>
+	<span class="message-close" ng-click="vm.error = false">&times;</span>
 </span>

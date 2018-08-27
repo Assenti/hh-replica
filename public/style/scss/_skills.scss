@@ -1,0 +1,47 @@
+.skills {
+	background-color: rgb(240, 240, 240);
+	color: rgba(0, 0, 0, .8);
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 600;
+	padding: 8px 15px;
+	border-radius: 3px;
+	margin-right: 5px;
+	display: flex;
+	align-items: center;
+
+	& > span:first-child {
+		font-size: 15px;
+	}
+	& > span:last-child {
+		font-size: 22px;
+		cursor: pointer;
+		margin-left: 10px;
+	}
+}
+
+.skills_wo {
+	background-color: rgb(240, 240, 240);
+	color: rgba(0, 0, 0, .8);
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 600;
+	padding: 8px 15px;
+	border-radius: 3px;
+	margin-right: 5px;
+	display: flex;
+	align-items: center;
+}
+	
+	.skills__add-btn {
+		display: flex;
+		align-items: center;
+		height: calc(100% - 2px);
+		padding: 0 10px;
+		border-top: 1px solid lightgrey;
+		border-right: 1px solid lightgrey;
+		border-bottom: 1px solid lightgrey;
+		background-color: rgb(247, 247, 247);
+		cursor: pointer;
+		font-size: 28px;
+	}

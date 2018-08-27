@@ -1,8 +1,9 @@
 .search {
-	padding: 2% 5%;
+	padding: 20px 5%;
+	height: calc(100vh - 300px);
 	display: flex;
 	justify-content: space-between;
-	font-family: OpenSans;
+	font-family: Roboto;
 }
 
 .search-title {
@@ -53,6 +54,14 @@
 		display: block;
 		font-size: 16px;
 		color: grey;
+	}
+	& > a {
+		text-decoration: none;
+		cursor: pointer;
+	}
+	& > a:hover {
+		color: cornflowerblue;
+		transition: .3s ease;
 	}
 }
 

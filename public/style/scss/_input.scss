@@ -1,0 +1,19 @@
+.input {
+	font-size: 14px;
+	font-family: Roboto;
+	outline: none;
+	padding: 10px;
+	border: 1px solid lightgrey;
+
+	&:focus {
+		border-color: cornflowerblue;
+	}
+}
+
+	.input_newcv {
+		width: 40%;
+
+		&::placeholder {
+			color: lightgrey;
+		}
+	}

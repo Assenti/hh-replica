@@ -3,19 +3,23 @@
 
 @font-face {
 	font-family: OpenSansCondensed;
- 	src: url("../../fonts/Open_Sans_Condensed/OpenSansCondensed-Light.ttf");
+ 	src: url("../../fonts/OpenSansCondensed-Light.ttf");
  	font-weight: normal;
  	font-style: normal;
  	font-display: fallback;
 }
 
 @font-face {
-	font-family: OpenSans;
- 	src: url('../../fonts/Open_Sans/OpenSans-Regular.ttf');
+	font-family: Roboto;
+ 	src: url('../../fonts/Roboto-Regular.ttf');
  	font-weight: normal;
  	font-style: normal;
  	font-display: fallback;
 }
+
+/* atoms */
+@import 'input';
+@import 'btns';
 
 /* Including components */
 @import 'header';
@@ -27,13 +31,14 @@
 @import 'employee-dash';
 @import 'employer-dash';
 @import 'cv';
+@import 'newcv';
 @import 'vacancy';
 @import 'messages';
 @import 'modal';
-@import 'btns';
 @import 'inputs';
 @import 'account';
 @import 'spinner';
+@import 'skills';
 @import 'search';
 @import 'pagination';
 @import 'footer';

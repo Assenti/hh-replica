@@ -1,7 +1,7 @@
 .employer-dash {
 	padding: 2% 5%;
 	width: 100%;
-	font-family: OpenSans;
+	font-family: Roboto;
 }
 
 .employer-dash-title {
@@ -18,10 +18,14 @@
 
 .employer-dash-info {
 	padding: 15px;
-	& > div {
-		margin: 5px;
-		font-size: 16px;
+	& > span {
+		display: flex;
+		margin: 10px 0;
 	}
+}
+
+.employer-dash-btns {
+	margin: 15px 0;
 }
 
 .employer-dash-vacancies {
@@ -127,33 +131,36 @@
 	}
 }
 
+.employer-dash-skills-group{
+	display: flex;
+	align-items: center;
+	height: 40px;
+	& > input {
+		height: 100%;
+		width: 45%;
+	}
+}
+
 .employer-dash-skill-add {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 5%;
+	padding-bottom: 0 10px;
+	border-top: 1px solid lightgrey;
+	border-bottom: 1px solid lightgrey;
+	border-right: 1px solid lightgrey;
+	background-color: rgb(247, 247, 247);
 	cursor: pointer;
-	color: blue;
-	font-size: 34px;
+	font-size: 22px;
 	font-weight: 600;
-	margin-left: 10px;
 }
 
 .employer-dash-skills {
 	margin: 15px 0;
 	display: flex;
 	align-items: center;
-	& > div {
-		border: 1px solid grey;
-		padding: 5px;
-		border-radius: 5px;
-		margin-right: 5px;
-	}
-	& > div > span:first-child {
-		font-size: 14px;
-	}
-	& > div > span:last-child {
-		font-size: 22px;
-		margin-left: 5px;
-		cursor: pointer;
-		color: red;
-	}
 }
 
 .employer-dash-skills-input {

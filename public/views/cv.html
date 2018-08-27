@@ -1,5 +1,5 @@
 <div class="complete-cv">
-	<span class="complete-cv-btn" ui-sref="user({id: session._id})" ng-if="session._id == vm.cv.user && !session.employerAccess"><img src="../images/left-chevron.svg"> Назад в кабинет</span>
+	<a class="complete-cv-link" ui-sref="user({id: session._id})" ng-if="session._id == vm.cv.user && !session.employerAccess"><img src="../images/left-chevron.svg"> Назад в кабинет</a>
 	<div class="complete-cv-header">
 		<div class="complete-cv-info">
 			<img ng-src="{{ vm.cv.link || '../images/no-image.png' }}">
@@ -15,7 +15,7 @@
 		<div class="complete-cv-actions">
 			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session._id == vm.cv.user && !session.employerAccess">
 			<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session._id == vm.cv.user && !session.employerAccess">
-			<button class="btn active" ng-if="session.employerAccess" ng-click="vm.invite(session)">Пригласить</button>
+			<button class="btn btn_dashboard" ng-if="session.employerAccess" ng-click="vm.invite(session)">Пригласить</button>
 		</div>
 	</div>
 	<div class="complete-cv-editor-close">
@@ -38,7 +38,7 @@
 	<div class="complete-cv-skills-info">
 		<span>Ключевые навыки:</span>
 		<div class="complete-cv-skills">
-			<div ng-repeat="skill in vm.skills" ng-bind="skill.skill"></div>
+			<div class="skills" ng-repeat="skill in vm.skills" ng-bind="skill.skill"></div>
 		</div>
 	</div>
 	<div class="vacancy-skills-block">
