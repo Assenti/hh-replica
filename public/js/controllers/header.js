@@ -28,9 +28,9 @@ function HeaderCtrl($http, $scope){
 
 	var vacancySearch = function(){
 		if(!vm.query){ return }
-		$http.get('/api/vacancy/search/' + vm.query)
+		$http.get('/api/vacancy/search/common/' + vm.query)
 		.success(function(response){
-			vm.found_vacancies = response.results;
+			vm.found_vacancies = response;
 			
 			if(response.length === 0){
 				vm.notFound = true;
@@ -57,9 +57,9 @@ function HeaderCtrl($http, $scope){
 
 	var employerSearch = function(){
 		if(!vm.query){ return }
-		$http.get('/api/employer/search/' + vm.query)
+		$http.get('/api/employer/search/common/' + vm.query)
 		.success(function(response){
-			vm.found_employers = response.results;
+			vm.found_employers = response;
 			if(response.length === 0){
 				vm.notFound = true;
 			}

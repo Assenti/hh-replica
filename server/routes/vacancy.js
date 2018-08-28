@@ -58,7 +58,7 @@ router.get('/:id', (req, res, next)=> {
 	})
 })
 
-router.get('/search/:query', (req, res, next)=> {
+router.get('/search/common/:query', (req, res, next)=> {
 	const myRexExp = new RegExp(`${req.params.query}`, 'i')
 	Vacancy.find({ position: myRexExp })
 	.limit(5)

@@ -41,7 +41,7 @@ router.get('/', (req, res, next)=> {
 	})
 })
 
-router.get('/search/:query', (req, res, next)=> {
+router.get('/search/common/:query', (req, res, next)=> {
 	const myRexExp = new RegExp(`${req.params.query}`, 'i')
 	Employer.find({ name: myRexExp })
 	.limit(5)
