@@ -72,7 +72,7 @@ router.get('/user/:id', (req, res, next)=> {
 	})
 })
 
-router.get('/search/:query', (req, res, next)=> {
+router.get('/search/common/:query', (req, res, next)=> {
 	const myRexExp = new RegExp(`${req.params.query}`, 'i')
 	CV.find({ position: myRexExp })
 	.limit(5)

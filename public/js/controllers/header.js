@@ -43,10 +43,9 @@ function HeaderCtrl($http, $scope){
 
 	var cvSearch = function(){
 		if(!vm.query){ return }
-		$http.get('/api/cv/search/' + vm.query)
+		$http.get('/api/cv/search/common/' + vm.query)
 		.success(function(response){
-			vm.found_cvs = response.results;
-			
+			vm.found_cvs = response;
 			if(response.length === 0){
 				vm.notFound = true;
 			}
@@ -73,6 +72,7 @@ function HeaderCtrl($http, $scope){
 	
 	vm.find = function(){
 		vm.startSearch = true;
+		console.log(vm.query);
 		if(vm.chosenOption === 'Вакансии') {
 			vacancySearch();
 		} else if(vm.chosenOption === 'Резюме') {
