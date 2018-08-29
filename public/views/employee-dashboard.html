@@ -1,17 +1,16 @@
 <div class="employee-dash">
-	<div class="employee-dash-events">
-		<div class="employee-dash-title">Мои события</div>
-		<li class="employee-dash-events-item">
-			<i></i>
+	<div class="employee-dash__events">
+		<div class="employee-dash__title">Мои события</div>
+		<li class="employee-dash__events-item">
 			<span ng-bind="'Приглашения: '+vm.invites"></span>
 		</li>
 		<button class="btn btn_dashboard" ng-if="session && !session.employerAccess" ui-sref="newcv">Создать резюме</button>
 	</div>
-	<div class="employee-dash-cvs">
-		<div class="employee-dash-title">Мои резюме</div>
-		<div class="employee-dash-cv" ng-repeat="cv in vm.cvs">
-			<div class="employee-dash-cv-head">
-				<a ng-bind="cv.position" ui-sref="cv({id: cv._id})"></a>
+	<div class="employee-dash__cvs">
+		<div class="employee-dash__title">Мои резюме</div>
+		<div class="employee-dash__cv" ng-repeat="cv in vm.cvs">
+			<div class="employee-dash__cv-head">
+				<a class="link" ng-bind="cv.position" ui-sref="cv({id: cv._id})"></a>
 				<img src="../images/trash.svg" ng-click="vm.openModal(cv, $index)" ng-if="session && !session.employerAccess" title="Удалить">
 				<img src="../images/invitation.svg" 
 					 ng-if="session && !session.employerAccess && cv.responses.length > 0" 
@@ -21,15 +20,15 @@
 					 ui-sref="employer({id: response })"
 					 >
 			</div>
-			<div class="employee-dash-cv-footer" ng-bind="'Создано ' + (cv.date | myDate)"></div>
+			<div class="employee-dash__cv-footer" ng-bind="'Создано ' + (cv.date | myDate)"></div>
 		</div>
 	</div>
-	<div class="employee-dash-offers">
-		<div class="employee-dash-title">Рекомендованные вакансии</div>
-		<div class="employee-dash-offer" ng-repeat="vacancy in vm.vacancies">
-			<div class="employee-dash-offer-head"><a ui-sref="vacancy({id: vacancy._id})" ng-bind="vacancy.position"></a></div>
-			<div class="employee-dash-offer-body" ng-bind="(vacancy.salary | salary)+' KZT'"></div>
-			<div class="employee-dash-offer-footer" ng-bind="vacancy.employer.name+', '+vacancy.employer.city"></div>
+	<div class="employee-dash__offers">
+		<div class="employee-dash__title">Рекомендованные вакансии</div>
+		<div class="employee-dash__offer" ng-repeat="vacancy in vm.vacancies">
+			<div class="employee-dash__offer-head"><a class="link" ui-sref="vacancy({id: vacancy._id})" ng-bind="vacancy.position"></a></div>
+			<div class="employee-dash__offer-body" ng-bind="(vacancy.salary | salary)+' KZT'"></div>
+			<div class="employee-dash__offer-footer" ng-bind="vacancy.employer.name+', '+vacancy.employer.city"></div>
 		</div>
 	</div>
 </div>
@@ -38,7 +37,7 @@
 <div class="modal-backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
 	<div class="modal-window">
 		<span>Вы уверены что хотите удалить?</span>
-		<button class="btn active" ng-click="vm.deleteCV()">Удалить</button>
-		<button class="btn disable" ng-click="vm.closeModal()">Отмена</button>
+		<button class="btn btn_manager" ng-click="vm.deleteCV()">Удалить</button>
+		<button class="btn btn_disable" ng-click="vm.closeModal()">Отмена</button>
 	</div>
 </div>

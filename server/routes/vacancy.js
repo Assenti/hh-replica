@@ -18,6 +18,11 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const SENDER = '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>';
+const LOGO = '/images/hh_kz.png';
+const LOCAL = 'localhost';
+const REMOTE = '142.93.229.118';
+
 // END POINTS
 router.get('/', (req, res, next)=> {
 	Vacancy.find()
@@ -92,14 +97,33 @@ router.post('/responsed/:id', (req, res, next)=> {
 							let addresses = [];
 							for(var i = 0; i < users.length; i++){
 								addresses[i] = {
-						        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
-						        to: users[i].email, 
-						        subject: 'Отклик на размещенную вакансию', 
-						        html: `<p>Здравствуйте, ${users[i].firstname} ${users[i].lastname}.</p>
-						        	   <p>На размещенную Вами вакансию 
-						        	   <a href="http://142.93.229.118:3002/vacancy/${vacancy._id}">${vacancy.position}</a> 
-						        	   пришел отклик от ${responsed_user.firstname} ${responsed_user.lastname} с резюме
-						        	   <a href="http://142.93.229.118:3002/cv/${req.body.cv_id}">${req.body.cv_position}.</a></p>`   
+							        from: SENDER, 
+							        to: users[i].email, 
+							        subject: 'Отклик на размещенную вакансию', 
+							        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${users[i].email}">
+							               <p style="font-size: 16px;">Здравствуйте, ${users[i].firstname},</p>
+							        	   <p style="font-size: 16px;">на размещенную Вами вакансию 
+							        	   <a href="http://${LOCAL}:3002/vacancy/${vacancy._id}">${vacancy.position}</a> 
+							        	   пришел отклик от ${responsed_user.firstname} ${responsed_user.lastname} c резюме ${req.body.cv_position}.</p>
+							        	   <div style="display: block;
+							        	        width: 150px;
+							        	        text-align: center;
+							        	        margin: 10px auto;
+							        	        background-color: cornflowerblue;
+							        	        border-radius: 3px;
+							        	        padding: 10px 15px;">
+		        	                        <a style="text-decoration: none;
+		        	                           font-size: 18px; color: white;"
+		        	                           href="http://${LOCAL}:3002/cv/${req.body.cv_id}">Посмотреть</a>
+		        	                       </div>`
+							        	   ,
+							        attachments: [
+							        	{
+							        		filename: 'hh_kz.png',
+							        		path: 'public' + LOGO,
+							        		cid: users[i].email
+							        	}
+							        ]   
 						    	}
 						    	transporter.sendMail(addresses[i], (error, info)=> {
 						    		if(err) return res.sendStatus(401).send(err)
@@ -199,10 +223,10 @@ router.put('/', (req, res, next)=> {
 					});
 					skill.save((err, skill)=> {
 						if(err) return res.send(err)
-						res.sendStatus(200)
+						
 					})
 				}
-
+				res.sendStatus(200)
 			})
 		})	
 	})

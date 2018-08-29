@@ -1,0 +1,9 @@
+.link {
+	text-decoration: none;
+	cursor: pointer;
+}
+	
+	.link:hover {
+		color: cornflowerblue;
+		transition: .3s ease;
+	}

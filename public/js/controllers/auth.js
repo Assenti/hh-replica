@@ -4,8 +4,7 @@ AuthCtrl.$inject = ['$http', '$scope', '$state', '$rootScope', '$cookies'];
 
 function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 	var vm = this;
-	vm.success = false;
-	vm.error = false;
+	vm.message = null;
 
 	vm.signIn = function(){
 		var data = {
@@ -22,11 +21,13 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 			} else {
 				$state.go('user', {id: response._id});
 			}
-			vm.success = true;
+			vm.status = 'success';
+			vm.message = 'Авторизация прошла успешно';
 		})
 		.error(function(err){
 			console.log(err);
-			vm.error = true;
+			vm.status = 'error';
+			vm.message = 'Не верно введены Email или пароль';
 		});
 	}
 
@@ -38,17 +39,19 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 			password: vm.password,
 			phone: vm.phone
 		}
-		// vm.isLoading = true;
-		// $http.post('/api/user/signup', data)
-		// .success(function(response){
-		// 	vm.isLoading = false;
-		// 	vm.success = true;
-		// })
-		// .error(function(err){
-		// 	console.log(err);
-		// 	vm.error = true;
-		// 	vm.isLoading = false;
-		// });
+		vm.isLoading = true;
+		$http.post('/api/user/signup', data)
+		.success(function(response){
+			vm.isLoading = false;
+			vm.status = 'success';
+			vm.message = 'Регистрация прошла успешно, пройдите пожалуйста по ссылке указанной в письме отправленное вам на почту.';
+		})
+		.error(function(err){
+			console.log(err);
+			vm.isLoading = false;
+			vm.status = 'error';
+			vm.message = 'Ошибка регистрации. Пожалуйста повторите снова.';
+		});
 	}
 
 	vm.signUpEmployer = function(){
@@ -69,13 +72,15 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 
 		$http.post('/api/user/signup', data)
 		.success(function(response){
-			vm.success = true;
 			vm.isLoading = false;
+			vm.status = 'success';
+			vm.message = 'Регистрация прошла успешно, пройдите пожалуйста по ссылке указанной в письме отправленное вам на почту.';
 		})
 		.error(function(err){
 			console.log(err);
-			vm.error = true;
 			vm.isLoading = false;
+			vm.status = 'error';
+			vm.message = 'Ошибка регистрации. Пожалуйста повторите снова.';
 		});
 	}
 }

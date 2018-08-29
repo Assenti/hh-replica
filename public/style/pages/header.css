@@ -1,0 +1,131 @@
+.header {
+	width: 100%;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgb(247, 247, 247);
+	padding: 0 5%;
+	font-family: Roboto;
+}
+
+	.header__logo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 15px;
+		width: 10%;
+	}
+
+	.header__logo > img {
+		width: 90px;
+		cursor: pointer;
+	}
+
+	.header__search-group {
+		display: flex;
+		width: 85%;
+	}
+
+	.header__search {
+		display: flex;
+		align-items: center;
+		position: relative;
+		width: 80%;
+	}
+
+	.header__search > input {
+		width: 100%;
+		height: 100%;
+		padding: 5px 10px;
+	}
+
+	.header__search-results {
+		position: absolute;
+		top: 100%;
+		width: calc(100% - 302px);
+		background-color: rgb(247, 247, 247);
+		box-shadow: 1px 1px 1px lightgrey;
+		z-index: 3;
+	}
+
+	.header__search-results > li {
+		list-style: none;
+		padding: 10px 5px;
+		border-bottom: 1px solid #e8e8e8;
+	}
+	.header__search-results > li > a {
+		text-decoration: none;
+		cursor: pointer;
+		font-size: 14px;
+		color: black;
+	}
+	.header__search-results > li > a:hover {
+		color: cornflowerblue;
+		transition: .3s ease;
+	}
+
+	.header__search-btn {
+		font-size: 16px;
+		margin-left: 5px;
+		background-color: cornflowerblue;
+		color: white;
+		height: 100%;
+		padding: 15px 25px;
+	}
+	
+	.header__search-btn:hover {
+		background-color: blue;
+		transition: .3s ease;
+	}
+
+	.header__search-select {
+		height: 100%;
+		border-top: 1px solid lightgrey;
+		border-bottom: 1px solid lightgrey;
+		border-right: 1px solid lightgrey;
+		padding: 5px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.header__search-select > select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		-o-appearance: none;
+		appearance: none;
+		background-color: transparent;
+		font-size: 14px;
+		outline: none;
+		height: 100%;
+		border: none;
+		margin: 0 5px;
+	}
+
+	.header__search-select > img {
+		width: 14px;
+		height: 14px;
+	}
+
+	.header__search-advanced {
+		font-family: OpenSansCondensed;
+		font-size: 16px;
+		color: grey;
+		padding: 5px;
+		margin: 0 5px;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	.header__search-advanced:hover {
+		color: lightgrey;
+	}
+
+	.header__languages {
+		height: 12px;
+	}
+
+
+
+

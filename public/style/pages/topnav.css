@@ -1,0 +1,121 @@
+.topnav {
+	width: 100%;
+	height: 40px;
+	background-color: rgba(0, 0, 0, 0.8);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+	color: rgb(250, 250, 250);
+	display: flex;
+	align-items: center;
+	font-family: OpenSansCondensed;
+}
+
+	.topnav__wrapper {
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.topnav__main {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.topnav__items {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 40px;
+	}
+
+	.topnav__item {
+		font-size: 16px;
+		padding: 12px 15px;
+		position: relative;
+		cursor: pointer;
+		height: 100%;
+	}
+
+	.topnav__item:hover {
+		background-color: crimson;
+		transition: .1s ease;
+	}
+
+	.topnav__item span {
+		font-size: 16px;
+	}
+
+	.topnav__item-droplist {
+		background-color: rgb(253, 253, 253);
+		position: absolute;
+		left: 0;
+		top: 100%;
+		width: 160%;
+		z-index: 3;
+		box-shadow: 1px 2px grey;
+	}
+
+	.topnav__item-droplist-item {
+		font-size: 16px;
+		color: rgb(0, 0, 0);
+		cursor: pointer;
+		padding: 10px;
+		border-bottom: 1px solid #e8e8e8;
+	}
+
+	.topnav__item-droplist-item:hover {
+		background-color: rgb(245, 245, 245);
+	}
+
+	.topnav__auth {
+		font-size: 16px;
+		padding: 10px;
+		position: relative;
+		height: 100%;
+	}
+
+	.topnav__auth:hover {
+		background-color: crimson;
+		transition: .1s ease;
+	}
+
+	.topnav__auth-title {
+		display: flex;
+		align-items: center;
+		height: 100%;
+	}
+
+	.topnav__auth-title > span {
+		font-size: 16px;
+	}
+	.topnav__auth-title > img {
+		height: 30px;
+		margin-right: 10px;
+	}
+
+	.topnav__auth-droplist {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		width: 100%;
+		background-color: rgb(250, 250, 250);
+		box-shadow: 1px 2px grey;
+		z-index: 3;
+	}
+
+	.topnav__auth-droplist > span {
+		display: block;
+		padding: 10px;
+		border-bottom: 1px solid #e8e8e8;
+		cursor: pointer;
+		font-size: 16px;
+		color: black;
+	}
+
+	.topnav__auth-droplist > span:hover {
+		background-color: rgb(240, 240, 240);
+	}
+
+
+

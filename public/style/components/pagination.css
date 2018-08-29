@@ -1,0 +1,29 @@
+.pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+	.pagination__item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 30px;
+		width: 30px;
+		font-family: Roboto;
+		font-size: 16px;
+		border: 1px solid lightgrey;
+		background-color: rgb(235, 235, 235);
+		padding: 5px 10px;
+		cursor: pointer;
+	}
+
+	.pagination__item:hover {
+		border-color: cornflowerblue;
+	}
+
+	.pagination__item.active {
+		background-color: cornflowerblue;
+		border-color: cornflowerblue;
+		color: white;
+	}

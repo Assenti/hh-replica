@@ -1,0 +1,130 @@
+.employer-dash {
+	padding: 2% 5%;
+	width: 100%;
+	font-family: Roboto;
+}
+
+	.employer-dash__title {
+		font-size: 30px;
+		font-weight: 600;
+		margin: 10px 0;
+	}
+
+	.employer-dash__header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+
+	.employer-dash__info {
+		padding: 15px;
+	}
+
+	.employer-dash__info > span {
+		display: flex;
+		margin: 10px 0;
+		font-size: 16px;
+	}
+
+	.employer-dash__btns {
+		margin: 15px 0;
+	}
+
+	.employer-dash__vacancies {
+		padding: 15px;
+	}
+
+	.employer-dash__subtitle {
+		display: block;
+		font-size: 20px;
+		width: 100%;
+		color: grey;
+		margin: 10px 0;
+	}
+
+	.employer-dash__item {
+		display: flex;
+		align-items: center;
+	}
+
+	.employer-dash__item > span {
+		font-size: 16px;
+		margin: 5px 0;
+		margin-right: 5px;
+	}
+
+	.employer-dash__item > img {
+		margin: 5px; 
+		width: 16px;
+		cursor: pointer;
+	}
+
+	.employer-dash__managers {
+		padding: 15px;
+	}
+
+	.employer-dash__content {
+		width: 100%;
+		display: none;
+	}
+
+	.employer-dash__content-title {
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 10px 0;
+	}
+
+	.employer-dash__content-title > span {
+		font-size: 30px;
+		cursor: pointer;
+	}
+
+	.employer-dash__form {
+		width: 100%;
+	}
+
+	.employer-dash__form-group {
+		display: flex;
+		align-items: flex-start;
+		margin: 10px 0;
+		width: 100%;
+	}
+
+	.employer-dash__form-group > span {
+		display: block;
+		margin-left: 10px;
+		font-size: 14px;
+		padding: 10px;
+	}
+	
+	.employer-dash__form-group > textarea,
+	.employer-dash__form-group > input {
+		width: 50%;
+		display: block;
+		padding: 10px;
+		margin: 5px 0;
+	}
+
+	.employer-dash__skills-group {
+		display: flex;
+		align-items: center;
+		height: 40px;
+	}
+
+	.employer-dash__skills-group > input {
+		padding: 10px;
+		width: calc(50% - 37px);
+	}
+
+	.employer-dash__skills {
+		margin: 15px 0;
+		display: flex;
+		align-items: center;
+	}
+
+
+
+
+

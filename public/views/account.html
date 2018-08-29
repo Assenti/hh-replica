@@ -1,18 +1,18 @@
 <div class="account">
-	<div class="account-info">
+	<div class="account__info">
 		<div ng-bind="vm.user.firstname + ' ' + vm.user.lastname"></div>
 		<div ng-bind="'Email: ' + vm.user.email"></div>
 		<div>
 			<span ng-bind="'Телефон: ' + vm.user.phone"></span>
-			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session" style="width: 17px;">
+			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session">
 		</div>
 		
 		<input class="input" type="text" ng-model="vm.objectToEdit.phone" ng-if="vm.editor">
 		<div ng-bind="'Дата регистрации: ' + (vm.user.date | myDate)"></div>
-		<button class="btn active" ng-click="vm.editAccount()" ng-if="vm.editor">Сохранить</button>
-		<button class="btn disable" ng-click="vm.closeEditor()" ng-if="vm.editor">Отмена</button>
+		<button class="btn btn_dashboard" ng-click="vm.editAccount()" ng-if="vm.editor">Сохранить</button>
+		<button class="btn btn_disable" ng-click="vm.closeEditor()" ng-if="vm.editor">Отмена</button>
 	</div>
-	<div class="account-actions">
+	<div class="account__actions">
 		<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session">
 	</div>
 </div>
@@ -21,8 +21,8 @@
 <div class="modal-backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
 	<div class="modal-window">
 		<span>Вы уверены что хотите удалить?</span>
-		<button class="btn active" ng-click="vm.deleteAccount()">Удалить</button>
-		<button class="btn disable" ng-click="vm.closeModal()">Отмена</button>
+		<button class="btn btn_manager" ng-click="vm.deleteAccount()">Удалить</button>
+		<button class="btn btn_disable" ng-click="vm.closeModal()">Отмена</button>
 	</div>
 </div>
 

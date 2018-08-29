@@ -1,0 +1,68 @@
+.signup-employee {
+	padding: 25px 0;
+	font-family: Roboto;
+}
+
+	.signup__title {
+		font-size: 34px;
+		margin-bottom: 20px;
+	}
+
+	.signup__form {
+		width: 80%;
+	}
+
+	.signup__form-field {
+		margin: 10px 0;
+	}
+
+	.signup__form-field > label {
+		display: inline-block;
+		width: 25%;
+		font-size: 14px;
+	}
+
+	.signup__form-field > input {
+		width: 50%;
+		padding: 10px;
+		margin: 5px 0;
+	}
+
+	.signup__form-field > span {
+		margin-left: calc(25% + 4px);
+		display: block;
+		font-size: 12px;
+		color: grey;
+	}
+
+	.signup__conditions-block {
+		display: flex;
+		width: 80%;
+	}
+
+	.signup__auth-block {
+		width: 25%;
+	}
+
+	.signup__auth-question {
+		display: block;
+		margin: 10px 0;
+		font-size: 14px;
+	}
+
+	.signup__auth-link {
+		margin: 5px 0;
+	}
+
+	.signup__conditions {
+		display: inline-block;
+		width: 50%;
+		font-size: 14px;
+		line-height: 24px;
+		margin-bottom: 10px;
+	}
+
+
+
+
+

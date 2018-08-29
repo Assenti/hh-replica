@@ -2,18 +2,18 @@
 	font-size: 14px;
 	font-family: Roboto;
 	outline: none;
-	padding: 10px;
 	border: 1px solid lightgrey;
-
-	&:focus {
+}
+	
+	.input:focus {
 		border-color: cornflowerblue;
 	}
-}
 
 	.input_newcv {
 		width: 40%;
+		padding: 10px;
+	}
 
-		&::placeholder {
-			color: lightgrey;
-		}
+	.input_newcv::placeholder {
+		color: lightgrey;
 	}

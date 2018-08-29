@@ -2,22 +2,26 @@
 <html ng-app="hh-replica">
 <head>
 	<title>HeadHunter.kz - Replica</title>
-	<link rel="stylesheet" type="text/css" href="/style/css/style.css">
-	<link rel="shortcut icon" href="/images/headhunter-hh-kz.svg" type="image/png">
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="/images/hh_kz.png" type="image/png">
+	<link rel="stylesheet" type="text/css" href="/style/all.css">
+	<!-- All css files bundled & minified -->
+	<!-- <link rel="stylesheet" type="text/css" href="/style/all.min.css"> -->
 	<base href="/">
 </head>
 <body>
-	<div class="spinner-backdrop" ng-controller="PreloaderCtrl as vm" ng-show="IsLoading">
+	<div class="spinner__backdrop" ng-controller="PreloaderCtrl as vm" ng-show="IsLoading">
 		<div class="spinner"></div>
 	</div>
+
 	<div class="header" ng-controller="HeaderCtrl as vm">
-		<div class="header-logo" ui-sref="home">
+		<div class="header__logo" ui-sref="home">
 			<img src="/images/headhunter-hh-kz.svg">
 		</div>
-		<div class="header-search-group">
-			<div class="header-search">
-				<input type="text" ng-model="vm.query" ng-keyup="vm.keyWatcher($event)" placeholder="Я ищу...">
-				<div class="header-search-results" ng-if="vm.startSearch">
+		<div class="header__search-group">
+			<div class="header__search">
+				<input class="input" type="text" ng-model="vm.query" ng-keyup="vm.keyWatcher($event)" placeholder="Я ищу...">
+				<div class="header__search-results" ng-if="vm.startSearch">
 					<li ng-repeat="result in vm.found_vacancies" 
 						ng-if="vm.chosenOption === 'Вакансии'"
 						ng-click="vm.closeSearch()" 
@@ -32,65 +36,65 @@
 						><a ui-sref="employer({ id: result._id })" ng-bind="result.name" ></a></li>
 					<li ng-if="vm.notFound">Нет совпадений</li>
 				</div>
-				<div class="header-search-select">
+				<div class="header__search-select">
 					<select ng-model="vm.chosenOption" ng-options="choice as choice for choice in vm.choices"></select>
 					<img src="./images/sort-arrows.svg">
 				</div>
-				<div class="header-search-btn" ng-click="vm.find()">Найти</div>
-				<span class="header-search-advanced" ui-sref="search">Расширенный поиск</span>
+				<div class="btn header__search-btn" ng-click="vm.find()">Найти</div>
+				<span class="header__search-advanced" ui-sref="search">Расширенный поиск</span>
 			</div>
 		</div>
-		<img class="header-languages" src="./images/rus.jpg"></img>
+		<img class="header__languages" src="./images/rus.jpg"></img>
 	</div>
 
-	<div class="top-nav" ng-controller="TopNavCtrl as vm">
+	<div class="topnav" ng-controller="TopNavCtrl as vm">
 		<div class="wrapper">
-			<div class="top-nav-wrapper">
-				<div class="top-nav-main">
-					<div class="top-nav-items">
-						<div class="top-nav-item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy">
+			<div class="topnav__wrapper">
+				<div class="topnav__main">
+					<div class="topnav__items">
+						<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy">
 							<span>Ищу работу</span>
-							<div class="top-nav-item__droplist" ng-if="vm.dropList == 'findVacancy'">
-								<div class="top-nav-item__droplist-item">Создать резюме</div>
-								<div class="top-nav-item__droplist-item">Как улучшить резюме</div>
+							<div class="topnav__item-droplist" ng-if="vm.dropList == 'findVacancy'">
+								<div class="topnav__item-droplist-item">Создать резюме</div>
+								<div class="topnav__item-droplist-item">Как улучшить резюме</div>
 							</div>
 						</div>
-						<div class="top-nav-item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee">
+						<div class="topnav__item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee">
 							<span>Ищу сотрудников</span>
-							<div class="top-nav-item__droplist" ng-if="vm.dropList == 'findEmployee'">
-								<div class="top-nav-item__droplist-item">Разместить вакансию</div>
-								<div class="top-nav-item__droplist-item">Прайс-лист</div>
-								<div class="top-nav-item__droplist-item">Описание услуг</div>
+							<div class="topnav__item-droplist" ng-if="vm.dropList == 'findEmployee'">
+								<div class="topnav__item-droplist-item">Разместить вакансию</div>
+								<div class="topnav__item-droplist-item">Прайс-лист</div>
+								<div class="topnav__item-droplist-item">Описание услуг</div>
 							</div>
 						</div>
-						<div class="top-nav-item">Помощь</div>
-						<div class="top-nav-item" ng-mouseover="vm.openDropList('companies')" ng-mouseleave="vm.closeDropList()" id="companies">
+						<div class="topnav__item">Помощь</div>
+						<div class="topnav__item" ng-mouseover="vm.openDropList('companies')" ng-mouseleave="vm.closeDropList()" id="companies">
 							<span>Компании</span>
-							<div class="top-nav-item__droplist" ng-if="vm.dropList == 'companies'">
-								<div class="top-nav-item__droplist-item">Каталог компаний</div>
-								<div class="top-nav-item__droplist-item">Работа по профессиям</div>
+							<div class="topnav__item-droplist" ng-if="vm.dropList == 'companies'">
+								<div class="topnav__item-droplist-item">Каталог компаний</div>
+								<div class="topnav__item-droplist-item">Работа по профессиям</div>
 							</div>
 						</div>
-						<div class="top-nav-item" ng-mouseover="vm.openDropList('projects')" ng-mouseleave="vm.closeDropList()" id="projects">
+						<div class="topnav__item" ng-mouseover="vm.openDropList('projects')" ng-mouseleave="vm.closeDropList()" id="projects">
 							<span>Проекты</span>
-							<div class="top-nav-item__droplist" ng-if="vm.dropList == 'projects'">
-								<div class="top-nav-item__droplist-item">Премия HR</div>
-								<div class="top-nav-item__droplist-item">HRspace</div>
-								<div class="top-nav-item__droplist-item">Карьерный консультант</div>
-								<div class="top-nav-item__droplist-item">Обучающие вебинары</div>
-								<div class="top-nav-item__droplist-item">Полезная информация</div>
+							<div class="topnav__item-droplist" ng-if="vm.dropList == 'projects'">
+								<div class="topnav__item-droplist-item">Премия HR</div>
+								<div class="topnav__item-droplist-item">HRspace</div>
+								<div class="topnav__item-droplist-item">Карьерный консультант</div>
+								<div class="topnav__item-droplist-item">Обучающие вебинары</div>
+								<div class="topnav__item-droplist-item">Полезная информация</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- Auth Block on Top Nav -->
-				<div class="top-nav-auth"  ng-if="session" ng-mouseover="vm.openDropList('auth')" ng-mouseleave="vm.closeDropList()" id="auth">
-					<div class="top-nav-auth-title">
+				<div class="topnav__auth"  ng-if="session" ng-mouseover="vm.openDropList('auth')" ng-mouseleave="vm.closeDropList()" id="auth">
+					<div class="topnav__auth-title">
 						<img src="/images/user.svg">
 						<span ng-bind="(session.firstname)+' '+(session.lastname)"></span>
 					</div>
-					<div class="top-nav-auth-droplist" ng-if="vm.dropList == 'auth'">
+					<div class="topnav__auth-droplist" ng-if="vm.dropList == 'auth'">
 						<span ng-if="session.employerAccess" ui-sref="employer({id: session.employer})" ng-click="vm.closeDropList()">Кабинет</span>
 						<span ng-if="session.employerAccess" ui-sref="account({id: session._id})" ng-click="vm.closeDropList()">Настройки аккаунта</span>
 						<span ng-if="!session.employerAccess" ui-sref="user({id: session._id})" ng-click="vm.closeDropList()">Кабинет</span>
@@ -107,7 +111,7 @@
 	<ui-view></ui-view>
 
 	<div class="footer">
-		<div class="footer-content">
+		<div class="footer__content">
 			<div>Работодателям<span> | Прайс-лист</span></div>
 			<div>Соискателям<span> | Продвижение резюме</span><span> | Работа в других городах</span></div>
 			<div>&copy; 2018 Asset Sultanov - HeadHunter - Replica. Especially for DECODE MEAN STACK Course graduation</div>
@@ -115,6 +119,10 @@
 		</div>
 	</div>
 </body>
+
+<!-- All js files bundled & minified -->
+<!-- <script src="/all.min.js"></script> -->
+
 <!-- Angular files importing -->
 <script src="/js/vendor/ng.min.js"></script>
 <script src="/js/vendor/ng-route.min.js"></script>

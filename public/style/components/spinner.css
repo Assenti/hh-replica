@@ -8,11 +8,12 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(255, 255, 255);
-    z-index: 6;
+    z-index: 10;
 }
 
 .spinner {
-    &:before {
+}
+    .spinner:before {
         content: 'Loading…';
         position: absolute;
         top: 50%;
@@ -21,17 +22,18 @@
         height: 30px;
     }
 
-    &:not(:required):before {
+    .spinner:not(:required):before {
         content: '';
         border-radius: 50%;
         border: 3px solid #ccc;
         border-top-color: #03ade0;
+        -webkit-animation: spinner .6s linear infinite;
+        -moz-animation: spinner .6s linear infinite;
+        -o-animation: spinner .6s linear infinite;
         animation: spinner .6s linear infinite;
     }
     
-}
-    
-@keyframes spinner {
-	from { transform: rotate(0deg); }
-	to { transform: rotate(360deg); }
-}
+    @keyframes spinner {
+    	from { transform: rotate(0deg); }
+    	to { transform: rotate(360deg); }
+    }

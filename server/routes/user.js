@@ -21,6 +21,10 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const SENDER = '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>';
+const LOGO = '/images/hh_kz.png';
+const LOCAL = 'localhost';
+const REMOTE = '142.93.229.118';
 
 // Saving in session
 passport.serializeUser((user, next)=> {
@@ -145,12 +149,30 @@ router.post('/signup', (req, res, next)=> {
 			employer.save((err, employer)=> {
 				if(err) return res.send(err)
 				let mailOptions = {
-			        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
+			        from: SENDER, 
 			        to: user.email, 
 			        subject: 'Подтверждение регистрации', 
-			        html: `<p>Здравствуйте ${user.firstname} ${user.lastname}.
-			        	 Пожалуйста закончите регистрацию на HeadHunter.kz - Replica пройдя по 
-			        	  <a href="http://142.93.229.118:3002/api/user/accept/${user._id}">ссылке.</a></p>` 
+			        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${user.email}">
+			        	   <p style="font-size: 16px;">
+			        	    Здравствуйте ${user.firstname},пожалуйста активируйте Ваш аккаунт на HeadHunter.kz - Replica.
+			        	   </p>
+			        	   <div style="display: block;
+			        	   		width: 150px;
+			        	        margin: 10px auto;
+			        	        background-color: cornflowerblue;
+			        	        border-radius: 3px;
+			        	        padding: 10px 15px;">
+		        	        <a style="color: white; 
+		        	           font-size: 16px;" 
+		        	           href="http://${LOCAL}:3002/api/user/accept/${user._id}">Активировать</a>
+		        	       </div>` ,
+			        attachments: [
+			        	{
+			        		filename: 'hh_kz.png',
+			        		path: 'public' + LOGO,
+			        		cid: user.email
+			        	}
+			        ]
 			    }
 
 			    transporter.sendMail(mailOptions, (error, info)=> {
@@ -166,12 +188,30 @@ router.post('/signup', (req, res, next)=> {
 		user.save((err, user)=> {
 			if(err) res.send(err)
 			let mailOptions = {
-		        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
+		        from: SENDER, 
 		        to: user.email, 
 		        subject: 'Подтверждение регистрации', 
-		        html: `<p>Здравствуйте ${user.firstname} ${user.lastname}.
-			        	 Пожалуйста закончите регистрацию на HeadHunter.kz - Replica пройдя по 
-			        	  <a href="http://142.93.229.118:3002/api/user/accept/${user._id}">ссылке.</a></p>` 
+		        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${user.email}">
+		        	   <p style="font-size: 16px;">
+		        	    Здравствуйте ${user.firstname},пожалуйста активируйте Ваш аккаунт на HeadHunter.kz - Replica.
+		        	   </p>
+		        	   <div style="display: block;
+		        	   		width: 150px;
+		        	        margin: 10px auto;
+		        	        background-color: cornflowerblue;
+		        	        border-radius: 3px;
+		        	        padding: 10px 15px;">
+	        	        <a style="color: white; 
+	        	           font-size: 16px;" 
+	        	           href="http://${LOCAL}:3002/api/user/accept/${user._id}">Активировать</a>
+	        	       </div>` ,
+		        attachments: [
+		        	{
+		        		filename: 'hh_kz.png',
+		        		path: 'public' + LOGO,
+		        		cid: user.email
+		        	}
+		        ]
 		    }
 
 		    transporter.sendMail(mailOptions, (error, info)=> {

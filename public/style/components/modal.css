@@ -19,9 +19,11 @@
 	padding: 15px;
 	font-family: Roboto;
 	text-align: center;
-	span {
-		margin-top: 10px;
+}
+
+	.modal-window > span {
+		display: block;
+		margin: 10px;
 		font-size: 16px;
 		font-weight: 600;
 	}
-}

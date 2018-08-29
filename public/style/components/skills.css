@@ -9,29 +9,29 @@
 	margin-right: 5px;
 	display: flex;
 	align-items: center;
-
-	& > span:first-child {
+}
+	
+	.skills > span:first-child {
 		font-size: 15px;
 	}
-	& > span:last-child {
+	.skills > span:last-child {
 		font-size: 22px;
 		cursor: pointer;
 		margin-left: 10px;
 	}
-}
 
-.skills_wo {
-	background-color: rgb(240, 240, 240);
-	color: rgba(0, 0, 0, .8);
-	font-family: Roboto;
-	font-size: 15px;
-	font-weight: 600;
-	padding: 8px 15px;
-	border-radius: 3px;
-	margin-right: 5px;
-	display: flex;
-	align-items: center;
-}
+	.skills_wo {
+		background-color: rgb(240, 240, 240);
+		color: rgba(0, 0, 0, .8);
+		font-family: Roboto;
+		font-size: 15px;
+		font-weight: 600;
+		padding: 8px 15px;
+		border-radius: 3px;
+		margin-right: 5px;
+		display: flex;
+		align-items: center;
+	}
 	
 	.skills__add-btn {
 		display: flex;
@@ -44,4 +44,14 @@
 		background-color: rgb(247, 247, 247);
 		cursor: pointer;
 		font-size: 28px;
+	}
+
+	.skill {
+		font-size: 15px;
+	}
+	
+	.delete-skill {
+		margin-left: 5px;
+		font-size: 18px;
+		cursor: pointer;
 	}

@@ -1,6 +1,6 @@
 <div class="signup-employer">
-	<form class="signup-employer-form" ng-submit="vm.signUpEmployer()">
-		<div class="signup-employer-form-title">Регистрация Работодателя</div>
+	<form class="signup-employer__form" ng-submit="vm.signUpEmployer()">
+		<div class="signup-employer__form-title">Регистрация Работодателя</div>
 		<input class="input" type="text" ng-model="vm.name" name="name" placeholder="Название компании" required>
 		<input class="input" type="text" ng-model="vm.site" name="site" placeholder="Сайт" required>
 		<input class="input" type="text" ng-model="vm.employeesQuantity" name="employeesQuantity" placeholder="Количество сотрудников" required>
@@ -20,12 +20,7 @@
 	<div class="spinner"></div>
 </div>
 
-<div class="message success" ng-if="vm.success">
-	<span>Регистрация прошла успешно, пройдите пожалуйста по ссылке указанной в письме отправленное вам на почту.</span>
-	<div ng-click="vm.success = false">&times;</div>
-</div>
-
-<div class="message error" ng-if="vm.error">
-	<span>Ошибка регистрации. Пожалуйста повторите снова.</span>
-	<i class="message-close" ng-click="vm.error = false">&times;</i>
+<div ng-class="vm.status" class="message" ng-if="vm.message != null">
+	<span ng-bind="vm.message"></span>
+	<div ng-click="vm.message = null">&times;</div>
 </div>

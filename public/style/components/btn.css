@@ -1,0 +1,66 @@
+.btn {
+	outline: none;
+	border-spacing: 0;
+	border: medium none;
+	cursor: pointer;
+	font-family: Roboto;
+}
+	
+	.btn_signup-form {
+		background-color: cornflowerblue;
+		color: white;
+		font-size: 16px;
+		margin: 15px 0;
+		padding: 10px 15px;
+	}
+
+	.btn_signup-form:hover {
+		background-color: blue;
+		transition: .2s ease;
+	}
+
+	.btn_dashboard {
+		background-color: #82b74b;
+		color: white;
+		font-size: 16px;
+		padding: 10px 15px;
+	}
+
+	.btn_dashboard:hover {
+		background-color: #86af49;
+		transition: .2s ease;
+	}
+
+	.btn_manager {
+		background-color: cornflowerblue;
+		color: white;
+		font-size: 16px;
+		padding: 10px 15px;
+	}
+
+	.btn_manager:hover {
+		background-color: blue;
+		transition: .2s ease;
+	}
+
+	.btn_disable {
+		font-size: 16px;
+		background-color: lightgrey;
+		color: white;
+		padding: 10px 15px;
+	}
+
+	.btn_disable:hover {
+		background-color: grey;
+		transition: .2s ease;
+	}
+
+	.btn.active-transparent {
+		border-color: blue;
+		color: blue;
+	}
+
+	.btn.disable-transparent {
+		border-color: grey;
+		color: grey;
+	}

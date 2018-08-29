@@ -11,6 +11,12 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 	vm.toggler = false;
 	vm.xp = null;
 
+	vm.years = ['Выберите опыт',0,1,2,3,4,5,6,7,8,9,10];
+	vm.year = vm.years[0];
+
+	vm.salaries = ['Выберите оклад',50000,100000,200000,300000,400000,500000];
+	vm.salary = vm.salaries[0];
+
 	$http.get('/api/vacancy/search/' + vm.currentPage)
 	.success(function(response){
 		vm.results = response.results;
@@ -73,7 +79,6 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 		.success(function(response){
 			vm.results = response.results;
 			vm.count = response.count;
-			console.log(vm.results);
 			if(vm.results.length === 0){
 				vm.notFound = true;
 			}

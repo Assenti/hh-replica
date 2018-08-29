@@ -1,0 +1,46 @@
+/*3rd party libs*/
+@import url('./vendor/reset.css');
+
+/*Components*/
+@import url('./components/spinner.css');
+@import url('./components/pagination.css');
+@import url('./components/wrapper.css');
+@import url('./components/btn.css');
+@import url('./components/input.css');
+@import url('./components/textarea.css');
+@import url('./components/link.css');
+@import url('./components/modal.css');
+@import url('./components/message.css');
+@import url('./components/skills.css');
+
+/*Pages*/
+@import url('./pages/header.css');
+@import url('./pages/home.css');
+@import url('./pages/topnav.css');
+@import url('./pages/account.css');
+@import url('./pages/search.css');
+@import url('./pages/employee-dash.css');
+@import url('./pages/employer-dash.css');
+@import url('./pages/cv.css');
+@import url('./pages/newcv.css');
+@import url('./pages/vacancy.css');
+@import url('./pages/signin.css');
+@import url('./pages/signup-employee.css');
+@import url('./pages/signup-employer.css');
+@import url('./pages/footer.css');
+
+@font-face {
+	font-family: OpenSansCondensed;
+ 	src: url("../fonts/OpenSansCondensed-Light.ttf");
+ 	font-weight: normal;
+ 	font-style: normal;
+ 	font-display: fallback;
+}
+
+@font-face {
+	font-family: Roboto;
+ 	src: url('../fonts/Roboto-Regular.ttf');
+ 	font-weight: normal;
+ 	font-style: normal;
+ 	font-display: fallback;
+}

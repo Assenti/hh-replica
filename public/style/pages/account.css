@@ -6,37 +6,44 @@
 	font-family: Roboto;
 }
 
-.account-info {
-	padding: 0 15px;
-	div {
+	.account__info {
+		padding: 0 15px;
+	}
+
+	.account__info div {
 		display: block;
 		font-size: 16px;
 		margin: 10px 0;
 	}
-	div:first-child {
+
+	.account__info div:first-child {
 		font-size: 20px;
 		font-weight: 600;
 	}
-	input {
+
+	.account__info input {
 		width: 100%;
+		padding: 10px;
 	}
-	img {
+
+	.account__info img {
 		width: 15px;
 		margin: 0 5px;
 		cursor: pointer;
 	}
-	span {
+
+	.account__info span {
 		font-size: 16px;
 	}
-}
 
-.account-actions {
-	padding: 0 15px;
-	display: flex;
-	align-items: flex-start;
-	& > img {
+	.account__actions {
+		padding: 0 15px;
+		display: flex;
+		align-items: flex-start;
+	}
+
+	.account__actions > img {
 		width: 18px;
 		margin: 0 10px;
 		cursor: pointer;
 	}
-}

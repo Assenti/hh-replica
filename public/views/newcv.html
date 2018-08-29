@@ -1,112 +1,112 @@
 <div class="newcv">
-	<a class="newcv-back-link" ui-sref="user({id: session._id})"><img src="../images/left-chevron.svg"> Назад в кабинет</a>
-	<div class="newcv-title">Создание резюме</div>
-	<form class="newcv-form" ng-submit="vm.saveCV()">
-		<div class="newcv-form-field">
+	<a class="newcv__back-link" ui-sref="user({id: session._id})"><img src="../images/left-chevron.svg"> Назад в кабинет</a>
+	<div class="newcv__title">Создание резюме</div>
+	<form class="newcv__form" ng-submit="vm.saveCV()">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="text" ng-model="vm.position" placeholder="Введите должность" required>
-			<div ng-class="{'filled': vm.position != null && vm.position != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.position != null && vm.position != '' }" class="newcv__data">
 				<span>Должность:</span>
 				<span ng-bind="vm.position" ng-if="vm.position != null"></span>
 			</div>
 		</div>
 
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="number" ng-model="vm.salary" placeholder="Введите размер заработной платы" required>
-			<div ng-class="{'filled': vm.salary != null && vm.salary > 0 }" class="newcv-data">
+			<div ng-class="{'filled': vm.salary != null && vm.salary > 0 }" class="newcv__data">
 				<span>Заработная плата:</span>
 				<span ng-bind="vm.salary + ' KZT'" ng-if="vm.salary > 0"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="text" ng-model="vm.birthDate" placeholder="Введите дату рождения в формате гггг-мм-дд" required>
-			<div ng-class="{'filled': vm.birthDate != null && vm.birthDate != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.birthDate != null && vm.birthDate != '' }" class="newcv__data">
 				<span>Дата рождения:</span>
 				<span ng-bind="vm.birthDate " ng-if="vm.birthDate != null"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
-			<div class="newcv-form-input-radio input_newcv">
+		<div class="newcv__form-field">
+			<div class="newcv__form-input-radio">
 				<label>Муж</label>
 				<input type="radio" value="Мужчина" ng-model="vm.gender" required>
 				<label>Жен</label>
 				<input type="radio" value="Женщина" ng-model="vm.gender">
 			</div>
-			<div ng-class="{'filled': vm.gender != null && vm.gender != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.gender != null && vm.gender != '' }" class="newcv__data">
 				<span>Пол:</span>
 				<span ng-bind="vm.gender" ng-if="vm.gender != null"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="text" ng-model="vm.citizenship" placeholder="Введите гражданство">
-			<div ng-class="{'filled': vm.citizenship != null && vm.citizenship != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.citizenship != null && vm.citizenship != '' }" class="newcv__data">
 				<span>Гражданство:</span>
 				<span ng-bind="vm.citizenship" ng-if="vm.citizenship != null"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="text" ng-model="vm.address" placeholder="Введите адрес">
-			<div ng-class="{'filled': vm.address != null && vm.address != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.address != null && vm.address != '' }" class="newcv__data">
 				<span>Адрес:</span>
 				<span ng-bind="vm.address" ng-if="vm.address != null"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="text" ng-model="vm.specialization" placeholder="Введите специализацию" required>
-			<div ng-class="{'filled': vm.specialization != null && vm.specialization != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.specialization != null && vm.specialization != '' }" class="newcv__data">
 				<span>Специализация:</span>
 				<span ng-bind="vm.specialization" ng-if="vm.specialization != null"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="number" ng-model="vm.xpLength" placeholder="Введите стаж работы (лет)" required>
-			<div ng-class="{'filled': vm.xpLength != null && vm.xpLength > 0 }" class="newcv-data">
+			<div ng-class="{'filled': vm.xpLength != null && vm.xpLength > 0 }" class="newcv__data">
 				<span>Стаж работы:</span>
 				<span ng-bind="vm.xpLength+' лет'" ng-if="vm.xpLength > 0"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="text" ng-model="vm.education" placeholder="Введите наименование ВУЗа" required>
-			<div ng-class="{'filled': vm.education != null && vm.education != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.education != null && vm.education != '' }" class="newcv__data">
 				<span>ВУЗ:</span>
 				<span ng-bind="vm.education" ng-if="vm.education != null"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="text" ng-model="vm.courses" placeholder="Введите наименование пройденных курсов">
-			<div ng-class="{'filled': vm.courses != null && vm.courses != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.courses != null && vm.courses != '' }" class="newcv__data">
 				<span>Курсы:</span>
 				<span ng-bind="vm.courses" ng-if="vm.courses != null"></span>
 			</div>
 		</div>
 		
-		<div class="newcv-form-field">
+		<div class="newcv__form-field">
 			<input class="input input_newcv" type="text" ng-model="vm.work" placeholder="Введите наименование прежнего места работы">
-			<div ng-class="{'filled': vm.work != null && vm.work != '' }" class="newcv-data">
+			<div ng-class="{'filled': vm.work != null && vm.work != '' }" class="newcv__data">
 				<span>Прежнее место работы:</span>
 				<span ng-bind="vm.work" ng-if="vm.work != null"></span>
 			</div>
 		</div>
 
-		<div class="newcv-form-field">
-			<div class="newcv-form-skills">
+		<div class="newcv__form-field">
+			<div class="newcv__form-skills">
 				<input class="input" type="text" ng-model="vm.skill" placeholder="Навык">
 				<div class="skills__add-btn" ng-click="vm.addSkill()">&plus;</div>
 			</div>
-			<div class="newcv-form-file">
+			<div class="newcv__form-file">
 				<input type="file" ng-file-model="vm.file" accept="image/*">
 				<label>Загрузить фото к резюме</label>
 			</div>
 		</div>
 
-		<div class="newcv-view-skills">
+		<div class="newcv__view-skills">
 			<div class="skills" ng-repeat="skill in vm.skills">
 				<span ng-bind="skill"></span>
 				<span ng-click="vm.removeSkill($index)">&times;</span>

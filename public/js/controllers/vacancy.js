@@ -6,10 +6,7 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 	var vm = this;
 	vm.editor = false;
 	vm.skillsToEdit = [];
-	vm.success = false;
-	vm.error = false;
-	vm.noCV = false;
-
+	vm.message = null;
 
 	$http.get('/api/vacancy/' + $state.params.id)
 	.success(function(response){
@@ -34,6 +31,7 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 	}
 	
 	vm.response = function(){
+		vm.isLoading = true;
 		var data = {
 			user_id: $rootScope.session._id,
 			cv_position: vm.selected.position,
@@ -41,15 +39,20 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 		}
 
 		if(vm.selected.position == 'Выберите резюме' || vm.selected.position == undefined){
-			vm.noCV = true;
+			vm.status = 'error';
+			vm.message = 'Резюме не выбрано. Выберите резюме и повторите попытку.';
 		} else {
 			$http.post('/api/vacancy/responsed/' + $state.params.id, data)
 			.success(function(response){
-				vm.success = true;
+				vm.isLoading = false;
+				vm.status = 'success';
+				vm.message = 'Отклик успешно отправлен.';
 			})
 			.error(function(err){
 				console.log(err);
-				vm.error = true;
+				vm.isLoading = false;
+				vm.status = 'error';
+				vm.message = 'Произошла ошибка, повторите попытку.';
 			})
 		}
 	}

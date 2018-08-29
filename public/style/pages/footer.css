@@ -4,21 +4,24 @@
 	font-family: Roboto;
 }
 
-.footer-content {
-	padding: 3% 0;
+	.footer__content {
+		padding: 3% 0;
+	}
 
-	div {
+	.footer__content div {
 		margin: 10px 0;
 	}
-	div:last-child {
+
+	.footer__content div:last-child {
 		margin-top: 20px;
 		color: silver;
 	}
-	span {
+
+	.footer__content span {
 		color: silver;
 		cursor: pointer;
 	}
-	div, span {
+	
+	.footer__content div, span {
 		font-size: 12px;
 	}
-}

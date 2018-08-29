@@ -22,6 +22,11 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const SENDER = '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>';
+const LOGO = '/images/hh_kz.png';
+const LOCAL = 'localhost';
+const REMOTE = '142.93.229.118';
+
 
 router.get('/', (req, res, next)=> {
 	CV.find()
@@ -191,12 +196,34 @@ router.post('/responsed/:id', (req, res, next)=> {
 					.exec((err, user)=> {
 					if (err) return res.send(err)
 					let mailOptions = {
-				        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
+				        from: SENDER, 
 				        to: user.email, 
 				        subject: 'Приглашение на собеседование', 
-				        html: `<p>Здравствуйте, ${user.firstname} ${user.lastname}, Ваше резюме <a href="http://142.93.229.118:3002/cv/${cv._id}">${cv.position}</a> заинтересовало работодателя.</p>
-				        	   <p>Вас пригласили на собеседование компания
-				        	   <a href="http://142.93.229.118:3002/employer/${employer._id}"> ${employer.name}.</a></p>`
+				        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${user.email}">
+				               <p style="font-size: 16px;">
+				                Здравствуйте, ${user.firstname}, Ваше резюме 
+				                <a style="font-size: 16px;" href="http://${LOCAL}:3002/cv/${cv._id}">${cv.position}</a>
+				                заинтересовало работодателя.</p>
+				        	   <p style="font-size: 16px;">Компания ${employer.name} пригласила Вас на собеседование.</p>
+				        	   <div 
+				        	      style="display: block;
+				        	             text-align: center;
+				        	             width: 150px;
+				        	             margin: 10px auto;
+				        	             background-color: cornflowerblue;
+				        	             border-radius: 3px;
+				        	             padding: 10px 15px;">
+		        	            <a style="color: white; text-decoration: none; font-size: 18px;" href="http://${LOCAL}:3002/employer/${employer._id}">
+		        	             Посмотреть
+		        	            </a>      
+		        	           </div>`,
+		        	     attachments: [
+				        	{
+				        		filename: 'hh_kz.png',
+				        		path: 'public' + LOGO,
+				        		cid: user.email
+				        	}
+				        ] 
 				    }
 
 				    transporter.sendMail(mailOptions, (error, info)=> {

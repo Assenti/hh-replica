@@ -14,43 +14,51 @@
 	font-family: Roboto;
 }
 
-.signup-employer-form {
-	width: 400px;
-	padding: 15px;
-	background-color: rgb(247, 247, 247);
-	text-align: center;
-	& > div {
+	.signup-employer__form {
+		width: 400px;
+		padding: 15px;
+		background-color: rgb(247, 247, 247);
+		text-align: center;
+	}
+
+	.signup-employer__form > div {
 		font-size: 20px;
 		margin-top: 10px;
 	}
-	& > span {
+
+	.signup-employer__form > span {
 		font-size: 14px;
 		color: grey;
 		margin-bottom: 10px;
 		display: block;
 	}
-	& > input {
+
+	.signup-employer__form > input {
 		margin-bottom: 5px;
+		padding: 10px;
 		width: 100%;
 	}
-	& > input::placeholder {
+
+	.signup-employer__form > input::placeholder {
 		color: grey;
 	}
-	& > button {
+
+	.signup-employer__form > button {
 		display: block;
 		width: 100%;
 		background-color: cornflowerblue;
 		color: white;
 		margin: 15px 0;
+		padding: 10px 15px;
 		font-size: 16px;
 	}
-	& > button:hover {
+
+	.signup-employer__form > button:hover {
 		background-color: blue;
 		transition: .2s ease;
 	}
-}
 
-.signup-employer-form-title {
-	font-size: 20px;
-	margin: 15px 0;
-}
+	.signup-employer__form-title {
+		font-size: 20px;
+		margin: 15px 0;
+	}

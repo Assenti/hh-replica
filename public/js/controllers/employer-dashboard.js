@@ -4,6 +4,7 @@ EmployerDashboardCtrl.$inject = ['$http', '$scope', '$state', '$rootScope'];
 
 function EmployerDashboardCtrl($http, $scope, $state, $rootScope){
 	var vm = this;
+	vm.message = null;
 
 	$http.get('/api/employer/' + $state.params.id)
 	.success(function(response){
@@ -88,7 +89,6 @@ function EmployerDashboardCtrl($http, $scope, $state, $rootScope){
    		vm.firstname = vm.lastname = vm.phone = vm.email = vm.phone = '';
    	}
 
-   	vm.success = false;
    	vm.addManager = function(){
    		var manager = {
    			firstname: vm.firstname,
@@ -101,10 +101,14 @@ function EmployerDashboardCtrl($http, $scope, $state, $rootScope){
 
    		$http.post('/api/user/signup/manager/' + $state.params.id, manager)
    		.success(function(response){
-   			vm.success = true;
+   			vm.status = 'success';
+   			vm.message = 'Регистрация прошла успешно, пройдите по ссылке указанной в письме отправленное новому менеджеру на почту.';
+
    		})
    		.error(function(err){
    			console.log(err);
+   			vm.status = 'success';
+   			vm.message = 'Произошла ошибка. Повторите попытку.';
    		})
    	}
 

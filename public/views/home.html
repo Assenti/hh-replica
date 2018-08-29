@@ -1,15 +1,16 @@
 <div class="home">
-	<div class="home-top">
-		<div class="home-title">
+	<div class="home__top">
+
+		<div class="home__title">
 			<h1>Найди работу мечты</h1>
-			<div class="home-title-btns">
-				<div ui-sref="signin">Разместить резюме</div>
-				<div ui-sref="signin">Опубликовать вакансию</div>
+			<div class="home__title-btns">
+				<button class="btn" ui-sref="signin">Разместить резюме</button>
+				<button class="btn" ui-sref="signin">Опубликовать вакансию</button>
 			</div>
 		</div>
 
-		<div class="home-auth-stats-block ">
-			<div class="home-statistics">
+		<div class="home__info">
+			<div class="home__statistics">
 				<div>
 					<span ng-bind="vm.cvs.length"></span>
 					<small>резюме</small>
@@ -23,68 +24,70 @@
 					<small>компаний</small>
 				</div>
 			</div>
-			<div class="home-auth">
-				<div class="home-auth-nav">
+
+			<div class="home__auth">
+				<div class="home__auth-nav">
 					<span ng-class="{'active': vm.registration == false}" ng-click="vm.registration = false">Войти</span>
 					<span ng-class="{'active': vm.registration == true}" ng-click="vm.registration = true">Регистрация</span>
 				</div>
-				<div class="home-auth-content" ng-if="!vm.registration">
-					<div class="home-auth-content-title">Войти в личный кабинет</div>
-					<form class="home-auth-form" ng-submit="vm.signIn()">
+				<div class="home__auth-content" ng-if="!vm.registration">
+					<div class="home__auth-content-title">Войти в личный кабинет</div>
+					<form class="home__auth-form" ng-submit="vm.signIn()">
 						<input class="input" type="email" ng-model="vm.email" placeholder="Email" required>
 						<input class="input" type="password" ng-model="vm.password" placeholder="Пароль" required>
-						<button class="home-auth-content-btn" type="submit">Войти в личный кабинет</button>
+						<button class="home__auth-content-btn" type="submit">Войти в личный кабинет</button>
 					</form>
 				</div>
-				<div class="home-auth-content" ng-if="vm.registration">
+				<div class="home__auth-content" ng-if="vm.registration">
 					<span>Регистрация</span>
-					<button class="home-auth-content-btn" ui-sref="signup-employee">Для соискателей</button>
-					<button class="home-auth-content-btn" ui-sref="signup-employer">Для работодателей</button>
+					<button class="home__auth-content-btn" ui-sref="signup-employee">Для соискателей</button>
+					<button class="home__auth-content-btn" ui-sref="signup-employer">Для работодателей</button>
 				</div>
 			</div>
+
 		</div>
 	</div>
 
-	<div class="home-options">
-		<div class="home-options-item">
+	<div class="home__options">
+		<div class="home__option">
 			<img src="../images/opt1.jpg">
 			<span>Готовое резюме: доверьте создание резюме экспертам</span>
 		</div>
-		<div class="home-options-item">
+		<div class="home__option">
 			<img src="../images/opt2.jpg">
 			<span>"Яркое резюме" выделит вас из сотен соискателей</span>
 		</div>
-		<div class="home-options-item">
+		<div class="home__option">
 			<img src="../images/opt3.jpg">
 			<span>Лучшие компании страны здесь</span>
 		</div>
-		<div class="home-options-item">
+		<div class="home__option">
 			<img src="../images/opt4.jpg">
 			<span>Будьте первым в списке кандидатов</span>
 		</div>
 	</div>
 
-	<div class="home-main">
-		<div class="home-main-employers">
-			<span class="home-main-block-title">Лучшие Работодатели</span>
-			<li class="home-main-block-item" ng-repeat="employer in vm.employers" ui-sref="employer({id: employer._id})">
+	<div class="home__main">
+		<div class="home__main-employers">
+			<span class="home__main-subtitle">Лучшие Работодатели</span>
+			<li class="home__main-item" ng-repeat="employer in vm.employers" ui-sref="employer({id: employer._id})">
 				<span ng-bind="(employer.name)"></span>
 				<span ng-bind="'Местонахождение: '+(employer.city)"></span>
 				<span ng-bind="'Штат: '+(employer.employeesQuantity)+' чел.'"></span>
 				<span ng-bind="'Вакансий: '+(employer.vacancies.length)"></span>
 			</li>
 		</div>
-		<div class="home-main-vacancies">
-			<span class="home-main-block-title">Вакансии в Казахстане</span>
-			<li class="home-main-block-item" ng-repeat="vacancy in vm.vacancies" ui-sref="vacancy({id: vacancy._id})">
+		<div class="home__main-vacancies">
+			<span class="home__main-subtitle">Вакансии в Казахстане</span>
+			<li class="home__main-item" ng-repeat="vacancy in vm.vacancies" ui-sref="vacancy({id: vacancy._id})">
 				<span ng-bind="(vacancy.position)"></span>
 				<span ng-bind="(vacancy.salary | salary)+' KZT'"></span>
 				<span ng-bind="'Опыт не менее: '+(vacancy.xpLength)+' лет'"></span>
 			</li>
 		</div>
-		<div class="home-main-cvs">
-			<span class="home-main-block-title">Резюме Соискателей</span>
-			<li class="home-main-block-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id})">
+		<div class="home__main-cvs">
+			<span class="home__main-subtitle">Резюме Соискателей</span>
+			<li class="home__main-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id})">
 				<span ng-bind="(cv.position)"></span>
 				<span ng-bind="(cv.salary | salary)+' KZT'"></span>
 				<span ng-bind="'Опыт работы: '+(cv.xpLength)+' лет'"></span>
