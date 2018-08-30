@@ -3,7 +3,7 @@
 <head>
 	<title>HeadHunter.kz - Replica</title>
 	<meta charset="utf-8">
-	<link rel="shortcut icon" href="/images/hh_kz.png" type="image/png">
+	<link rel="shortcut icon" href="/images/hh_mini.png" type="image/png">
 	<link rel="stylesheet" type="text/css" href="/style/all.css">
 	<!-- All css files bundled & minified -->
 	<!-- <link rel="stylesheet" type="text/css" href="/style/all.min.css"> -->
@@ -14,97 +14,105 @@
 		<div class="spinner"></div>
 	</div>
 
-	<div class="header" ng-controller="HeaderCtrl as vm">
-		<div class="header__logo" ui-sref="home">
-			<img src="/images/headhunter-hh-kz.svg">
-		</div>
+	<div class="header" id="header" ng-controller="HeaderCtrl as vm">
+		<img class="logo" src="/images/headhunter-hh-kz.svg" ui-sref="home">
 		<div class="header__search-group">
 			<div class="header__search">
 				<input class="input" type="text" ng-model="vm.query" ng-keyup="vm.keyWatcher($event)" placeholder="Я ищу...">
 				<div class="header__search-results" ng-if="vm.startSearch">
-					<li ng-repeat="result in vm.found_vacancies" 
+					<div class="header__search-result" ng-repeat="result in vm.found_vacancies" 
 						ng-if="vm.chosenOption === 'Вакансии'"
-						ng-click="vm.closeSearch()" 
-						><a ui-sref="vacancy({ id: result._id })" ng-bind="result.position"></a></li>
-					<li ng-repeat="result in vm.found_cvs" 
+						ng-click="vm.closeSearch()"
+						ui-sref="vacancy({ id: result._id })"
+						ng-bind="result.position" 
+						></div>
+					<div class="header__search-result" ng-repeat="result in vm.found_cvs" 
 						ng-if="vm.chosenOption === 'Резюме'" 
 						ng-click="vm.closeSearch()" 
-						><a ui-sref="cv({ id: result._id })" ng-bind="result.position" ></a></li>
-					<li ng-repeat="result in vm.found_employers"
+						ui-sref="cv({ id: result._id })"
+						ng-bind="result.position"
+						></div>
+					<div class="header__search-result" ng-repeat="result in vm.found_employers"
 						ng-if="vm.chosenOption === 'Компании'"
 						ng-click="vm.closeSearch()" 
-						><a ui-sref="employer({ id: result._id })" ng-bind="result.name" ></a></li>
-					<li ng-if="vm.notFound">Нет совпадений</li>
+						ui-sref="employer({ id: result._id })"
+						ng-bind="result.name"
+						></div>
+					<div class="header__search-result" ng-if="vm.notFound">Нет совпадений</div>
 				</div>
 				<div class="header__search-select">
 					<select ng-model="vm.chosenOption" ng-options="choice as choice for choice in vm.choices"></select>
 					<img src="./images/sort-arrows.svg">
 				</div>
-				<div class="btn header__search-btn" ng-click="vm.find()">Найти</div>
-				<span class="header__search-advanced" ui-sref="search">Расширенный поиск</span>
 			</div>
+			<button class="btn header__search-btn" ng-click="vm.find()">Найти</button>
+			<img class="header__search-icon" src="./images/search.svg" ng-click="vm.find()" title="Найти">
+			<span class="header__search-advanced" ui-sref="search">Расширенный поиск</span>
 		</div>
 		<img class="header__languages" src="./images/rus.jpg"></img>
 	</div>
 
-	<div class="topnav" ng-controller="TopNavCtrl as vm">
-		<div class="wrapper">
-			<div class="topnav__wrapper">
-				<div class="topnav__main">
-					<div class="topnav__items">
-						<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy">
-							<span>Ищу работу</span>
-							<div class="topnav__item-droplist" ng-if="vm.dropList == 'findVacancy'">
-								<div class="topnav__item-droplist-item">Создать резюме</div>
-								<div class="topnav__item-droplist-item">Как улучшить резюме</div>
-							</div>
+	<div class="topnav" ng-controller="TopNavCtrl as vm" id="topnav">
+		<div class="topnav__wrapper">
+			<img class="logo-mini" id="logo_mini" src="/images/hh_mini.png" ui-sref="home">
+			<div class="topnav__main">
+				<div class="topnav__items">
+					<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy">
+						<span>Ищу работу</span>
+						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findVacancy'">
+							<div class="topnav__item-droplist-item">Создать резюме</div>
+							<div class="topnav__item-droplist-item">Как улучшить резюме</div>
 						</div>
-						<div class="topnav__item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee">
-							<span>Ищу сотрудников</span>
-							<div class="topnav__item-droplist" ng-if="vm.dropList == 'findEmployee'">
-								<div class="topnav__item-droplist-item">Разместить вакансию</div>
-								<div class="topnav__item-droplist-item">Прайс-лист</div>
-								<div class="topnav__item-droplist-item">Описание услуг</div>
-							</div>
+					</div>
+					<div class="topnav__item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee">
+						<span>Ищу сотрудников</span>
+						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findEmployee'">
+							<div class="topnav__item-droplist-item">Разместить вакансию</div>
+							<div class="topnav__item-droplist-item">Прайс-лист</div>
+							<div class="topnav__item-droplist-item">Описание услуг</div>
 						</div>
-						<div class="topnav__item">Помощь</div>
-						<div class="topnav__item" ng-mouseover="vm.openDropList('companies')" ng-mouseleave="vm.closeDropList()" id="companies">
-							<span>Компании</span>
-							<div class="topnav__item-droplist" ng-if="vm.dropList == 'companies'">
-								<div class="topnav__item-droplist-item">Каталог компаний</div>
-								<div class="topnav__item-droplist-item">Работа по профессиям</div>
-							</div>
+					</div>
+					<div class="topnav__item">Помощь</div>
+					<div class="topnav__item" ng-mouseover="vm.openDropList('companies')" ng-mouseleave="vm.closeDropList()" id="companies">
+						<span>Компании</span>
+						<div class="topnav__item-droplist" ng-if="vm.dropList == 'companies'">
+							<div class="topnav__item-droplist-item">Каталог компаний</div>
+							<div class="topnav__item-droplist-item">Работа по профессиям</div>
 						</div>
-						<div class="topnav__item" ng-mouseover="vm.openDropList('projects')" ng-mouseleave="vm.closeDropList()" id="projects">
-							<span>Проекты</span>
-							<div class="topnav__item-droplist" ng-if="vm.dropList == 'projects'">
-								<div class="topnav__item-droplist-item">Премия HR</div>
-								<div class="topnav__item-droplist-item">HRspace</div>
-								<div class="topnav__item-droplist-item">Карьерный консультант</div>
-								<div class="topnav__item-droplist-item">Обучающие вебинары</div>
-								<div class="topnav__item-droplist-item">Полезная информация</div>
-							</div>
+					</div>
+					<div class="topnav__item" ng-mouseover="vm.openDropList('projects')" ng-mouseleave="vm.closeDropList()" id="projects">
+						<span>Проекты</span>
+						<div class="topnav__item-droplist" ng-if="vm.dropList == 'projects'">
+							<div class="topnav__item-droplist-item">Премия HR</div>
+							<div class="topnav__item-droplist-item">HRspace</div>
+							<div class="topnav__item-droplist-item">Карьерный консультант</div>
+							<div class="topnav__item-droplist-item">Обучающие вебинары</div>
+							<div class="topnav__item-droplist-item">Полезная информация</div>
 						</div>
 					</div>
 				</div>
-
-				<!-- Auth Block on Top Nav -->
-				<div class="topnav__auth"  ng-if="session" ng-mouseover="vm.openDropList('auth')" ng-mouseleave="vm.closeDropList()" id="auth">
-					<div class="topnav__auth-title">
-						<img src="/images/user.svg">
-						<span ng-bind="(session.firstname)+' '+(session.lastname)"></span>
-					</div>
-					<div class="topnav__auth-droplist" ng-if="vm.dropList == 'auth'">
-						<span ng-if="session.employerAccess" ui-sref="employer({id: session.employer})" ng-click="vm.closeDropList()">Кабинет</span>
-						<span ng-if="session.employerAccess" ui-sref="account({id: session._id})" ng-click="vm.closeDropList()">Настройки аккаунта</span>
-						<span ng-if="!session.employerAccess" ui-sref="user({id: session._id})" ng-click="vm.closeDropList()">Кабинет</span>
-						<span ng-if="!session.employerAccess" ui-sref="account({id: session._id})" ng-click="vm.closeDropList()">Настройки аккаунта</span>
-						<span ng-click="vm.signout()">Выйти</span>
-					</div>
-				</div>	
-
 			</div>
+			<div class="topnav__search">
+				<input type="input" ng-click="vm.openHeader()" placeholder="Я ищу...">
+				<img src="./images/search.svg">
+			</div>
+			<span class="topnav__search-advanced" ui-sref="search">Расширенный поиск</span>
 		</div>
+		<div class="topnav__auth-in" ng-if="!session" ui-sref="signin">Войти</div>
+		<!-- Auth Block on Top Nav -->
+		<div class="topnav__auth"  ng-if="session" ng-mouseover="vm.openDropList('auth')" ng-mouseleave="vm.closeDropList()" id="auth">
+			<div class="topnav__auth-title">
+				<img src="/images/user.svg">
+				<span ng-bind="(session.firstname)+' '+(session.lastname)"></span>
+			</div>
+			<div class="topnav__auth-droplist" ng-if="vm.dropList == 'auth'">
+				<span ng-if="session.employerAccess" ui-sref="employer({id: session.employer})" ng-click="vm.closeDropList()">Кабинет</span>
+				<span ng-if="session.employerAccess" ui-sref="account({id: session._id})" ng-click="vm.closeDropList()">Настройки аккаунта</span>
+				<span ng-if="!session.employerAccess" ui-sref="user({id: session._id})" ng-click="vm.closeDropList()">Кабинет</span>
+				<span ng-if="!session.employerAccess" ui-sref="account({id: session._id})" ng-click="vm.closeDropList()">Настройки аккаунта</span>
+				<span ng-click="vm.signout()">Выйти</span>
+			</div>
+		</div>	
 	</div>
 
 	<!-- App views -->

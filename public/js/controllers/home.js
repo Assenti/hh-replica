@@ -4,10 +4,9 @@ MainCtrl.$inject = ['$http', '$scope', '$rootScope', '$state'];
 
 function MainCtrl($http, $scope, $rootScope, $state){
 	var vm = this;
-
+	vm.message = null;
 	vm.registration = false;
 	vm.employerAuth = false;
-	vm.success = vm.error = false;
 
 	vm.signIn = function(){
 		var data = {
@@ -23,11 +22,13 @@ function MainCtrl($http, $scope, $rootScope, $state){
 			} else {
 				$state.go('user', {id: response._id});
 			}
-			vm.success = true;
+			vm.status = 'success';
+			vm.message = 'Авторизация прошла успешно';
 		})
 		.error(function(err){
 			console.log(err);
-			vm.error = true;
+			vm.status = 'error';
+			vm.message = 'Не верно введены Email или пароль';
 		});
 	}
 

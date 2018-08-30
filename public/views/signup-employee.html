@@ -49,11 +49,11 @@
 </div>
 
 
-<div class="spinner-backdrop" ng-show="vm.isLoading">
+<div class="spinner__backdrop" ng-show="vm.isLoading">
 	<div class="spinner"></div>
 </div>
 
 <div ng-class="vm.status" class="message" ng-if="vm.message != null">
 	<span ng-bind="vm.message"></span>
-	<div ng-click="vm.message = null">&times;</div>
+	<span class="message__close" ng-click="vm.message = null">&times;</span>
 </div>

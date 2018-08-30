@@ -1,0 +1,26 @@
+.logo {
+	width: 90px;
+	cursor: pointer;
+	padding: 0 5px;
+}
+	
+.logo-mini {
+	display: none;
+	width: 40px;
+	cursor: pointer;
+	padding: 0 5px;
+	animation: rotate-in 1s ease;
+	-webkit-animation: rotate-in 1s ease;
+	-moz-animation: rotate-in 1s ease;
+	-o-animation: rotate-in 1s ease;
+}
+	
+
+	@keyframes rotate-in {
+		from { transform: rotateY(-0.2turn); }
+		to { transform: rotateY(0); }
+	}
+
+
+
+

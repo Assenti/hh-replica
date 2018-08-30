@@ -1,4 +1,6 @@
 <div class="signin">
+	<div class="signin_opacity"></div>
+	<img class="signin__logo" src="../images/headhunter-hh-kz.svg" ui-sref="home"></img>
 	<div class="signin__content">
 		<div class="signin__title">Вход в личный кабинет</div>
 		<form class="signin__form" ng-submit="vm.signIn()">
@@ -9,7 +11,7 @@
 	</div>
 </div>
 
-<span ng-class="vm.status" class="message" ng-if="vm.message != null">
+<div ng-class="vm.status" class="message" ng-if="vm.message != null">
 	<span ng-bind="vm.message"></span>
-	<span class="message-close" ng-click="vm.message = null">&times;</span>
-</span>
+	<span class="message__close" ng-click="vm.message = null">&times;</span>
+</div>

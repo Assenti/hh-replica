@@ -44,6 +44,18 @@ router.get('/user/:id', (req, res, next)=> {
 	})
 })
 
+router.get('/salaries', (req, res, next)=> {
+	CV.find()
+	.exec((err, cvs)=> {
+		if(err) return res.send(err)
+		let salaries = [];
+		for(let i = 0; i < cvs.length; i++){
+			salaries[i] = cvs[i].salary;
+		}
+		res.send(salaries);
+	})
+})
+
 router.get('/search/:page', (req, res, next)=>{
  	CV.find().skip((req.params.page - 1) * 5)
  		.limit(5)

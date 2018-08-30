@@ -3,6 +3,7 @@
 
 /*Components*/
 @import url('./components/spinner.css');
+@import url('./components/logo.css');
 @import url('./components/pagination.css');
 @import url('./components/wrapper.css');
 @import url('./components/btn.css');
@@ -11,6 +12,7 @@
 @import url('./components/link.css');
 @import url('./components/modal.css');
 @import url('./components/message.css');
+@import url('./components/animation.css');
 @import url('./components/skills.css');
 
 /*Pages*/

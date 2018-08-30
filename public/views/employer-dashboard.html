@@ -3,10 +3,19 @@
 	<div class="employer-dash__header">
 
 		<div class="employer-dash__info">
+			<div class="employer-dash__subtitle">Информация о компании:</div>
 			<span ng-bind="'Наименование компании: ' + (vm.employer.name)"></span>
 			<span ng-bind="'Сайт компании: ' + (vm.employer.site)"></span>
 			<span ng-bind="'Количество сотрудников компании: ' + (vm.employer.employeesQuantity)+' сотрудников'"></span>
 			<span ng-bind="'Местонахождение головного офиса: ' + (vm.employer.city)"></span>
+
+			<div class="employer-dash__managers" ng-if="session && session.employerAccess">
+				<div class="employer-dash__subtitle">HR-менеджеры:</div>
+				<span class="employer-dash__item" ng-repeat="manager in vm.managers">
+					<span ng-bind="manager.firstname+' '+manager.lastname"></span>
+				</span>
+			</div>
+
 			<div class="employer-dash__btns">
 				<button class="btn btn_dashboard" ng-click="vm.openVacancyMaker()" ng-if="session && session.employerAccess">Создать вакансию</button>
 				<button class="btn btn_manager" ng-click="vm.openManagerAdder()" ng-if="session && session.employerAccess">Добавить менеджера</button>
@@ -14,7 +23,7 @@
 		</div>
 
 		<div class="employer-dash__vacancies">
-			<span class="employer-dash__subtitle">Открытые вакансии:</span>
+			<div class="employer-dash__subtitle">Открытые вакансии:</div>
 			<span class="employer-dash__item" ng-repeat="vacancy in vm.employer.vacancies">
 				<span ng-bind="(vacancy.position)+' - '+(vacancy.salary | salary)+' KZT'"></span>
 				<img src="../images/info-circle.svg" ui-sref="vacancy({id: vacancy._id})" title="Перейти к вакансии" ng-if="session">
@@ -26,13 +35,6 @@
 					 ui-sref="cv({id: invite })"
 					 ng-click="vm.removeInvite(invite, vacancy)"
 					 >
-			</span>
-		</div>
-
-		<div class="employer-dash__managers" ng-if="session && session.employerAccess">
-			<span class="employer-dash__subtitle">HR-менеджеры:</span>
-			<span class="employer-dash__item" ng-repeat="manager in vm.managers">
-				<span ng-bind="manager.firstname+' '+manager.lastname"></span>
 			</span>
 		</div>
 	</div>
@@ -111,15 +113,15 @@
 	</div>
 </div>
 
-<div class="modal-backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
-	<div class="modal-window">
+<div class="modal__backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
+	<div class="modal">
 		<span>Вы уверены что хотите удалить?</span>
 		<button class="btn btn_manager" ng-click="vm.deleteVacancy()">Удалить</button>
 		<button class="btn btn_disable" ng-click="vm.closeModal()">Отмена</button>
 	</div>
 </div>
 
-<span ng-class="vm.status" class="message" ng-if="vm.message != null">
+<div ng-class="vm.status" class="message" ng-if="vm.message != null">
 	<span ng-bind="vm.message"></span>
-	<span class="message-close" ng-click="vm.message = null">&times;</span>
-</span>
+	<span class="message__close" ng-click="vm.message = null">&times;</span>
+</div>

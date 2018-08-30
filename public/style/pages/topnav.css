@@ -1,25 +1,95 @@
 .topnav {
 	width: 100%;
 	height: 40px;
-	background-color: rgba(0, 0, 0, 0.8);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.8);
-	color: rgb(250, 250, 250);
+	box-sizing: border-box;
+	background-color: #262626;
+	border-bottom: 1px solid black;
+	color: white;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
+	padding: 0 5%;
 	font-family: OpenSansCondensed;
-}
+	transition: .5s ease;
+}	
+
+	.topnav_scroll {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 40px;
+		width: 100%;
+		box-sizing: border-box;
+		background-color: #262626;
+		border-bottom: 1px solid black;
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 5%;
+		font-family: OpenSansCondensed;
+		transition: .5s ease;
+		z-index: 6;
+	}
+
+	.topnav_scroll .topnav__search {
+		display: flex;
+	}
+
+	.topnav_scroll .logo-mini,
+	.topnav_scroll .topnav__search-advanced,
+	.topnav_scroll .topnav__auth-in {
+		display: block;
+	}
 
 	.topnav__wrapper {
 		height: 40px;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
 	}
 
 	.topnav__main {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		transition: .5s ease;
+	}
+
+	.topnav__search {
+		display: none;
+		align-items: center;
+		background-color: white;
+		margin: 0 10px;
+		padding: 0 5px;
+	}
+
+	.topnav__search > input {
+		outline: none;
+		font-family: OpenSansCondensed;
+		font-size: 14px;
+		padding: 5px;
+		background-color: transparent;
+	}
+
+	.topnav__search > img {
+		height: 15px;
+		width: 15px;
+	}
+
+	.topnav__search-advanced {
+		display: none;
+		font-family: OpenSansCondensed;
+		font-size: 14px;
+		padding: 5px;
+		margin: 0 5px;
+		color: white;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	.topnav__search-advanced:hover {
+		color: lightgrey;
+		transition: .4s ease;
 	}
 
 	.topnav__items {
@@ -52,8 +122,8 @@
 		left: 0;
 		top: 100%;
 		width: 160%;
-		z-index: 3;
-		box-shadow: 1px 2px grey;
+		z-index: 6;
+		box-shadow: 1px 2px 1px grey;
 	}
 
 	.topnav__item-droplist-item {
@@ -73,6 +143,19 @@
 		padding: 10px;
 		position: relative;
 		height: 100%;
+	}
+
+	.topnav__auth-in {
+		cursor: pointer;
+		display: none;
+		font-size: 16px;
+		padding: 10px;
+		height: 100%;
+	}
+
+	.topnav__auth-in:hover {
+		background-color: crimson;
+		transition: .1s ease;
 	}
 
 	.topnav__auth:hover {
@@ -100,8 +183,8 @@
 		right: 0;
 		width: 100%;
 		background-color: rgb(250, 250, 250);
-		box-shadow: 1px 2px grey;
-		z-index: 3;
+		box-shadow: 1px 2px 1px grey;
+		z-index: 6;
 	}
 
 	.topnav__auth-droplist > span {

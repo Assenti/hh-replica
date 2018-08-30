@@ -1,17 +1,4 @@
-.modal-backdrop {
-	background-color: rgba(0, 0, 0, 0.5);
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 3;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.modal-window {
+.modal {
 	width: 300px;
 	background-color: rgb(247, 247, 247);
 	z-index: 3;
@@ -21,9 +8,22 @@
 	text-align: center;
 }
 
-	.modal-window > span {
+	.modal > span {
 		display: block;
 		margin: 10px;
 		font-size: 16px;
 		font-weight: 600;
+	}
+
+	.modal__backdrop {
+		background-color: rgba(0, 0, 0, 0.5);
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 3;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}

@@ -1,10 +1,31 @@
 .account {
 	width: 100%;
 	padding: 2% 5%;
-	display: flex;
-	justify-content: space-between;
 	font-family: Roboto;
-}
+}	
+
+	.account > a {
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		font-size: 14px;
+		margin-bottom: 15px;
+	}
+
+	.account > a:hover {
+		color: cornflowerblue;
+		transition: .3s ease;
+	}
+
+	.account > a > img {
+		width: 15px;
+		margin-right: 5px;
+	}
+
+	.account__content {
+		display: flex;
+		justify-content: space-between;
+	}
 
 	.account__info {
 		padding: 0 15px;

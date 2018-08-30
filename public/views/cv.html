@@ -76,21 +76,20 @@
 
 
 
-<div class="modal-backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
-	<div class="modal-window">
+<div class="modal__backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
+	<div class="modal">
 		<span>Вы уверены что хотите удалить?</span>
 		<button class="btn btn_manager" ng-click="vm.deleteCV()">Удалить</button>
 		<button class="btn btn_disable" ng-click="vm.closeModal()">Отмена</button>
 	</div>
 </div>
 
+<div class="spinner__backdrop" ng-show="vm.isLoading">
+	<div class="spinner"></div>
+</div>
 
-<span class="message success" ng-if="vm.success">
-	Приглашение успешно отправлено.
-	<span class="message-close" ng-click="vm.success = false">&times;</span>
-</span>
 
-<span class="message error" ng-if="vm.error">
-	Произошла ошибка, повторите попытку.
-	<span class="message-close" ng-click="vm.error = false">&times;</span>
+<span ng-class="vm.status" class="message" ng-if="vm.message != null">
+	<span ng-bind="vm.message"></span>
+	<span class="message__close" ng-click="vm.message = null">&times;</span>
 </span>

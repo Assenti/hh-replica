@@ -1,6 +1,7 @@
 <div class="home">
+	
 	<div class="home__top">
-
+		<div class="home__top-opacity"></div>
 		<div class="home__title">
 			<h1>Найди работу мечты</h1>
 			<div class="home__title-btns">
@@ -68,42 +69,45 @@
 	</div>
 
 	<div class="home__main">
-		<div class="home__main-employers">
-			<span class="home__main-subtitle">Лучшие Работодатели</span>
-			<li class="home__main-item" ng-repeat="employer in vm.employers" ui-sref="employer({id: employer._id})">
-				<span ng-bind="(employer.name)"></span>
-				<span ng-bind="'Местонахождение: '+(employer.city)"></span>
-				<span ng-bind="'Штат: '+(employer.employeesQuantity)+' чел.'"></span>
-				<span ng-bind="'Вакансий: '+(employer.vacancies.length)"></span>
-			</li>
-		</div>
-		<div class="home__main-vacancies">
-			<span class="home__main-subtitle">Вакансии в Казахстане</span>
-			<li class="home__main-item" ng-repeat="vacancy in vm.vacancies" ui-sref="vacancy({id: vacancy._id})">
-				<span ng-bind="(vacancy.position)"></span>
-				<span ng-bind="(vacancy.salary | salary)+' KZT'"></span>
-				<span ng-bind="'Опыт не менее: '+(vacancy.xpLength)+' лет'"></span>
-			</li>
-		</div>
-		<div class="home__main-cvs">
-			<span class="home__main-subtitle">Резюме Соискателей</span>
-			<li class="home__main-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id})">
+		<div class="home__main-block">
+			<div class="home__main-subtitle">Работа в компаниях</div>
+
+			<div class="home__main-item" ng-repeat="employer in vm.employers" ui-sref="employer({id: employer._id})">
+				<img src="../images/pepsi.png">
+				<div class="home__main-item-field">
+					<span ng-bind="employer.name"></span>
+					<span ng-bind="employer.vacancies.length"></span>
+				</div>
+			</div>
+
+			<div class="home__main-subtitle">Резюме Соискателей</div>
+			<div class="home__main-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id})">
 				<span ng-bind="(cv.position)"></span>
 				<span ng-bind="(cv.salary | salary)+' KZT'"></span>
 				<span ng-bind="'Опыт работы: '+(cv.xpLength)+' лет'"></span>
-			</li>
+			</div>
+
+		</div>
+		<div class="home__main-block">
+			<div class="home__main-subtitle">Вакансии</div>
+			<div class="home__main-vacancies">
+				<div class="home__main-item" ng-repeat="vacancy in vm.vacancies" ui-sref="vacancy({id: vacancy._id})">
+					<span ng-bind="(vacancy.position)"></span>
+					<span ng-bind="(vacancy.salary | salary)+' KZT'"></span>
+					<span ng-bind="'Опыт не менее: '+(vacancy.xpLength)+' лет'"></span>
+				</div>
+			</div>
+		</div>
+		<div class="home__main-block">
+			<img src="../images/mail.jpg">
 		</div>
 	</div>
 
 </div>
 
-<span class="message success" ng-if="vm.success">
-	Авторизация прошла успешно
-	<span class="message-close" ng-click="vm.success = false">&times;</span>
-</span>
+<div ng-class="vm.status" class="message" ng-if="vm.message != null">
+	<span ng-bind="vm.message"></span>
+	<span class="message__close" ng-click="vm.message = null">&times;</span>
+</div>
 
-<span class="message error" ng-if="vm.error">
-	Не верно введены Email или пароль
-	<span class="message-close" ng-click="vm.error = false">&times;</span>
-</span>
 

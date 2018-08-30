@@ -1,5 +1,5 @@
 .signup-employer {
-	position: relative;
+	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -12,13 +12,23 @@
 	justify-content: center;
 	padding: 5% 0;
 	font-family: Roboto;
-}
+}	
+
+	.signup-employer_opacity {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0, 0, 0, .2);
+	}
 
 	.signup-employer__form {
 		width: 400px;
 		padding: 15px;
 		background-color: rgb(247, 247, 247);
 		text-align: center;
+		z-index: 3;
 	}
 
 	.signup-employer__form > div {
@@ -29,6 +39,7 @@
 	.signup-employer__form > span {
 		font-size: 14px;
 		color: grey;
+		margin-top: 5px;
 		margin-bottom: 10px;
 		display: block;
 	}
@@ -40,7 +51,7 @@
 	}
 
 	.signup-employer__form > input::placeholder {
-		color: grey;
+		color: lightgrey;
 	}
 
 	.signup-employer__form > button {

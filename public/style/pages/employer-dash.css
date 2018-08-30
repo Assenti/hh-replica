@@ -12,8 +12,8 @@
 
 	.employer-dash__header {
 		display: flex;
-		align-items: flex-start;
 		justify-content: space-between;
+		flex-wrap: wrap;
 	}
 
 	.employer-dash__info {
@@ -60,7 +60,7 @@
 	}
 
 	.employer-dash__managers {
-		padding: 15px;
+		padding: 15px 0;
 	}
 
 	.employer-dash__content {

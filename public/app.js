@@ -79,3 +79,4 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider){
 		controllerAs: 'vm'
 	});
 }
+

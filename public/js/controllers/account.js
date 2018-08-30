@@ -5,6 +5,7 @@ AccountCtrl.$inject = ['$http', '$scope', '$state', '$rootScope', '$cookies'];
 function AccountCtrl($http, $scope, $state, $rootScope, $cookies){
 	var vm = this;
 	vm.editor = false;
+	vm.message = null;
 
 	$http.get('/api/user/account/' + $state.params.id)
 	.success(function(response){
@@ -43,7 +44,6 @@ function AccountCtrl($http, $scope, $state, $rootScope, $cookies){
 		})
 	}
 
-	vm.message = false;
 	vm.deleteAccount = function(){
 		$http.get('/api/employer/' + vm.user.employer)
 		.success(function(response){
@@ -57,16 +57,15 @@ function AccountCtrl($http, $scope, $state, $rootScope, $cookies){
 					console.log(err);
 				})
 			} else {
-				return vm.message = true;
+				vm.status = 'error';
+				vm.message = 'Перед удалением необходимо добавить другого менеджера';
+				return 
 			}
 
 		})
 		.error(function(err){
 			res.send(err);
 		})
-
-
-
 	}
 
 }

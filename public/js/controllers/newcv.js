@@ -5,8 +5,7 @@ NewCVCtrl.$inject = ['$http', '$scope', '$state'];
 function NewCVCtrl($http, $scope, $state){
 	var vm = this;
 	vm.skills = [];
-	vm.success = false;
-	vm.error = false;
+	vm.message = null;
 
 	vm.addSkill = function(){
 		vm.skills.push(vm.skill);
@@ -17,6 +16,7 @@ function NewCVCtrl($http, $scope, $state){
 	}
 
 	vm.saveCV = function(){
+		vm.isLoading = true;
 		if(vm.file == undefined){
 			var data = {
 				position: vm.position,
@@ -34,13 +34,17 @@ function NewCVCtrl($http, $scope, $state){
 			}
 			$http.post('/api/cv/' + $state.params.id, data)
 			.success(function(response){
+				vm.isLoading = false;
 				vm.cvs.push(response);
-				vm.success = true;
+				vm.status = 'success';
+				vm.message = 'Резюме успешно добавлено.';
 				vm.closeCVMaker();
 			})
 			.error(function(err){
 				console.log(err);
-				vm.error = true;
+				vm.isLoading = false;
+				vm.status = 'error';
+				vm.message = 'Произошла ошибка, повторите попытку.';
 			})
 		} else {
 			var data = new FormData();
@@ -62,13 +66,17 @@ function NewCVCtrl($http, $scope, $state){
 				transformRequest: angular.identity
 			})
 			.success(function(response){
+				vm.isLoading = false;
 				vm.cvs.push(response);
-				vm.success = true;
+				vm.status = 'success';
+				vm.message = 'Резюме успешно добавлено.';
 				vm.closeCVMaker();
 			})
 			.error(function(err){
+				vm.isLoading = false;
 				console.log(err);
-				vm.error = true;
+				vm.status = 'error';
+				vm.message = 'Произошла ошибка, повторите попытку.';
 			})
 		}		
 	}

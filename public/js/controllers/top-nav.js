@@ -4,6 +4,7 @@ TopNavCtrl.$inject = ['$http', '$scope', '$rootScope', '$window', '$state', '$co
 
 function TopNavCtrl($http, $scope, $rootScope, $window, $state, $cookies){
 	var vm = this;
+	vm.logo = false;
 
 	if($cookies.getObject('session')){
 		$rootScope.session = $cookies.getObject('session');
@@ -28,4 +29,25 @@ function TopNavCtrl($http, $scope, $rootScope, $window, $state, $cookies){
 	vm.closeDropList = function(){
 		vm.dropList = null;
 	}
+
+	vm.openHeader = function(){
+		$('html, body').animate({scrollTop:0}, 'slow');
+	}
+	
+
+	$(window).on('scroll', function(){
+		if($(window).scrollTop() > 80){
+			$('#topnav').removeClass('topnav');
+			$('#topnav').addClass('topnav_scroll');
+			$('.topnav__items').addClass('slide-in');
+			$('.topnav__search').addClass('slide-in');
+			$('.topnav__search-advanced').addClass('fade-in');
+		} else {
+			$('#topnav').addClass('topnav');
+			$('#topnav').removeClass('topnav_scroll');
+			$('.topnav__items').removeClass('slide-in');
+			$('.topnav__search').removeClass('slide-in');
+			$('.topnav__search-advanced').removeClass('fade-in');
+		}
+	});
 }

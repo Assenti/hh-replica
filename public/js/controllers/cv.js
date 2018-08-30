@@ -6,6 +6,7 @@ function CVCtrl($http, $scope, $state, $rootScope){
 	var vm = this;
 	vm.editor = false;
 	vm.skillsToEdit = [];
+	vm.message = null;
 
 	$http.get('/api/cv/' + $state.params.id)
 	.success(function(response){
@@ -22,8 +23,6 @@ function CVCtrl($http, $scope, $state, $rootScope){
 	.error(function(err){
 		console.log(err);
 	})
-
-
 
 	vm.modal = false;
    	vm.openModal = function(cv, index){
@@ -80,19 +79,22 @@ function CVCtrl($http, $scope, $state, $rootScope){
 		})
 	}
 
-	vm.success = false;
-	vm.error = false;
 	vm.invite = function(user){
+		vm.isLoading = true;
 		var data = {
 			employer_id: user.employer,
 		}
 		$http.post('/api/cv/responsed/' + $state.params.id, data)
 		.success(function(response){
-			vm.success = true;
+			vm.isLoading = false;
+			vm.status = 'success';
+			vm.message = 'Приглашение успешно отправлено.';
 		})
 		.error(function(err){
 			console.log(err);
-			vm.error = true;
+			vm.isLoading = false;
+			vm.status = 'error';
+			vm.message = 'Произошла ошибка, повторите попытку.';
 		})
 	}
 

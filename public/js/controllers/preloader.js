@@ -10,3 +10,14 @@ function PreloaderCtrl($http, $scope){
 		$scope.IsLoading = false;
 	});
 }
+
+
+// window.onload = function() {
+//     var preloader = document.getElementsByClassName('preloader')[0];
+
+//     preloader.className += ' fade';
+
+//     setTimeout(function(){
+//         preloader.style.display = 'none';
+//     }, 300);
+// };

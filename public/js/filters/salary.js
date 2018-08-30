@@ -2,8 +2,9 @@ app.filter('salary', SalaryFilter);
 
 function SalaryFilter(){
 	return function(sum){
-		var output = '';
-		if(sum > 0) {
+		
+		if(sum != undefined) {
+			var output = '';
 			if(sum > 10000 && sum < 100000){
 				output = sum.toString();
 				return output.slice(0, 2) + ' ' + output.slice(2, 5);

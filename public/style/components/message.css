@@ -24,7 +24,7 @@
 		background-color: #ff5050;
 	}
 
-	.message-close {
+	.message__close {
 		font-size: 20px;
 		margin-left: 10px;
 		cursor: pointer;
