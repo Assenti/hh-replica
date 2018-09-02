@@ -28,6 +28,12 @@ const CVSchema = mongoose.Schema({
 			ref: 'Employer'
 		}
 	],
+	watches: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Employer'
+		}
+	],
 	date: { 
 		type: Date,
 		default: Date.now

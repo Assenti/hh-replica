@@ -29,7 +29,7 @@
 					<div class="header__search-result" ng-repeat="result in vm.found_cvs" 
 						ng-if="vm.chosenOption === 'Резюме'" 
 						ng-click="vm.closeSearch()" 
-						ui-sref="cv({ id: result._id })"
+						ui-sref="cv({id: result._id, user_id: session._id})"
 						ng-bind="result.position"
 						></div>
 					<div class="header__search-result" ng-repeat="result in vm.found_employers"
@@ -41,7 +41,7 @@
 					<div class="header__search-result" ng-if="vm.notFound">Нет совпадений</div>
 				</div>
 				<div class="header__search-select">
-					<select ng-model="vm.chosenOption" ng-options="choice as choice for choice in vm.choices"></select>
+					<select class="select" ng-model="vm.chosenOption" ng-options="choice as choice for choice in vm.choices"></select>
 					<img src="./images/sort-arrows.svg">
 				</div>
 			</div>
@@ -57,14 +57,32 @@
 			<img class="logo-mini" id="logo_mini" src="/images/hh_mini.png" ui-sref="home">
 			<div class="topnav__main">
 				<div class="topnav__items">
-					<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy">
+
+					<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy" ng-if="session && !session.employerAccess">
+						<span>Резюме</span>
+						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findVacancy'">
+							<div class="topnav__item-droplist-special" ui-sref="newcv" ng-click="vm.closeDropList()">Создать резюме</div>
+							<div class="topnav__item-droplist-item" ui-sref="user({id: session._id})" ng-click="vm.closeDropList()">Мои резюме</div>
+						</div>
+					</div>
+
+					<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy" ng-if="session.employerAccess">
+						<span>Вакансии</span>
+						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findVacancy'">
+							<div class="topnav__item-droplist-special" ng-click="vm.closeDropList()">Создать вакансию</div>
+							<div class="topnav__item-droplist-item" ng-click="vm.closeDropList()">Мои вакансии</div>
+						</div>
+					</div>
+
+					<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy" ng-if="!session">
 						<span>Ищу работу</span>
 						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findVacancy'">
 							<div class="topnav__item-droplist-item">Создать резюме</div>
 							<div class="topnav__item-droplist-item">Как улучшить резюме</div>
 						</div>
 					</div>
-					<div class="topnav__item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee">
+
+					<div class="topnav__item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee" ng-if="!session">
 						<span>Ищу сотрудников</span>
 						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findEmployee'">
 							<div class="topnav__item-droplist-item">Разместить вакансию</div>
@@ -103,7 +121,7 @@
 		<div class="topnav__auth"  ng-if="session" ng-mouseover="vm.openDropList('auth')" ng-mouseleave="vm.closeDropList()" id="auth">
 			<div class="topnav__auth-title">
 				<img src="/images/user.svg">
-				<span ng-bind="(session.firstname)+' '+(session.lastname)"></span>
+				<span ng-bind="session.firstname+' '+session.lastname"></span>
 			</div>
 			<div class="topnav__auth-droplist" ng-if="vm.dropList == 'auth'">
 				<span ng-if="session.employerAccess" ui-sref="employer({id: session.employer})" ng-click="vm.closeDropList()">Кабинет</span>
@@ -142,6 +160,7 @@
 <!-- App files importing -->
 <script src="/app.js"></script>
 <script src="/js/vendor/file.js"></script>
+<script src="/js/services/local.js"></script>
 <script src="/js/filters/date.js"></script>
 <script src="/js/filters/salary.js"></script>
 <script src="/js/controllers/preloader.js"></script>
@@ -156,4 +175,6 @@
 <script src="/js/controllers/vacancy.js"></script>
 <script src="/js/controllers/account.js"></script>
 <script src="/js/controllers/search.js"></script>
+<script src="/js/controllers/responses.js"></script>
+<script src="/js/controllers/favourites.js"></script>
 </html>

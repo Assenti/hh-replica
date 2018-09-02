@@ -16,8 +16,10 @@
 		flex-wrap: wrap;
 	}
 
-	.employer-dash__info {
+	.employer-dash__info,
+	.employer-dash__vacancies {
 		padding: 15px;
+		flex-grow: 1;
 	}
 
 	.employer-dash__info > span {
@@ -30,10 +32,6 @@
 		margin: 15px 0;
 	}
 
-	.employer-dash__vacancies {
-		padding: 15px;
-	}
-
 	.employer-dash__subtitle {
 		display: block;
 		font-size: 20px;
@@ -43,19 +41,32 @@
 	}
 
 	.employer-dash__item {
+		display: block;
+		margin-bottom: 5px;
+	}
+
+	.employer-dash__item > span {
+		display: block;
+		font-size: 14px;
+		color: grey;
+	}
+
+	.employer-dash__item-head {
 		display: flex;
 		align-items: center;
 	}
 
-	.employer-dash__item > span {
+	.employer-dash__item-head > span {
 		font-size: 16px;
+		color: cornflowerblue;
 		margin: 5px 0;
 		margin-right: 5px;
 	}
 
-	.employer-dash__item > img {
+	.employer-dash__item-head > img {
 		margin: 5px; 
-		width: 16px;
+		width: 14px;
+		height: 14px;
 		cursor: pointer;
 	}
 
@@ -83,6 +94,10 @@
 
 	.employer-dash__form {
 		width: 100%;
+	}
+
+	.employer-dash__form > input {
+		padding: 10px;
 	}
 
 	.employer-dash__form-group {

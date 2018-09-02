@@ -28,10 +28,12 @@
 	<div class="vacancy__response-title" ng-if="session && !session.employerAccess">Выберите резюме для отклика на вакансию</div>
 	<div class="vacancy__response-block" ng-if="session && !session.employerAccess">
 		<div class="vacancy__response-select">
-			<select class="vacancy__response-options" ng-options="cv as cv.position for cv in vm.cvs" ng-model="vm.selected"></select>
+			<select class="select" ng-options="cv as cv.position for cv in vm.cvs" ng-model="vm.selected"></select>
 			<img src="../images/sort-arrows.svg">
 		</div>
 		<div class="btn btn_dashboard" ng-click="vm.response()">Откликнуться</div>
+		<img src="../images/favourite.svg" ng-click="vm.toFavourite(vm.vacancy)" title="Добавить в Избранные" ng-if="!vm.favourite_active">
+		<img src="../images/favourite_active.svg" ng-if="vm.favourite_active" ng-click="vm.fromFavourite(vm.vacancy)" title="Убрать из Избранные">
 	</div>
 
 	<div class="vacancy__content">

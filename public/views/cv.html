@@ -37,24 +37,6 @@
 	</div>
 	<input class="input" type="text" ng-model="vm.objectToEdit.xpLength" ng-if="vm.editor">
 	<input class="input" type="text" ng-model="vm.objectToEdit.work" ng-if="vm.editor">
-	<div class="cv__skills-info">
-		<span>Ключевые навыки:</span>
-		<div class="cv__skills">
-			<div class="skills" ng-repeat="skill in vm.skills" ng-bind="skill.skill"></div>
-		</div>
-	</div>
-
-	<div class="cv__add-skills">
-		<input class="input" type="text" ng-model="vm.skill" ng-if="vm.editor">
-		<span class="skills__add-btn" ng-click="vm.addSkill()" title="Добавить навык" ng-if="vm.editor">&plus;</span>
-	</div>
-
-	<div class="cv__edit-skills" ng-if="vm.editor">
-		<div class="skills_wo" ng-repeat="skill in vm.skillsToEdit">
-			<span class="skill" ng-bind="skill"></span>
-			<span class="delete-skill" ng-click="vm.removeSkill($index)" ng-if="vm.editor">&times;</span>
-		</div>
-	</div>
 
 	<div class="cv__education-info">
 		<span>Высшее образование:</span>
@@ -72,6 +54,27 @@
 		<button class="btn btn_dashboard" ng-click="vm.editCV()" ng-if="vm.editor">Сохранить изменения</button>		
 		<button class="btn btn_disable" ng-click="vm.closeEditor()" ng-if="vm.editor">Отмена</button>	
 	</div>
+	
+	<div class="cv__skills-info">
+		<span>Ключевые навыки:</span>
+		<div class="cv__skills"	>
+			<div class="skills" ng-repeat="skill in vm.skills" ng-bind="skill.skill"></div>
+		</div>
+	</div>
+
+	<div class="cv__add-skills">
+		<input class="input" type="text" ng-model="vm.skill" ng-if="vm.editor">
+		<span class="skills__add-btn" ng-click="vm.addSkill()" title="Добавить навык" ng-if="vm.editor">&plus;</span>
+	</div>
+
+	<div class="cv__edit-skills" ng-if="vm.editor">
+		<div class="skills_wo" ng-repeat="skill in vm.skillsToEdit">
+			<span class="skill" ng-bind="skill"></span>
+			<span class="delete-skill" ng-click="vm.removeSkill($index)" ng-if="vm.editor">&times;</span>
+		</div>
+	</div>
+
+	
 </div>
 
 

@@ -9,6 +9,7 @@
 @import url('./components/btn.css');
 @import url('./components/input.css');
 @import url('./components/textarea.css');
+@import url('./components/select.css');
 @import url('./components/link.css');
 @import url('./components/modal.css');
 @import url('./components/message.css');
@@ -26,9 +27,11 @@
 @import url('./pages/cv.css');
 @import url('./pages/newcv.css');
 @import url('./pages/vacancy.css');
+@import url('./pages/responses.css');
 @import url('./pages/signin.css');
 @import url('./pages/signup-employee.css');
 @import url('./pages/signup-employer.css');
+@import url('./pages/favourites.css');
 @import url('./pages/footer.css');
 
 @font-face {

@@ -25,8 +25,9 @@
 		<div class="employer-dash__vacancies">
 			<div class="employer-dash__subtitle">Открытые вакансии:</div>
 			<span class="employer-dash__item" ng-repeat="vacancy in vm.employer.vacancies">
-				<span ng-bind="(vacancy.position)+' - '+(vacancy.salary | salary)+' KZT'"></span>
-				<img src="../images/info-circle.svg" ui-sref="vacancy({id: vacancy._id})" title="Перейти к вакансии" ng-if="session">
+				<div class="employer-dash__item-head">
+					<span ng-bind="vacancy.position"></span>
+					<img src="../images/external-link.svg" ui-sref="vacancy({id: vacancy._id})" title="Перейти к вакансии" ng-if="session">
 				<img src="../images/trash.svg" ng-click="vm.openModal(vacancy, $index)" title="Удалить" ng-if="session && session.employerAccess">
 				<img src="../images/invitation.svg" 
 					 ng-if="session && session.employerAccess && vacancy.responses.length > 0" 
@@ -35,6 +36,8 @@
 					 ui-sref="cv({id: invite })"
 					 ng-click="vm.removeInvite(invite, vacancy)"
 					 >
+				</div>	
+				<span ng-bind="(vacancy.salary | salary)+' KZT'"></span>
 			</span>
 		</div>
 	</div>

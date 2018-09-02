@@ -1,0 +1,11 @@
+.select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	outline: none;
+	cursor: pointer;
+	border: none;
+	height: 100%;
+}

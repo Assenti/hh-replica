@@ -27,7 +27,7 @@ const LOGO = '/images/hh_kz.png';
 const LOCAL = 'localhost';
 const REMOTE = '142.93.229.118';
 
-
+// GET
 router.get('/', (req, res, next)=> {
 	CV.find()
 	.exec((err, cvs)=> {
@@ -36,23 +36,92 @@ router.get('/', (req, res, next)=> {
 	})
 })
 
+router.get('/getresponses', (req, res, next)=> {
+	let responses = 0;
+	let watches = 0;
+	CV.find().exec((err, cvs)=> {
+		if(err) return res.send(err)
+		for(let i = 0; i < cvs.length; i++){
+			responses += cvs[i].responses.length;
+			watches += cvs[i].watches.length;
+		}
+		res.send({responses: responses, watches: watches})
+	})
+})
+
+router.get('/:id/:user_id', (req, res, next)=> {
+	CV.findById(req.params.id)
+	.exec((err, cv)=> {
+		if(err) return res.send(err)
+		Skill.find({ cv: req.params.id })
+		.exec((err, skills)=> {
+			if(err) return res.send(err)
+			User.findById(req.params.user_id)
+			.exec((err, user)=> {
+				if(err) return res.send(err)
+				if(user.employerAccess){
+					cv.watches.push(user.employer)
+					cv.save((err, cv)=> {
+						if(err) return res.send(err)
+						res.send({ cv: cv, skills: skills, user: user })
+					})
+				} else {
+					res.send({ cv: cv, skills: skills, user: user })
+				}
+			})
+		})
+	})
+})
+
+// посмотреть есть ли другие запросы 
 router.get('/user/:id', (req, res, next)=> {
-	CV.find({user: req.params.id })
+	CV.find({ user: req.params.id })
 	.exec((err, cvs)=> {
 		if(err) return res.send(err)
 		res.send(cvs)
 	})
 })
 
-router.get('/salaries', (req, res, next)=> {
-	CV.find()
+router.get('/cvs/:id/:page', (req, res, next)=> {
+	CV.find({ user: req.params.id })
+	.skip((req.params.page - 1) * 5)
+	.limit(5)
 	.exec((err, cvs)=> {
 		if(err) return res.send(err)
-		let salaries = [];
-		for(let i = 0; i < cvs.length; i++){
-			salaries[i] = cvs[i].salary;
-		}
-		res.send(salaries);
+		CV.countDocuments((err, count)=> {
+			if(err) return res.send(err)
+			res.send({ cvs: cvs, count: count })
+		})
+	})
+})
+
+router.get('/responses/:id/:page', (req, res, next)=> {
+	CV.find({ user: req.params.id })
+	.populate('watches').populate('responses')
+	.skip((req.params.page - 1) * 5)
+	.limit(5)
+	.exec((err, cvs)=> {
+		if(err) return res.send(err)
+		CV.countDocuments((err, count)=> {
+			if(err) return res.send(err)
+			res.send({ cvs: cvs, count: count })
+		})
+	})
+})
+
+router.get('/salary_filter/:param', (req, res, next)=> {
+	CV.find({ salary: req.params.param })
+	.exec((err, cvs)=> {
+		if(err) return res.send(err)
+		res.send(cvs)
+	})
+})
+
+router.get('/xp_filter/:param', (req, res, next)=> {
+	CV.find({ xpLength: req.params.param })
+	.exec((err, cvs)=> {
+		if(err) return res.send(err)
+		res.send(cvs)
 	})
 })
 
@@ -66,27 +135,7 @@ router.get('/search/:page', (req, res, next)=>{
  				res.send({results: cvs, count: count});
  			})
  			
- 		})
-})
-
-router.get('/:id', (req, res, next)=> {
-	CV.findById(req.params.id)
-	.exec((err, cv)=> {
-		if(err) return res.send(err)
-		Skill.find({ cv: req.params.id })
-		.exec((err, skills)=> {
-			if(err) return res.send(err)
-			res.send({ cv: cv, skills: skills })
-		})
-	})
-})
-
-router.get('/user/:id', (req, res, next)=> {
-	CV.find({ user: req.params.id })
-	.exec((err, cvs)=> {
-		if(err) return res.send(err)
-		res.send(cvs)
-	})
+ 	})
 })
 
 router.get('/search/common/:query', (req, res, next)=> {
@@ -99,7 +148,7 @@ router.get('/search/common/:query', (req, res, next)=> {
 	})
 })
 
-
+// POST
 router.post('/file/:id', upload.single('file'), (req, res, next)=>{
 	User.findById(req.params.id).exec((err, user)=> {
 		if(err) return res.send(err)
@@ -190,7 +239,6 @@ router.post('/:id', (req, res, next)=>{
 		})
 	})
 })
-
 
 router.post('/responsed/:id', (req, res, next)=> {
 	CV.findById(req.params.id)
@@ -305,7 +353,6 @@ router.put('/', (req, res, next)=> {
 		})	
 	})
 })
-
 
 router.delete('/response/:cv_id/:employer_id', (req, res, next)=> {
 	CV.findById(req.params.cv_id)

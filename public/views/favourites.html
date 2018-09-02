@@ -1,0 +1,13 @@
+<div class="favourites">
+	<div class="favourites__title">Избранные вакансии <img src="../images/clear-button.svg" ng-click="vm.clearFavourites()" title="Очистить Избранные"></div>
+	<div class="favourites__items">
+		<div class="favourites__item" ng-repeat="vacancy in vm.favourites">
+			<div class="favourites__item-head">
+				<span ng-bind="vacancy.position" ui-sref="vacancy({id: vacancy._id})"></span>
+				<img src="../images/trash.svg" ng-click="vm.fromFavourite(vacancy)">
+			</div>
+			<span ng-bind="(vacancy.salary | salary) + ' KZT'"></span>
+			<span ng-bind="'Вакансия размещена компанией: '+vacancy.employer.name"></span>
+		</div>
+	</div>
+</div>

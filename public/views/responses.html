@@ -1,0 +1,30 @@
+<div class="responses">
+
+	<a class="cv__back-link" ui-sref="user({id: session._id})">
+		<img src="../images/left-chevron.svg">
+		Назад в кабинет
+	</a>
+
+	<div class="responses__title">Приглашения (отклики) и просмотры</div>
+	<div class="responses__head">
+		<div class="responses__subtitle" ng-bind="'Всего '+vm.invites+' приглашений'"></div>
+		<div class="pagination">
+			<div class="pagination__item" ng-click="vm.prevPage()"><</div>
+			<div ng-class="{'active': vm.currentPage === (page + 1)}" class="pagination__item" ng-repeat="page in vm.pages track by $index" ng-bind="page+1" ng-click="vm.displayPage(page+1)"></div>
+			<div class="pagination__item" ng-click="vm.nextPage()">></div>
+		</div>
+	</div>
+
+
+	<div class="responses__item-wrapper" ng-repeat="cv in vm.cvs">
+		<div class="responses__item-info" ng-bind="'На Ваше резюме: ' + cv.position" ui-sref="cv({id: cv._id})"></div>
+		<div class="responses__item" ng-repeat="response in cv.responses track by $index">
+			<span ng-bind="'Приглашение от компании: '+response.name"></span>
+			<img src="../images/external-link.svg" ui-sref="employer({id: response._id})" title="Перейти">
+		</div>
+		<div class="responses__item-watch" ng-repeat="watch in cv.watches track by $index" ng-bind="'Просмотр компанией: '+watch.name"></div>
+	</div>
+
+</div>
+
+

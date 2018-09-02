@@ -9,38 +9,35 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 	vm.pages = [];
 	vm.allPages = [];
 	vm.toggler = false;
-	vm.xp = null;
-
-	
-	vm.years = ['Выберите опыт','Нет опыта',1,2,3,4,5,6,7,8,9,10];
+		
+	vm.years = ['Выберите опыт','Нет опыта',1,2,3,4,5,6,7,8,9,10,'Более 10 лет'];
 	vm.year = vm.years[0];
 
-	$http.get('/api/cv/salaries')
+	vm.filterOptions = ['По соответствию', 'По дате', 'По возрастанию зарплаты', 'По убыванию зарплаты'];
+	vm.filterOption = vm.filterOptions[0];
+
+	$http.get('/api/getsalaries')
 	.success(function(response){
-		vm.cv_salaries = response;
+		vm.salaries = ['Выберите оклад'];
+		for(var i = 0; i < response.length; i++){
+			vm.salaries[i+1] = response[i];
+		}
+		vm.salary = vm.salaries[0];
 	})
 	.error(function(err){
 		console.log(err);
 	})
 
-	// Output info on loading page (default - vacancies output)
 	$http.get('/api/vacancy/search/' + vm.currentPage)
 	.success(function(response){
 		vm.results = response.results;
+		vm.default = response.results;
 		vm.count = response.count;
-		vm.vacancy_salaries = [];
 		vm.allPages = new Array(Math.ceil(vm.count / 5));
 
-		for(var j = 0; j < response.results.length; j++){
-			vm.vacancy_salaries[j] = response.results[j].salary;
-		}
-
-		vm.salaries = ['Выберите оклад'];
-		vm.salary = vm.salaries[0];
-		var mergedSalaries = arrayUnique(vm.cv_salaries.concat(vm.vacancy_salaries));
-		for(var k = 0, l = 1; k < mergedSalaries.length; k++, l++){
-			vm.salaries[l] = mergedSalaries[k];
-		}
+		if(vm.chosenOption === 'Вакансии') vm.found = 'вакансий';
+		if(vm.chosenOption === 'Резюме') vm.found = 'резюме';
+		if(vm.chosenOption === 'Компании') vm.found = 'компаний';
 
 		for(var i = 0; i < vm.allPages.length; i++){
 			vm.allPages[i] = i;
@@ -51,43 +48,68 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 		console.log(err);
 	})
 
-	function arrayUnique(array) {
-	    var a = array.concat();
-	    for(var i=0; i<a.length; ++i) {
-	        for(var j=i+1; j<a.length; ++j) {
-	            if(a[i] === a[j])
-	                a.splice(j--, 1);
-	        }
-	    }
-	    return a;
-	}
-
-	vm.paramWatcher = function(param){
-		$scope.strict = true;
-		if(vm.salary === param){
+	vm.filterBySalary = function(){
+		if(vm.year != 'Выберите опыт'){
 			vm.year = vm.years[0];
-			vm.param = {salary: vm.salary};
-			if(vm.chosenOption === 'Вакансии'){
-				vm.notFound = !vm.vacancy_salaries.includes(vm.salary);
-				console.log(vm.notFound);
-			} else if(vm.chosenOption === 'Резюме'){
-				vm.notFound = !vm.cv_salaries.includes(vm.salary);
-				console.log(vm.notFound);
-			}
-		} else if(vm.year === param){
-
-			if(vm.year === 'Нет опыта'){
-				vm.salary = vm.salaries[0];
-				vm.param = {xpLength: 0};
-				console.log(vm.param);
-			} else {
-				vm.salary = vm.salaries[0];
-				vm.param = {xpLength: vm.year};
-				console.log(vm.param);
-			}
+			vm.results = vm.default;
+		}
+		if(vm.chosenOption === 'Вакансии'){
+			$http.get('/api/vacancy/salary_filter/' + vm.salary)
+			.success(function(response){
+				vm.results = response;
+				if(response.length == 0) vm.notFound = true;
+			})
+			.error(function(err){
+				console.log(err);
+			})
+		} else if(vm.chosenOption === 'Резюме') {
+			$http.get('/api/cv/salary_filter/' + vm.salary)
+			.success(function(response){
+				vm.results = response;
+				if(response.length == 0) vm.notFound = true;
+			})
+			.error(function(err){
+				console.log(err);
+			})
 		}
 	}
 
+	vm.filterByXpLength = function(){
+		if(vm.salary != 'Выберите оклад'){
+			vm.salary = vm.salaries[0];
+			vm.results = vm.default;
+		}
+		if(vm.chosenOption === 'Вакансии'){
+			if(vm.year === 'Нет опыта') {
+				$http.get('/api/vacancy/xp_filter/' + 0)
+				.success(function(response){
+					vm.results = response;
+					if(response.length == 0) vm.notFound = true;
+				})
+				.error(function(err){
+					console.log(err);
+				})
+			} else {
+				$http.get('/api/vacancy/xp_filter/' + vm.year)
+				.success(function(response){
+					vm.results = response;
+					if(response.length == 0) vm.notFound = true;
+				})
+				.error(function(err){
+					console.log(err);
+				})
+			}
+		} else if(vm.chosenOption === 'Резюме') {
+			$http.get('/api/cv/xp_filter/' + vm.year)
+			.success(function(response){
+				vm.results = response;
+				if(response.length == 0) vm.notFound = true;
+			})
+			.error(function(err){
+				console.log(err);
+			})
+		}
+	}
 
 	vm.nextPage = function(){
 		if(vm.currentPage % 5 == 0 && vm.currentPage < vm.allPages.length){
@@ -131,10 +153,8 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 	}
 
 	vm.uniSearch = function(option, api){
-
 		vm.notFound = false;
-		vm.param = '';
-		$scope.strict = false;
+		vm.results = vm.default;
 		vm.year = vm.years[0];
 		vm.salary = vm.salaries[0];
 		vm.chosenOption = option;
@@ -147,6 +167,11 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 				vm.notFound = true;
 			}
 			vm.allPages = new Array(Math.ceil(vm.count / 5));
+
+			if(vm.chosenOption === 'Вакансии') vm.found = 'вакансий';
+			if(vm.chosenOption === 'Резюме') vm.found = 'резюме';
+			if(vm.chosenOption === 'Компании') vm.found = 'компаний';
+
 			for(var i = 0; i < vm.allPages.length; i++){
 				vm.allPages[i] = i;
 			}
@@ -157,35 +182,25 @@ function SearchCtrl($http, $scope, $state, $rootScope){
 		})
 	}
 
-	vm.resetFilters = function(){
-		vm.notFound = false;
-		vm.param = '';
-		$scope.strict = false;
-		vm.year = vm.years[0];
-		vm.salary = vm.salaries[0];
-		vm.filter = '';
-	}
-
-	var setFilter = function(filter){
-		vm.filter = filter;
-	}
-
-	var setFilterReverse = function(filter){
-		vm.filter = '-' + filter;
-	}
-
-	vm.sortToggler = function(filter1, filter2){
-		if(vm.chosenOption === 'Компании'){
-			vm.toggler = !vm.toggler;
-			if(vm.toggler) setFilter(filter2)
-			else setFilterReverse(filter2);
-		} else {
-			vm.toggler = !vm.toggler;
-			if(vm.toggler) setFilter(filter1)
-			else setFilterReverse(filter1);
+	vm.setFilter = function(){
+		if(vm.filterOption === vm.filterOptions[0]){
+			vm.filter = '';
+		} else if(vm.filterOption === vm.filterOptions[1]){
+			vm.filter = 'date';
+		} else if(vm.filterOption === vm.filterOptions[2]){
+			vm.filter = 'salary';
+		} else if(vm.filterOption === vm.filterOptions[3]){
+			vm.filter = '-salary';
 		}
 		
 	}
 
+	vm.resetFilters = function(){
+		vm.results = vm.default;
+		vm.notFound = false;
+		vm.year = vm.years[0];
+		vm.salary = vm.salaries[0];
+		vm.filter = '';
+	}
 
 }

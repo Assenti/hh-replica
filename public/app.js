@@ -48,8 +48,14 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider){
 		controller: 'EmployeeDashboardCtrl',
 		controllerAs: 'vm'
 	})
+	.state('responses', {
+		url: '/responses/:id',
+		templateUrl: '/views/responses.html',
+		controller: 'ResponsesCtrl',
+		controllerAs: 'vm'
+	})
 	.state('cv', {
-		url: '/cv/:id',
+		url: '/cv/:id/:user_id',
 		templateUrl: '/views/cv.html',
 		controller: 'CVCtrl',
 		controllerAs: 'vm'
@@ -76,6 +82,12 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider){
 		url: '/search',
 		templateUrl: '/views/search.html',
 		controller: 'SearchCtrl',
+		controllerAs: 'vm'
+	})
+	.state('favourites', {
+		url: '/favourites',
+		templateUrl: '/views/favourites.html',
+		controller: 'FavouritesCtrl',
 		controllerAs: 'vm'
 	});
 }

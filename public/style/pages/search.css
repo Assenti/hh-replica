@@ -1,6 +1,6 @@
 .search {
 	padding: 20px 5%;
-	height: calc(100vh - 295px);
+	height: calc(100vh - 292px);
 	display: flex;
 	justify-content: space-between;
 	font-family: Roboto;
@@ -9,6 +9,7 @@
 	.search__tools {
 		background-color: rgb(247, 247, 247);
 		width: 300px;
+		height: 100%;
 	}
 
 	.search__tools-title {
@@ -27,82 +28,85 @@
 		align-items: flex-start;
 	}	
 
-		.search__tool > button {
-			width: 100%;
-			margin-top: 15px;
-		}
+	.search__tool > button {
+		margin: 0 auto;
+		margin-top: 15px;
+	}
 
-		.search__tool-title {
-			display: block;
-			font-size: 16px;
-			padding: 10px; 
-		}
+	.search__tool-title {
+		display: block;
+		font-size: 16px;
+		padding: 10px; 
+	}
 
-		.search__tool-option {
-			display: block;
-			width: 100%;
-			font-size: 16px;
-			padding: 10px; 
-			cursor: pointer;
-			border: 1px solid transparent;
-		}
+	.search__tool-option {
+		display: block;
+		width: 100%;
+		font-size: 16px;
+		padding: 10px; 
+		cursor: pointer;
+		border: 1px solid transparent;
+	}
 
-		.search__tool-option:hover {
-			border-color: blue;
-			transition: .2s ease-in;
-		}
+	.search__tool-option:hover {
+		border-color: blue;
+		transition: .2s ease-in;
+	}
 
-		.search__tool-option.active {
-			background-color: cornflowerblue;
-			border-color: blue;
-			color: white;
-		}
+	.search__tool-option.active {
+		background-color: cornflowerblue;
+		border-color: blue;
+		color: white;
+	}
 
-		.search__tool-select {
-			display: inline-flex;
-			align-items: center;
-			padding: 5px 10px;
-			border: 1px solid lightgrey;
-			border-radius: 3px;
-			margin: 0 10px; 
-		}
+	.search__tool-select,
+	.search__results-filters {
+		display: inline-flex;
+		align-items: center;
+		padding: 10px;
+		border: 1px solid lightgrey;
+		/*border-radius: 3px;*/
+		margin: 0 10px; 
+	}
 
-		.search__tool-select:hover {
-			border-color: blue;
-			transition: .2s ease-in;
-		}
+	.search__tool-select:hover,
+	.search__results-filters:hover {
+		border-color: blue;
+		transition: .2s ease-in;
+	}
 
-		.search__tool-select.selected {
-			background-color: cornflowerblue;
-		}
+	.search__tool-select.selected {
+		background-color: cornflowerblue;
+	}
 
-		.search__tool-select.selected > select {
-			color: white;
-			font-weight: 600;
-		}
+	.search__tool-select.selected > select {
+		color: white;
+		font-weight: 600;
+	}
 
-		.search__tool-select > select {
-			background-color: transparent;
-			-webkit-appearance: none;
-			-moz-appearance: none;
-			-o-appearance: none;
-			appearance: none;
-			border: none;
-			outline: none;
-			font-size: 14px;
-			cursor: pointer;
-		}
+	.search__tool-select > select,
+	.search__results-filters > select {
+		font-size: 14px;
+	}
 
-		.search__tool-select > img {
-			width: 16px;
-			margin-left: 2px;
-		}
-
-		
+	.search__tool-select > img,
+	.search__results-filters > img {
+		width: 16px;
+		margin-left: 2px;
+	}
 
 	.search__results {
 		width: calc(100% - 310px);
 		padding: 0 15px;
+	}
+
+	.search__results-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 10px 0;
+		margin-bottom: 10px;
+		border-bottom: 1px solid lightgrey;
 	}
 
 	.search__results-title {
@@ -113,23 +117,20 @@
 		color: grey;
 	}
 
-	.search__results-label {
-		font-size: 14px;
-	}
-
 	.search__result {
-		margin: 5px 0;
-		padding: 5px 10px;
+		padding-left: 10px;
+		margin-bottom: 10px;
 	}
 
 	.search__result > span {
 		margin: 5px 0;
 		display: block;
-		font-size: 16px;
+		font-size: 14px;
 		color: grey;
 	}
 
 	.search__result > a {
+		font-size: 14px;
 		text-decoration: none;
 		font-weight: 600;
 		cursor: pointer;
@@ -137,41 +138,13 @@
 	}
 
 	.search__result > a:hover {
-		color: blue;
+		color: crimson;
 		transition: .3s ease;
 	}
 
-	.search__results-head {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 10px;
-		border-bottom: 1px solid lightgrey;
-	}
 
-	.search__results-filters {
-		display: flex;
-		align-items: center;
-		justify-content: space-around;
-	}
 
-	.search__results-filter {
-		cursor: pointer;
-		margin: 0 10px;
-		font-size: 14px;
-		display: flex;
-		align-content: center;
-	}
 
-	.search__results-filter:hover {
-		color: crimson;
-	}
-
-	.search__results-filter-icon {
-		width: 15px;
-		height: 15px;
-		margin-left: 2px;
-	}
 
 
 

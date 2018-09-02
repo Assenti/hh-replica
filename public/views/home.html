@@ -81,7 +81,7 @@
 			</div>
 
 			<div class="home__main-subtitle">Резюме Соискателей</div>
-			<div class="home__main-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id})">
+			<div class="home__main-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id, user_id: session._id})">
 				<span ng-bind="(cv.position)"></span>
 				<span ng-bind="(cv.salary | salary)+' KZT'"></span>
 				<span ng-bind="'Опыт работы: '+(cv.xpLength)+' лет'"></span>

@@ -8,17 +8,12 @@ function CVCtrl($http, $scope, $state, $rootScope){
 	vm.skillsToEdit = [];
 	vm.message = null;
 
-	$http.get('/api/cv/' + $state.params.id)
+	$http.get('/api/cv/' + $state.params.id + '/' + $rootScope.session._id)
 	.success(function(response){
 		vm.cv = response.cv;
 		vm.skills = response.skills;
-		$http.get('/api/user/' + vm.cv.user)
-		.success(function(response){
-			vm.user = response;
-		})
-		.error(function(err){
-			console.log(err);
-		})
+		vm.user = response.user;
+		console.log(response);
 	})
 	.error(function(err){
 		console.log(err);

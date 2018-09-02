@@ -1,8 +1,8 @@
 app.controller('NewCVCtrl', NewCVCtrl);
 
-NewCVCtrl.$inject = ['$http', '$scope', '$state'];
+NewCVCtrl.$inject = ['$http', '$scope', '$state', '$rootScope'];
 
-function NewCVCtrl($http, $scope, $state){
+function NewCVCtrl($http, $scope, $state, $rootScope){
 	var vm = this;
 	vm.skills = [];
 	vm.message = null;
@@ -32,13 +32,12 @@ function NewCVCtrl($http, $scope, $state){
 				work: vm.work,
 				skills: vm.skills
 			}
-			$http.post('/api/cv/' + $state.params.id, data)
+			console.log(data);
+			$http.post('/api/cv/' + $rootScope.session._id, data)
 			.success(function(response){
 				vm.isLoading = false;
-				vm.cvs.push(response);
 				vm.status = 'success';
 				vm.message = 'Резюме успешно добавлено.';
-				vm.closeCVMaker();
 			})
 			.error(function(err){
 				console.log(err);
@@ -61,20 +60,18 @@ function NewCVCtrl($http, $scope, $state){
 			data.append('work', vm.work);
 			data.append('skills', vm.skills);
 			data.append('file', vm.file);
-			$http.post('/api/cv/file/' + $state.params.id, data, {
+			$http.post('/api/cv/file/' + $rootScope.session._id, data, {
 				headers: {'Content-Type': undefined },
 				transformRequest: angular.identity
 			})
 			.success(function(response){
 				vm.isLoading = false;
-				vm.cvs.push(response);
 				vm.status = 'success';
 				vm.message = 'Резюме успешно добавлено.';
-				vm.closeCVMaker();
 			})
 			.error(function(err){
-				vm.isLoading = false;
 				console.log(err);
+				vm.isLoading = false;
 				vm.status = 'error';
 				vm.message = 'Произошла ошибка, повторите попытку.';
 			})

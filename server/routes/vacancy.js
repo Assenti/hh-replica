@@ -23,7 +23,7 @@ const LOGO = '/images/hh_kz.png';
 const LOCAL = 'localhost';
 const REMOTE = '142.93.229.118';
 
-// END POINTS
+// GET
 router.get('/', (req, res, next)=> {
 	Vacancy.find()
 	.populate('employer')
@@ -31,19 +31,6 @@ router.get('/', (req, res, next)=> {
 		if(err) return res.send(err)
 		res.send(vacancies)
 	})
-})
-
-router.get('/search/:page', (req, res, next)=>{
- 	Vacancy.find().skip((req.params.page - 1) * 5)
- 		.limit(5)
- 		.exec((err, vacancies)=>{
- 			if(err) return res.send(err);
- 			Vacancy.countDocuments().exec((err, count)=>{
- 				if(err) return res.send(err)
- 				res.send({results: vacancies, count: count});
- 			})
- 			
- 		})
 })
 
 router.get('/:id', (req, res, next)=> {
@@ -63,6 +50,35 @@ router.get('/:id', (req, res, next)=> {
 	})
 })
 
+router.get('/salary_filter/:param', (req, res, next)=> {
+	Vacancy.find({ salary: req.params.param })
+	.exec((err, vacancies)=> {
+		if(err) return res.send(err)
+		res.send(vacancies)
+	})
+})
+
+router.get('/xp_filter/:param', (req, res, next)=> {
+	Vacancy.find({ xpLength: req.params.param })
+	.exec((err, vacancies)=> {
+		if(err) return res.send(err)
+		res.send(vacancies)
+	})
+})
+
+router.get('/search/:page', (req, res, next)=>{
+ 	Vacancy.find().skip((req.params.page - 1) * 5)
+ 		.limit(5)
+ 		.exec((err, vacancies)=>{
+ 			if(err) return res.send(err);
+ 			Vacancy.countDocuments().exec((err, count)=>{
+ 				if(err) return res.send(err)
+ 				res.send({results: vacancies, count: count});
+ 			})
+ 			
+ 		})
+})
+
 router.get('/search/common/:query', (req, res, next)=> {
 	const myRexExp = new RegExp(`${req.params.query}`, 'i')
 	Vacancy.find({ position: myRexExp })
@@ -73,6 +89,7 @@ router.get('/search/common/:query', (req, res, next)=> {
 	})
 })
 
+// POST
 router.post('/responsed/:id', (req, res, next)=> {
 	Vacancy.findById(req.params.id)
 	.exec((err, vacancy)=> {
@@ -176,6 +193,7 @@ router.post('/:id', (req, res, next)=> {
 		})			
 	})	
 
+// DELETE
 router.delete('/:employer_id/:vacancy_id', (req, res, next)=>{
 	Employer.findById(req.params.employer_id)
 	.exec((err, employer)=> {
@@ -193,6 +211,7 @@ router.delete('/:employer_id/:vacancy_id', (req, res, next)=>{
 	})
 })
 
+// PUT
 router.put('/', (req, res, next)=> {
 	Vacancy.findById(req.body._id)
 	.exec((err, vacancy)=> {

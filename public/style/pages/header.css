@@ -125,15 +125,7 @@
 	}
 
 	.header__search-select > select {
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		-o-appearance: none;
-		appearance: none;
-		background-color: transparent;
 		font-size: 14px;
-		outline: none;
-		height: 100%;
-		border: none;
 		margin: 0 5px;
 	}
 
@@ -153,7 +145,7 @@
 	}
 
 	.header__search-advanced:hover {
-		color: lightgrey;
+		color: crimson;
 		transition: .4s ease;
 	}
 

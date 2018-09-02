@@ -128,14 +128,24 @@
 
 	.topnav__item-droplist-item {
 		font-size: 16px;
-		color: rgb(0, 0, 0);
+		color: black;
 		cursor: pointer;
 		padding: 10px;
 		border-bottom: 1px solid #e8e8e8;
 	}
 
-	.topnav__item-droplist-item:hover {
+	.topnav__item-droplist-special {
+		font-size: 16px;
+		color: cornflowerblue;
+		cursor: pointer;
+		padding: 10px;
+		border-bottom: 1px solid #e8e8e8;
+	}
+
+	.topnav__item-droplist-item:hover,
+	.topnav__item-droplist-special:hover {
 		background-color: rgb(245, 245, 245);
+		color: black;
 	}
 
 	.topnav__auth {

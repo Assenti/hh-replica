@@ -131,7 +131,16 @@
 
 	.vacancy__response-block {
 		display: inline-flex;
+		align-items: center;
 		justify-content: space-between;
+		height: 40px;
+	}
+
+	.vacancy__response-block > img {
+		width: 22px;
+		height: 22px;
+		margin-left: 10px;
+		cursor: pointer;
 	}
 
 	.response__block-footer {
@@ -146,21 +155,15 @@
 		border: 1px solid lightgrey;
 		margin-right: 10px;
 		padding: 0 10px;
+		height: 100%;
+	}
+
+	.vacancy__response-select > select {
+		font-size: 14px;
 	}
 
 	.vacancy__response-select > img {
 		width: 15px;
-	}
-
-	.vacancy__response-options {
-		appearance: none;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		-o-appearance: none;
-		font-size: 14px;
-		outline: none;
-		border: none;
-		background-color: transparent;
 	}
 
 	.vacancy__skills-block {

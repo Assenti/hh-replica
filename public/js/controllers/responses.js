@@ -1,43 +1,65 @@
-app.controller('EmployeeDashboardCtrl', EmployeeDashboardCtrl);
+app.controller('ResponsesCtrl', ResponsesCtrl);
 
-EmployeeDashboardCtrl.$inject = ['$http', '$scope', '$state', '$rootScope', '$favourite'];
+ResponsesCtrl.$inject = ['$http', '$scope', '$state', '$rootScope'];
 
-function EmployeeDashboardCtrl($http, $scope, $state, $rootScope, $favourite){
+function ResponsesCtrl($http, $scope, $state, $rootScope){
 	var vm = this;
 	vm.invites = 0;
-	vm.watches = 0;
-	vm.favourites = 0;
 	vm.modal = false;
 	vm.currentPage = 1;
 	vm.pages = [];
 	vm.allPages = [];
 
-	vm.favourites = $favourite.getFavourites().length;
-
-	$http.get('/api/cv/getresponses')
-	.success(function(response){
-		vm.invites = response.responses;
-		vm.watches = response.watches;
-	})
-	.error(function(err){
-		console.log(err);
-	})
-
 	
-	$http.get('/api/cv/cvs/' + $state.params.id + '/' + vm.currentPage)
+	$http.get('/api/cv/responses/' + $state.params.id + '/' + vm.currentPage)
 	.success(function(response){
+		console.log(response);
 		vm.cvs = response.cvs;
 		vm.count = response.count;
+
 		vm.allPages = new Array(Math.ceil(vm.count / 5));
+
 		for(var i = 0; i < vm.allPages.length; i++){
 			vm.allPages[i] = i;
 		}
 		vm.pages = vm.allPages.slice(0, 5);
+
+		for(var i = 0; i < vm.cvs.length; i++){
+			vm.invites += vm.cvs[i].responses.length;
+		}
 	})
 	.error(function(err){
 		console.log(err);
 	})
 
+
+	$http.get('/api/vacancy')
+	.success(function(response){
+		vm.vacancies = response;
+	})
+	.error(function(err){
+		console.log(err);
+	})
+
+   
+   	vm.openModal = function(cv, index){
+   		vm.modal = true;
+   		vm.cvToDelete = cv;
+   		vm.index = index;
+   	}
+   	vm.closeModal = function(){
+   		vm.modal = false;
+   	}
+
+   	vm.deleteCV = function(){
+		$http.delete('/api/cv/' + $state.params.id + '/' + vm.cvToDelete._id)
+		.success(function(response){
+			vm.cvs.splice(vm.index, 1);
+		})
+		.error(function(err){
+			console.log(err);
+		});
+	}
 
 	vm.removeResponse = function(cv, response){
 		$http.delete('/api/cv/response/' + cv._id + '/' + response)
@@ -72,7 +94,7 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope, $favourite){
 	}
 
 	vm.getCVs = function() {
-		$http.get('/api/cv/cvs/' + $state.params.id + '/' + vm.currentPage)
+		$http.get('/api/cv/responses/' + $state.params.id + '/' + vm.currentPage)
 		.success(function(response){
 			vm.cvs = response.cvs;
 		})
@@ -84,6 +106,6 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope, $favourite){
 	vm.displayPage = function(page){
 		vm.currentPage = page;
 		vm.getCVs();
-	}	
+	}
 
 }

@@ -1,8 +1,8 @@
 app.controller('VacancyCtrl', VacancyCtrl);
 
-VacancyCtrl.$inject = ['$http', '$scope', '$state', '$rootScope'];
+VacancyCtrl.$inject = ['$http', '$scope', '$state', '$rootScope', '$favourite'];
 
-function VacancyCtrl($http, $scope, $state, $rootScope){
+function VacancyCtrl($http, $scope, $state, $rootScope, $favourite){
 	var vm = this;
 	vm.editor = false;
 	vm.skillsToEdit = [];
@@ -109,6 +109,17 @@ function VacancyCtrl($http, $scope, $state, $rootScope){
 		.error(function(err){
 			console.log(err);
 		});
+	}
+
+	vm.favourite_active = false;
+	vm.toFavourite = function(vacancy){
+		vm.favourite_active = true;
+		$favourite.toFavourite(vacancy);
+	}
+
+	vm.fromFavourite = function(vacancy){
+		vm.favourite_active = false;
+		$favourite.fromFavourite(vacancy);
 	}
 
 }

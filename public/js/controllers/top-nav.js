@@ -13,6 +13,7 @@ function TopNavCtrl($http, $scope, $rootScope, $window, $state, $cookies){
 	vm.signout = function(){
 		$http.post('/api/user/signout')
 		.success(function(response){
+			vm.dropList = null;
 			$rootScope.session = undefined;
 			$state.go('home');
 		})
