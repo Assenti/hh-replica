@@ -9,25 +9,23 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope, $favourite){
 	vm.favourites = 0;
 	vm.modal = false;
 	vm.currentPage = 1;
-	vm.pages = [];
-	vm.allPages = [];
 
 	vm.favourites = $favourite.getFavourites().length;
-
-	$http.get('/api/cv/getresponses')
-	.success(function(response){
-		vm.invites = response.responses;
-		vm.watches = response.watches;
-	})
-	.error(function(err){
-		console.log(err);
-	})
-
 	
-	$http.get('/api/cv/cvs/' + $state.params.id + '/' + vm.currentPage)
+	$http.get('/api/cv/getcvs/' + $state.params.id + '/' + vm.currentPage)
 	.success(function(response){
+		console.log(response)
 		vm.cvs = response.cvs;
+		vm.cvspart = response.cvspart;
 		vm.count = response.count;
+		
+		vm.invitesCount = 0;
+		vm.watchesCount = 0;
+		for(var i = 0; i < vm.cvs.length; i++){
+			vm.invitesCount += vm.cvs[i].invites.length;
+			vm.watchesCount += vm.cvs[i].watches.length;
+		}
+
 		vm.allPages = new Array(Math.ceil(vm.count / 5));
 		for(var i = 0; i < vm.allPages.length; i++){
 			vm.allPages[i] = i;
@@ -37,17 +35,6 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope, $favourite){
 	.error(function(err){
 		console.log(err);
 	})
-
-
-	vm.removeResponse = function(cv, response){
-		$http.delete('/api/cv/response/' + cv._id + '/' + response)
-		.success(function(response){
-			console.log(response);
-		})
-		.error(function(err){
-			console.log(err);
-		});
-	}
 
 	vm.nextPage = function(){
 		if(vm.currentPage % 5 == 0 && vm.currentPage < vm.allPages.length){
@@ -72,7 +59,7 @@ function EmployeeDashboardCtrl($http, $scope, $state, $rootScope, $favourite){
 	}
 
 	vm.getCVs = function() {
-		$http.get('/api/cv/cvs/' + $state.params.id + '/' + vm.currentPage)
+		$http.get('/api/cv/getcvs/' + $state.params.id + '/' + vm.currentPage)
 		.success(function(response){
 			vm.cvs = response.cvs;
 		})

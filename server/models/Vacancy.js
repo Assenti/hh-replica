@@ -8,20 +8,24 @@ const VacancySchema = mongoose.Schema({
 	requirements: String,
 	preferable: String,
 	conditions: String,
+	employer_name: String,
 	employer: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Employer'
 	},
+	skills: [{ type: String }],
 	responses: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User'
+			cv_id: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'CV'
+			},
+			employee_firstname: String,
+			employee_lastname: String,
+			date: { type: Date,default: Date.now }
 		}
 	],
-	date: {
-		type: Date,
-		default: Date.now
-	}
+	date: { type: Date, default: Date.now }
 })
 
 module.exports = mongoose.model('Vacancy', VacancySchema)

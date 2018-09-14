@@ -56,14 +56,22 @@
 		border-bottom: 1px solid lightgrey;
 	}
 
-	.cv__header img {
-		width: 150px;
-		margin-right: 20px;
-	}
-
 	.cv__info {
 		display: flex;
 		align-items: flex-start;
+	}
+
+	.cv__info-img {
+		display: flex;
+		align-items: flex-end;
+		width: 170px;
+		height: 200px;
+		margin-right: 20px;
+		border: 1px solid #e7e7e7;
+	}
+
+	.cv__info-img > img {
+		width: 168px;
 	}
 
 	.cv__info-contacts {
@@ -97,7 +105,7 @@
 	.cv__editor-close {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-end;
 	}
 
 	.cv__closer {
@@ -160,6 +168,15 @@
 		display: flex;
 		align-items: center;
 		height: 40px;
+		position: relative;
+	}
+
+	.cv__form-skills-offers {
+		position: absolute;
+		background-color: white;
+		border: 1px solid lightgrey;
+		width: calc(50% - 37px);
+		top: calc(100% - 1px);
 	}
 
 	.cv__add-skills > input {

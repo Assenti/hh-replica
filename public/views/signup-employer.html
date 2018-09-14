@@ -1,11 +1,12 @@
 <div class="signup-employer">
 	<div class="signup-employer_opacity"></div>
 	<img class="signin__logo" src="../images/headhunter-hh-kz.svg" ui-sref="home"></img>
+	<div class="signup-employer-question">Уже зарегистрированы? <a ui-sref="signin">Войти</a></div>
 	<form class="signup-employer__form" ng-submit="vm.signUpEmployer()">
 		<div class="signup-employer__form-title">Регистрация Работодателя</div>
 		<input class="input" type="text" ng-model="vm.name" name="name" placeholder="Название компании" required>
 		<input class="input" type="text" ng-model="vm.site" name="site" placeholder="Сайт" required>
-		<input class="input" type="text" ng-model="vm.employeesQuantity" name="employeesQuantity" placeholder="Количество сотрудников" required>
+		<input class="input" type="number" ng-model="vm.employeesQuantity" name="employeesQuantity" placeholder="Количество сотрудников" required>
 		<input class="input" type="text" ng-model="vm.city" name="city" placeholder="Город" required>
 		<div>Контактное лицо</div>
 		<span>(конфиденциально)</span>
@@ -23,6 +24,6 @@
 </div>
 
 <div ng-class="vm.status" class="message" ng-if="vm.message != null">
-	<span ng-bind="vm.message"></span>
-	<span class="message__close" ng-click="vm.message = null">&times;</span>
+	<div ng-bind="vm.message"></div>
+	<div class="message__close" ng-click="vm.message = null">&times;</div>
 </div>

@@ -5,8 +5,10 @@
 		<div class="home__title">
 			<h1>Найди работу мечты</h1>
 			<div class="home__title-btns">
-				<button class="btn" ui-sref="signin">Разместить резюме</button>
-				<button class="btn" ui-sref="signin">Опубликовать вакансию</button>
+				<button class="btn" ui-sref="signin" ng-if="!session">Разместить резюме</button>
+				<button class="btn" ui-sref="signin" ng-if="!session">Опубликовать вакансию</button>
+				<button class="btn" ui-sref="newcv" ng-if="session && !session.employerAccess">Разместить резюме</button>
+				<button class="btn" ui-sref="newvacancy" ng-if="session && session.employerAccess">Опубликовать вакансию</button>
 			</div>
 		</div>
 
@@ -34,7 +36,7 @@
 				<div class="home__auth-content" ng-if="!vm.registration">
 					<div class="home__auth-content-title">Войти в личный кабинет</div>
 					<form class="home__auth-form" ng-submit="vm.signIn()">
-						<input class="input" type="email" ng-model="vm.email" placeholder="Email" required>
+						<input class="input" type="email" name="email" ng-model="vm.email" placeholder="Email" required>
 						<input class="input" type="password" ng-model="vm.password" placeholder="Пароль" required>
 						<button class="home__auth-content-btn" type="submit">Войти в личный кабинет</button>
 					</form>
@@ -76,15 +78,19 @@
 				<img src="../images/pepsi.png">
 				<div class="home__main-item-field">
 					<span ng-bind="employer.name"></span>
-					<span ng-bind="employer.vacancies.length"></span>
 				</div>
 			</div>
 
 			<div class="home__main-subtitle">Резюме Соискателей</div>
-			<div class="home__main-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id, user_id: session._id})">
+			<div class="home__main-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id, user_id: session._id})" ng-if="session">
 				<span ng-bind="(cv.position)"></span>
 				<span ng-bind="(cv.salary | salary)+' KZT'"></span>
-				<span ng-bind="'Опыт работы: '+(cv.xpLength)+' лет'"></span>
+				<span ng-bind="'Опыт работы: ' + cv.xpLength + vm.yearDefiner(cv.xpLength)"></span>
+			</div>
+			<div class="home__main-item" ng-repeat="cv in vm.cvs" ui-sref="cv({id: cv._id})" ng-if="!session">
+				<span ng-bind="(cv.position)"></span>
+				<span ng-bind="(cv.salary | salary)+' KZT'"></span>
+				<span ng-bind="'Опыт работы: ' + cv.xpLength + vm.yearDefiner(cv.xpLength)"></span>
 			</div>
 
 		</div>
@@ -94,7 +100,7 @@
 				<div class="home__main-item" ng-repeat="vacancy in vm.vacancies" ui-sref="vacancy({id: vacancy._id})">
 					<span ng-bind="(vacancy.position)"></span>
 					<span ng-bind="(vacancy.salary | salary)+' KZT'"></span>
-					<span ng-bind="'Опыт не менее: '+(vacancy.xpLength)+' лет'"></span>
+					<span ng-bind="'Опыт не менее: ' + vacancy.xpLength + vm.yearDefiner(vacancy.xpLength)"></span>
 				</div>
 			</div>
 		</div>
@@ -106,8 +112,8 @@
 </div>
 
 <div ng-class="vm.status" class="message" ng-if="vm.message != null">
-	<span ng-bind="vm.message"></span>
-	<span class="message__close" ng-click="vm.message = null">&times;</span>
+	<div ng-bind="vm.message"></div>
+	<div class="message__close" ng-click="vm.message = null">&times;</div>
 </div>
 
 

@@ -2,7 +2,7 @@
 	display: block;
 	width: 100%;
 	padding: 20px 5%;
-	height: calc(100vh - 292px);
+	min-height: calc(100vh - 120px);
 	font-family: Roboto;
 }	
 
@@ -15,15 +15,19 @@
 	.responses__subtitle {
 		font-size: 16px;
 		font-weight: 600;
-		margin-right: 20px;
+		line-height: 20px;
 	}
 
 	.responses__head {
-		display: flex;
-		align-items: center;
+		display: block;
 		height: 50px;
 		padding-bottom: 10px;
 		border-bottom: 1px solid lightgrey;
+	}
+
+	.responses__item-wrapper {
+		padding: 10px 0;
+		border-bottom: 1px solid #e7e7e7;
 	}
 
 	.responses__item {
@@ -32,10 +36,15 @@
 		margin-bottom: 2px;
 	}
 
-	.responses__item > span,
-	.responses__item-watch {
+	.responses__item-invitation {
+		color: #82b74b;
+	}
+
+	.responses__item > span {
 		font-size: 14px;
+		line-height: 18px;
 		margin: 2px 0;
+		margin-right: 2px; 
 	}
 
 	.responses__item > img {
@@ -43,10 +52,6 @@
 		width: 12px;
 		height: 12px;
 		cursor: pointer;
-	}
-
-	.responses__item-wrapper {
-		padding: 10px 0;
 	}
 
 	.responses__item-info {

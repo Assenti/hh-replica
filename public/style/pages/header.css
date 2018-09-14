@@ -69,17 +69,13 @@
 		padding: 10px;
 	}
 
-	.header__search > input::placeholder {
-		color: lightgrey;
-	}
-
 	.header__search-results {
 		position: absolute;
 		top: 100%;
 		width: calc(100% - 104px);
 		background-color: white;
 		box-shadow: 1px 1px 1px lightgrey;
-		z-index: 3;
+		z-index: 6;
 	}
 
 	.header__search-result {

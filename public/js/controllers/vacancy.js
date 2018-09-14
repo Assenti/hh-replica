@@ -7,57 +7,70 @@ function VacancyCtrl($http, $scope, $state, $rootScope, $favourite){
 	vm.editor = false;
 	vm.skillsToEdit = [];
 	vm.message = null;
+	vm.modal = false;
+	vm.favourite_active = false;
 
-	$http.get('/api/vacancy/' + $state.params.id)
+	vm.favourites = $favourite.getFavourites();
+	for(let i = 0; i < vm.favourites.length; i++){
+		if($state.params.id == vm.favourites[i]._id){
+			vm.favourite_active = true;
+		}
+	}
+
+	$http.get('/api/vacancy/view/' + $state.params.id)
 	.success(function(response){
 		vm.vacancy = response.vacancy;
-		vm.skills = response.skills;
-		vm.employerReps = response.users;
 	})
 	.error(function(err){
 		console.log(err);
 	})
 
-	if($rootScope.session != undefined) {
-		$http.get('/api/user/' + $rootScope.session._id)
+	if(!$rootScope.session.employerAccess) {
+		$http.get('/api/cv/' + $rootScope.session._id)
 		.success(function(response){
-			vm.cvs = response.cv;
-			vm.cvs.unshift({ position: 'Выберите резюме' })
-			vm.selected = vm.cvs[0];
+			console.log(response)
+			vm.cvs = response;
 		})
 		.error(function(err){
 			console.log(err);
 		})
 	}
 	
-	vm.response = function(){
+	vm.responseToVacancy = function(){
 		vm.isLoading = true;
 		var data = {
-			user_id: $rootScope.session._id,
+			employer_id: vm.vacancy.employer,
+			vacancy_id: vm.vacancy._id,
+			employee_id: $rootScope.session._id,
+			employee_firstname: $rootScope.session.firstname,
+			employee_lastname: $rootScope.session.lastname,
 			cv_position: vm.selected.position,
 			cv_id: vm.selected._id
 		}
 
-		if(vm.selected.position == 'Выберите резюме' || vm.selected.position == undefined){
+		if(vm.selected.position == undefined){
 			vm.status = 'error';
 			vm.message = 'Резюме не выбрано. Выберите резюме и повторите попытку.';
+			setTimeout(function(){ vm.message = null; }, 3000);
 		} else {
-			$http.post('/api/vacancy/responsed/' + $state.params.id, data)
+			$http.post('/api/vacancy/responsed', data)
 			.success(function(response){
 				vm.isLoading = false;
 				vm.status = 'success';
 				vm.message = 'Отклик успешно отправлен.';
+				setTimeout(function(){ vm.message = null; }, 3000);
 			})
 			.error(function(err){
 				console.log(err);
 				vm.isLoading = false;
 				vm.status = 'error';
 				vm.message = 'Произошла ошибка, повторите попытку.';
+				setTimeout(function(){ vm.message = null; }, 3000);
 			})
 		}
 	}
 
-	vm.modal = false;
+	
 	vm.openModal = function(){
 		vm.modal = true;
 	}
@@ -78,8 +91,8 @@ function VacancyCtrl($http, $scope, $state, $rootScope, $favourite){
 	vm.openEditor = function(){
 		vm.editor = true;
 		vm.objectToEdit = vm.vacancy;
-		for(var i = 0; i < vm.skills.length; i++){
-			vm.skillsToEdit.push(vm.skills[i].skill);
+		for(var i = 0; i < vm.vacancy.skills.length; i++){
+			vm.skillsToEdit.push(vm.vacancy.skills[i]);
 		}
 	}
 
@@ -91,7 +104,7 @@ function VacancyCtrl($http, $scope, $state, $rootScope, $favourite){
 
 	vm.editVacancy = function() {
 		vm.objectToEdit.skills = vm.skillsToEdit;
-		$http.put('/api/vacancy', vm.objectToEdit)
+		$http.put('/api/vacancy/editing', vm.objectToEdit)
 		.success(function(response){
 			vm.objectToEdit = null;
 			vm.editor = false;
@@ -102,7 +115,7 @@ function VacancyCtrl($http, $scope, $state, $rootScope, $favourite){
 	}
 
 	vm.deleteVacancy = function(){
-		$http.delete('/api/vacancy/' + vm.vacancy.employer + '/' + vm.vacancy._id)
+		$http.delete('/api/vacancy/deleting/' + vm.vacancy._id)
 		.success(function(response){
 			$state.go('employer', {id: vm.vacancy.employer });
 		})
@@ -111,7 +124,7 @@ function VacancyCtrl($http, $scope, $state, $rootScope, $favourite){
 		});
 	}
 
-	vm.favourite_active = false;
+	
 	vm.toFavourite = function(vacancy){
 		vm.favourite_active = true;
 		$favourite.toFavourite(vacancy);

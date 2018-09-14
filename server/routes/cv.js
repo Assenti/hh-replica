@@ -27,7 +27,7 @@ const LOGO = '/images/hh_kz.png';
 const LOCAL = 'localhost';
 const REMOTE = '142.93.229.118';
 
-// GET
+
 router.get('/', (req, res, next)=> {
 	CV.find()
 	.exec((err, cvs)=> {
@@ -36,92 +36,128 @@ router.get('/', (req, res, next)=> {
 	})
 })
 
-router.get('/getresponses', (req, res, next)=> {
-	let responses = 0;
-	let watches = 0;
-	CV.find().exec((err, cvs)=> {
+router.get('/:id', (req, res, next)=> {
+	CV.find({user: req.params.id})
+	.exec((err, cvs)=> {
 		if(err) return res.send(err)
-		for(let i = 0; i < cvs.length; i++){
-			responses += cvs[i].responses.length;
-			watches += cvs[i].watches.length;
-		}
-		res.send({responses: responses, watches: watches})
+		res.send(cvs)
 	})
 })
 
-router.get('/:id/:user_id', (req, res, next)=> {
-	CV.findById(req.params.id)
-	.exec((err, cv)=> {
-		if(err) return res.send(err)
-		Skill.find({ cv: req.params.id })
-		.exec((err, skills)=> {
+router.get('/view/:cv_id/:user_id', (req, res, next)=> {
+	if(req.params.user_id != 1){
+		CV.findById(req.params.cv_id).exec((err, cv)=> {
 			if(err) return res.send(err)
 			User.findById(req.params.user_id)
 			.exec((err, user)=> {
 				if(err) return res.send(err)
 				if(user.employerAccess){
-					cv.watches.push(user.employer)
-					cv.save((err, cv)=> {
+					Employer.findOne({ users: user._id }).exec((err, employer)=> {
 						if(err) return res.send(err)
-						res.send({ cv: cv, skills: skills, user: user })
+						cv.watches.push({
+							employer_id: employer._id,
+							employer_name: employer.name
+						})
+						cv.save((err, cv)=> {
+							if(err) return res.send(err)
+							res.send({ cv: cv, user: user })
+						})
 					})
 				} else {
-					res.send({ cv: cv, skills: skills, user: user })
+					res.send({ cv: cv, user: user })
 				}
 			})
 		})
-	})
+	}
+	if(req.params.user_id == 1){
+		CV.findById(req.params.cv_id)
+		.exec((err, cv)=> {
+			if(err) return res.send(err)
+			res.send(cv)
+		})
+	}
 })
 
-// посмотреть есть ли другие запросы 
-router.get('/user/:id', (req, res, next)=> {
-	CV.find({ user: req.params.id })
-	.exec((err, cvs)=> {
-		if(err) return res.send(err)
-		res.send(cvs)
-	})
+router.get('/search/filters', (req, res, next)=> {
+	console.log(0)
+	if(req.query.salary != undefined && req.query.xp == undefined){
+		console.log(1)
+			CV.find({ salary: req.query.salary })
+			.sort({salary: req.query.salarysort})
+			.skip((req.query.page - 1) * 5)
+			.limit(5)
+			.exec((err, cvs)=> {
+				if(err) return console.log(err)
+				CV.count({ salary: req.query.salary })
+				.exec((err, count)=> {
+					if(err) return console.log(err)
+					res.send({results: cvs, count: count})
+				})
+				
+			})
+		} else if(req.query.salary == undefined && req.query.xp != undefined){
+			console.log(2)
+			CV.find({ xpLength: req.query.xp })
+			.sort({salary: req.query.salarysort})
+			.skip((req.query.page - 1) * 5)
+			.limit(5)
+			.exec((err, cvs)=> {
+				if(err) return console.log(err)
+				CV.count({ xpLength: req.query.xp })
+				.exec((err, count)=> {
+					if(err) return console.log(err)
+					res.send({results: cvs, count: count})
+				})
+				
+			})
+		} else if(req.query.salary == undefined && req.query.xp == undefined){
+			console.log(3)
+			CV.find()
+			.sort({salary: req.query.salarysort})
+			.skip((req.query.page - 1) * 5)
+			.limit(5)
+			.exec((err, cvs)=> {
+				if(err) return console.log(err)
+				CV.count()
+				.exec((err, count)=> {
+					if(err) return console.log(err)
+					res.send({results: cvs, count: count})
+				})
+				
+			})
+		} else if(req.query.salary != undefined && req.query.xp != undefined){
+			console.log(4)
+			CV.find({ salary: req.query.salary, xpLength: req.query.xp })
+			.sort({salary: req.query.salarysort})
+			.skip((req.query.page - 1) * 5)
+			.limit(5)
+			.exec((err, cvs)=> {
+				if(err) return console.log(err)
+				CV.count({ salary: req.query.salary, xpLength: req.query.xp })
+				.exec((err, count)=> {
+					if(err) return console.log(err)
+					res.send({results: cvs, count: count})
+				})
+				
+			})
+		}
 })
 
-router.get('/cvs/:id/:page', (req, res, next)=> {
-	CV.find({ user: req.params.id })
+router.get('/getcvs/:employee_id/:page', (req, res, next)=> {
+	console.log(req.params, 1)
+	CV.find({ user: req.params.employee_id })
 	.skip((req.params.page - 1) * 5)
 	.limit(5)
-	.exec((err, cvs)=> {
+	.exec((err, cvspart)=> {
 		if(err) return res.send(err)
-		CV.countDocuments((err, count)=> {
+		CV.count({user: req.params.employee_id})
+		.exec((err, count)=> {
 			if(err) return res.send(err)
-			res.send({ cvs: cvs, count: count })
+			CV.find().exec((err, cvs)=> {
+				if(err) return res.send(err)
+				res.send({cvs: cvs, cvspart: cvspart, count: count})
+			})
 		})
-	})
-})
-
-router.get('/responses/:id/:page', (req, res, next)=> {
-	CV.find({ user: req.params.id })
-	.populate('watches').populate('responses')
-	.skip((req.params.page - 1) * 5)
-	.limit(5)
-	.exec((err, cvs)=> {
-		if(err) return res.send(err)
-		CV.countDocuments((err, count)=> {
-			if(err) return res.send(err)
-			res.send({ cvs: cvs, count: count })
-		})
-	})
-})
-
-router.get('/salary_filter/:param', (req, res, next)=> {
-	CV.find({ salary: req.params.param })
-	.exec((err, cvs)=> {
-		if(err) return res.send(err)
-		res.send(cvs)
-	})
-})
-
-router.get('/xp_filter/:param', (req, res, next)=> {
-	CV.find({ xpLength: req.params.param })
-	.exec((err, cvs)=> {
-		if(err) return res.send(err)
-		res.send(cvs)
 	})
 })
 
@@ -148,131 +184,122 @@ router.get('/search/common/:query', (req, res, next)=> {
 	})
 })
 
-// POST
-router.post('/file/:id', upload.single('file'), (req, res, next)=>{
-	User.findById(req.params.id).exec((err, user)=> {
+router.post('/addcv/withphoto', upload.single('file'), (req, res, next)=>{
+	let skills = req.body.skills.split(',');
+
+	let newcv = new CV({
+		user: req.body.employee_id,
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+		email: req.body.email,
+		phone: req.body.phone,
+		position: req.body.position,
+		salary: req.body.salary,
+		birthDate: req.body.birthDate,
+		gender: req.body.gender,
+		citizenship: req.body.citizenship,
+		address: req.body.address,
+		phone: req.body.phone,
+		specialization: req.body.specialization,
+		xpLength: req.body.xpLength,
+		education: req.body.education,
+		courses: req.body.courses,
+		work: req.body.work,
+		skills: skills
+	})
+
+	let tempPath = path.resolve(req.file.path);
+	let targetPath = path.resolve(__dirname, `../../public/uploads/${newcv._id}.${req.file.originalname.split('.').pop()}`);
+
+	let skill = new Skill()
+
+	fs.rename(tempPath, targetPath, (err)=> {
 		if(err) return res.send(err)
-
-		let cv = new CV({
-			position: req.body.position,
-			salary: req.body.salary,
-			birthDate: req.body.birthDate,
-			gender: req.body.gender,
-			citizenship: req.body.citizenship,
-			address: req.body.address,
-			phone: req.body.phone,
-			specialization: req.body.specialization,
-			xpLength: req.body.xpLength,
-			education: req.body.education,
-			courses: req.body.courses,
-			work: req.body.work,
-			user: user._id
-		})
-
-		let skills = req.body.skills.split(',');
-
-		let tempPath = path.resolve(req.file.path);
-		let targetPath = path.resolve(__dirname, `../../public/uploads/${cv._id}.${req.file.originalname.split('.').pop()}`);
-
-		fs.rename(tempPath, targetPath, (err)=> {
+		newcv.link = `/uploads/${cv._id}.${req.file.originalname.split('.').pop()}`;
+		newcv.save((err, newcv)=>{
 			if(err) return res.send(err)
-			cv.link = `/uploads/${cv._id}.${req.file.originalname.split('.').pop()}`;
-			cv.save((err, cv)=>{
+			let skills = []
+			for(let i = 0; i < newcv.skills.length; i++){
+				skills.push({name: newcv.skills[i]})
+			}
+			Skill.insertMany(skills, (err, result)=> {
+				if(err) res.send(err)
+				res.sendStatus(200)
+			})
+		})
+	})
+})
+
+router.post('/addcv', (req, res, next)=>{
+	let newcv = new CV({
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+		email: req.body.email,
+		phone: req.body.phone,
+		position: req.body.position,
+		salary: req.body.salary,
+		birthDate: req.body.birthDate,
+		gender: req.body.gender,
+		citizenship: req.body.citizenship,
+		address: req.body.address,
+		phone: req.body.phone,
+		specialization: req.body.specialization,
+		xpLength: req.body.xpLength,
+		education: req.body.education,
+		courses: req.body.courses,
+		work: req.body.work,
+		user: req.body.employee_id,
+		skills: req.body.skills
+	})
+
+	let skill = new Skill()
+
+	newcv.save((err, newcv)=>{
+		if(err) return res.send(err)
+		let skills = []
+		for(let i = 0; i < newcv.skills.length; i++){
+			skills.push({name: newcv.skills[i]})
+		}
+		Skill.insertMany(skills, (err, result)=> {
+			if(err) res.send(err)
+			res.sendStatus(200)
+		})
+	})
+})
+
+router.post('/inviting', (req, res, next)=> {
+	Employer.findById(req.body.employer_id).exec((err, employer)=> {
+		if(err) return res.send(err)
+		CV.findById(req.body.cv_id).exec((err, cv)=> {
+			if(err) return res.send(err)
+			cv.invites.push({
+				employer_id: employer._id, 
+				employer_name: employer.name
+			})
+			cv.save((err, cv)=> {
 				if(err) return res.send(err)
-				user.cv.push(cv._id)
-				user.save((err, user)=> {
-					if(err) return res.send(err)
-					for(var i = 0; i < skills.length; i++){
-						let skill = new Skill({
-							skill: skills[i],
-							cv: cv._id
-						})
-						skill.save((err, skill)=> {
-							if(err) return res.send(err)
-						})
-					}
-					res.sendStatus(200).end(cv)
+				employer.invited.push({ 
+					cv_id: cv._id,
+					cv_position: cv.position, 
+					employee_firstname: cv.firstname,
+					employee_lastname: cv.lastname 
 				})
-			})
-		})
-	})
-})
-
-router.post('/:id', (req, res, next)=>{
-	User.findById(req.params.id).exec((err, user)=> {
-		if(err) return res.send(err)
-
-		let cv = new CV({
-			position: req.body.position,
-			salary: req.body.salary,
-			birthDate: req.body.birthDate,
-			gender: req.body.gender,
-			citizenship: req.body.citizenship,
-			address: req.body.address,
-			phone: req.body.phone,
-			specialization: req.body.specialization,
-			xpLength: req.body.xpLength,
-			education: req.body.education,
-			courses: req.body.courses,
-			work: req.body.work,
-			user: user._id
-		})
-
-		let skills = req.body.skills;
-
-		cv.save((err, cv)=>{
-			if(err) return res.send(err)
-			user.cv.push(cv._id)
-			user.save((err, user)=> {
-				if(err) return res.send(err)
-				for(var i = 0; i < skills.length; i++){
-					let skill = new Skill({
-						skill: skills[i],
-						cv: cv._id
-					})
-					skill.save((err, skill)=> {
-						if(err) return res.send(err)
-					})
-				}
-				res.send(cv)
-			})
-		})
-	})
-})
-
-router.post('/responsed/:id', (req, res, next)=> {
-	CV.findById(req.params.id)
-	.exec((err, cv)=> {
-		if(err) return res.send(err)
-		cv.responses.push(req.body.employer_id)
-		cv.save((err, result)=> {
-			if(err) return res.send(err)
-			Employer.findById(req.body.employer_id)
-			.exec((err, employer)=> {
-				employer.invited.push(req.params.id)
-				employer.save((err, success)=> {
+				employer.save((err, employer)=> {
 					if(err) return res.send(err)
-					User.findById(cv.user)
-					.exec((err, user)=> {
-					if (err) return res.send(err)
 					let mailOptions = {
 				        from: SENDER, 
-				        to: user.email, 
+				        to: cv.email, 
 				        subject: 'Приглашение на собеседование', 
-				        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${user.email}">
+				        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${cv.email}">
 				               <p style="font-size: 16px;">
-				                Здравствуйте, ${user.firstname}, Ваше резюме 
-				                <a style="font-size: 16px;" href="http://${LOCAL}:3002/cv/${cv._id}">${cv.position}</a>
+				                Здравствуйте, ${cv.firstname}, Ваше резюме 
+				                <a style="font-size: 16px;" href="http://${LOCAL}:3002/cv/view/${cv._id}">${cv.position}</a>
 				                заинтересовало работодателя.</p>
 				        	   <p style="font-size: 16px;">Компания ${employer.name} пригласила Вас на собеседование.</p>
-				        	   <div 
-				        	      style="display: block;
-				        	             text-align: center;
-				        	             width: 150px;
-				        	             margin: 10px auto;
+				        	   <div style="display: block; text-align: center;
+				        	             width: 150px; margin: 10px auto;
 				        	             background-color: cornflowerblue;
-				        	             border-radius: 3px;
-				        	             padding: 10px 15px;">
+				        	             border-radius: 3px; padding: 10px 15px;">
 		        	            <a style="color: white; text-decoration: none; font-size: 18px;" href="http://${LOCAL}:3002/employer/${employer._id}">
 		        	             Посмотреть
 		        	            </a>      
@@ -281,15 +308,14 @@ router.post('/responsed/:id', (req, res, next)=> {
 				        	{
 				        		filename: 'hh_kz.png',
 				        		path: 'public' + LOGO,
-				        		cid: user.email
+				        		cid: cv.email
 				        	}
 				        ] 
 				    }
-
+				    
 				    transporter.sendMail(mailOptions, (error, info)=> {
-				    	if(err) return res.sendStatus(401).send(err)
+				    	if(err) return res.sendStatus(401)
 				    	res.sendStatus(200)
-				    	})
 					})
 				})
 			})
@@ -297,7 +323,7 @@ router.post('/responsed/:id', (req, res, next)=> {
 	})
 })
 
-router.delete('/:user_id/:cv_id', (req, res, next)=>{
+router.delete('/deleting/:user_id/:cv_id', (req, res, next)=>{
 	User.findById(req.params.user_id)
 	.exec((err, user)=> {
 		if(err) return res.send(err)
@@ -312,10 +338,11 @@ router.delete('/:user_id/:cv_id', (req, res, next)=>{
 	})
 })
 
-router.put('/', (req, res, next)=> {
+router.put('/editing', (req, res, next)=> {
 	CV.findById(req.body._id)
 	.exec((err, cv)=> {
 		if(err) return res.send(err)
+
 		cv.position = req.body.position
 		cv.salary = req.body.salary
 		cv.birthDate = req.body.birthDate
@@ -327,47 +354,14 @@ router.put('/', (req, res, next)=> {
 		cv.work = req.body.work
 		cv.courses = req.body.courses
 		cv.xpLength = req.body.xpLength
-		cv.save((err, result)=> {
-			Skill.find({ cv: req.body._id })
-			.exec((err, skills)=> {
-				if(err) return res.send(err)
-				let skillsFromDb = [];
-				for(let i = 0; i < skills.length; i++){
-					skillsFromDb.push(skills[i].skill)
-				}
-				let uniqueSkills1 = skillsFromDb.filter((elem) => req.body.skills.indexOf(elem) === -1)
-				let uniqueSkills2 = req.body.skills.filter((elem) => skillsFromDb.indexOf(elem) === -1)
-				let newSkills = uniqueSkills1.concat(uniqueSkills2)
-
-				for(var i = 0; i < newSkills.length; i++){
-					let skill = new Skill({
-						skill: newSkills[i],
-						cv: req.body._id
-					});
-					skill.save((err, skill)=> {
-						if(err) return res.send(err)
-					})
-				}
-				res.sendStatus(200)
-			})
-		})	
-	})
-})
-
-router.delete('/response/:cv_id/:employer_id', (req, res, next)=> {
-	CV.findById(req.params.cv_id)
-	.exec((err, cv)=> {
-		if(err) return res.send(err)
-		let index = cv.responses.indexOf(req.params.employer_id)
-		cv.responses.splice(index, 1)
+		cv.skills = req.body.skills
+		
 		cv.save((err, cv)=> {
 			if(err) return res.send(err)
-			res.sendStatus(200)
+			res.send(cv)
 		})
 	})
 })
-
-
 
 
 module.exports = router

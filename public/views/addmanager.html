@@ -1,0 +1,38 @@
+<div class="employer-dash">
+	<a class="newcv__back-link" ui-sref="employer({id: session.employer})"><img src="../images/left-chevron.svg"> Назад в кабинет</a>
+	<div class="employer-dash__title" ng-if="session && session.employerAccess">Добавление менеджера</div>
+	<div class="employer-dash__content">
+		<form class="employer-dash__form" ng-submit="vm.addManager()">
+			<div class="employer-dash__form-group">
+				<input class="input" type="text" name="firstname" ng-model="vm.firstname" placeholder="Имя" required>
+			</div>
+
+			<div class="employer-dash__form-group">
+				<input class="input" type="text" name="lastname" ng-model="vm.lastname" placeholder="Фамилия" required>
+			</div>
+
+			<div class="employer-dash__form-group">
+				<input class="input" type="email" name="email" ng-model="vm.email" placeholder="Email" required>
+			</div>
+
+			<div class="employer-dash__form-group">
+				<input class="input" type="text" name="phone" ng-model="vm.phone" placeholder="Телефон" required>
+			</div>
+
+			<div class="employer-dash__form-group">
+				<input class="input" type="password" ng-model="vm.password" placeholder="Пароль" required>
+			</div>
+
+			<div class="employer-dash__form-controls">
+				<button class="btn btn_dashboard" type="submit">Добавить</button>
+				<button class="btn btn_disable" type="reset">Сбросить</button>
+			</div>
+			
+		</form>
+	</div>
+</div>
+
+<div ng-class="vm.status" class="message" ng-if="vm.message != null">
+	<div ng-bind="vm.message"></div>
+	<div class="message__close" ng-click="vm.message = null">&times;</div>
+</div>

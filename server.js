@@ -11,8 +11,6 @@ mongoose.connect('mongodb://localhost:27017/hh-replica', { useNewUrlParser: true
 
 const app = express()
 
-
-// Including & Configuring Middlewares
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json({limit: '5mb'}))

@@ -5,12 +5,10 @@
 	<meta charset="utf-8">
 	<link rel="shortcut icon" href="/images/hh_mini.png" type="image/png">
 	<link rel="stylesheet" type="text/css" href="/style/all.css">
-	<!-- All css files bundled & minified -->
-	<!-- <link rel="stylesheet" type="text/css" href="/style/all.min.css"> -->
 	<base href="/">
 </head>
 <body>
-	<div class="spinner__backdrop" ng-controller="PreloaderCtrl as vm" ng-show="IsLoading">
+	<div class="spinner__backdrop" ng-controller="HeaderCtrl as vm" ng-if="vm.isLoading">
 		<div class="spinner"></div>
 	</div>
 
@@ -49,7 +47,7 @@
 			<img class="header__search-icon" src="./images/search.svg" ng-click="vm.find()" title="Найти">
 			<span class="header__search-advanced" ui-sref="search">Расширенный поиск</span>
 		</div>
-		<img class="header__languages" src="./images/rus.jpg"></img>
+		<img class="header__languages" src="./images/rus.jpg">
 	</div>
 
 	<div class="topnav" ng-controller="TopNavCtrl as vm" id="topnav">
@@ -69,23 +67,23 @@
 					<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy" ng-if="session.employerAccess">
 						<span>Вакансии</span>
 						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findVacancy'">
-							<div class="topnav__item-droplist-special" ng-click="vm.closeDropList()">Создать вакансию</div>
-							<div class="topnav__item-droplist-item" ng-click="vm.closeDropList()">Мои вакансии</div>
+							<div class="topnav__item-droplist-special" ng-click="vm.closeDropList()" ui-sref="newvacancy">Создать вакансию</div>
+							<div class="topnav__item-droplist-item" ng-click="vm.closeDropList()" ui-sref="addmanager">Добавить менеджера</div>
 						</div>
 					</div>
 
 					<div class="topnav__item" ng-mouseover="vm.openDropList('findVacancy')" ng-mouseleave="vm.closeDropList()" id="findVacancy" ng-if="!session">
 						<span>Ищу работу</span>
 						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findVacancy'">
-							<div class="topnav__item-droplist-item">Создать резюме</div>
-							<div class="topnav__item-droplist-item">Как улучшить резюме</div>
+							<div class="topnav__item-droplist-item" ng-click="vm.closeDropList()" ui-sref="signup-employee">Создать резюме</div>
+							<div class="topnav__item-droplist-item" ng-click="vm.closeDropList()" ui-sref="signup-employee">Как улучшить резюме</div>
 						</div>
 					</div>
 
 					<div class="topnav__item" ng-mouseover="vm.openDropList('findEmployee')" ng-mouseleave="vm.closeDropList()" id="findEmployee" ng-if="!session">
 						<span>Ищу сотрудников</span>
 						<div class="topnav__item-droplist" ng-if="vm.dropList == 'findEmployee'">
-							<div class="topnav__item-droplist-item">Разместить вакансию</div>
+							<div class="topnav__item-droplist-item" ng-click="vm.closeDropList()" ui-sref="signup-employer">Разместить вакансию</div>
 							<div class="topnav__item-droplist-item">Прайс-лист</div>
 							<div class="topnav__item-droplist-item">Описание услуг</div>
 						</div>
@@ -146,9 +144,6 @@
 	</div>
 </body>
 
-<!-- All js files bundled & minified -->
-<!-- <script src="/all.min.js"></script> -->
-
 <!-- Angular files importing -->
 <script src="/js/vendor/ng.min.js"></script>
 <script src="/js/vendor/ng-route.min.js"></script>
@@ -159,11 +154,14 @@
 
 <!-- App files importing -->
 <script src="/app.js"></script>
+
 <script src="/js/vendor/file.js"></script>
+
 <script src="/js/services/local.js"></script>
+
 <script src="/js/filters/date.js"></script>
 <script src="/js/filters/salary.js"></script>
-<script src="/js/controllers/preloader.js"></script>
+
 <script src="/js/controllers/header.js"></script>
 <script src="/js/controllers/top-nav.js"></script>
 <script src="/js/controllers/home.js"></script>
@@ -175,6 +173,5 @@
 <script src="/js/controllers/vacancy.js"></script>
 <script src="/js/controllers/account.js"></script>
 <script src="/js/controllers/search.js"></script>
-<script src="/js/controllers/responses.js"></script>
 <script src="/js/controllers/favourites.js"></script>
 </html>

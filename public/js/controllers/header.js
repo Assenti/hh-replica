@@ -9,6 +9,11 @@ function HeaderCtrl($http, $scope){
 	vm.open = false;
 	vm.startSearch = false;
 	vm.notFound = false;
+	vm.isLoading = true;
+
+	angular.element(window).ready(function(){
+		vm.isLoading = false;
+	});
 	
 	vm.openOptions = function(){
 		vm.open = true;

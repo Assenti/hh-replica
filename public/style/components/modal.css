@@ -8,7 +8,7 @@
 	text-align: center;
 }
 
-	.modal > span {
+	.modal__text {
 		display: block;
 		margin: 10px;
 		font-size: 16px;
@@ -26,4 +26,23 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.modal__title {
+		font-size: 20px;
+		font-weight: 600;
+	}
+
+	.modal__form {
+		padding: 10px 0;
+	}
+
+	.modal__form > input {
+		width: 100%;
+		margin: 5px 0;
+		padding: 10px;
+	}
+
+	.modal__form > button {
+		margin: 10px 5px;
 	}

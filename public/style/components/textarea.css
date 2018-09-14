@@ -8,3 +8,12 @@
 	.textarea:focus {
 		border-color: cornflowerblue;
 	}
+
+	.textarea::placeholder {
+		color: silver;
+	}
+
+	.textarea:focus::placeholder {
+		opacity: 0;
+		transition: .3s ease;
+	}

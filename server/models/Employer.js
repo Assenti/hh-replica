@@ -5,22 +5,22 @@ const EmployerSchema = mongoose.Schema({
 	site: String,
 	employeesQuantity: Number,
 	city: String,
-	vacancies: [
-		{ 
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Vacancy'
-		}
-	],
 	users: [
-		{
+		{ 
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User'
 		}
 	],
 	invited: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'CV'
+			cv_id: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'CV'
+			},
+			cv_position: String,
+			employee_firstname: String,
+			employee_lastname: String,
+			date: { type: Date,default: Date.now }
 		}
 	],
 	date: {

@@ -2,39 +2,46 @@
 	<div class="search__tools">
 		<span class="search__tools-title">Настройки поиска</span>
 		<div class="search__tool">
-			<span ng-class="{'active': vm.chosenOption === 'Вакансии'}" class="search__tool-option" ng-click="vm.uniSearch('Вакансии', 'vacancy')">Вакансии</span>
-			<span ng-class="{'active': vm.chosenOption === 'Резюме'}" class="search__tool-option" ng-click="vm.uniSearch('Резюме', 'cv')">Резюме</span>
-			<span ng-class="{'active': vm.chosenOption === 'Компании'}" class="search__tool-option" ng-click="vm.uniSearch('Компании', 'employer')">Компании</span>
-		</div>
-
-		<div class="search__tool" ng-if="vm.chosenOption != 'Компании'">
-			<span class="search__tool-title">Опыт работы:</span>
-			<div ng-class="{'selected': vm.year != 'Выберите опыт'}" class="search__tool-select">
-				<select class="select" ng-change="vm.filterByXpLength()" ng-options="year as year for year in vm.years" ng-model="vm.year"></select>
-				<img src="../images/sort-arrows.svg">
-			</div>
-		</div>
-
-		<div class="search__tool" ng-if="vm.chosenOption != 'Компании'">
-			<span class="search__tool-title">Заработная плата:</span>
-			<div ng-class="{'selected': vm.salary != 'Выберите оклад'}" class="search__tool-select">
-				<select class="select" ng-change="vm.filterBySalary()" ng-options="salary as salary for salary in vm.salaries" ng-model="vm.salary"></select>
-				<img src="../images/sort-arrows.svg">
-			</div>
+			<span ng-class="{'active': vm.chosenOption === 'Вакансии'}" class="search__tool-option" ng-click="vm.chooseBlock('Вакансии', 'vacancy')">Вакансии</span>
+			<span ng-class="{'active': vm.chosenOption === 'Резюме'}" class="search__tool-option" ng-click="vm.chooseBlock('Резюме', 'cv')">Резюме</span>
 		</div>
 
 		<div class="search__tool">
-			<button class="btn btn_disable" ng-click="vm.resetFilters()">Сбросить фильтры</button>
+			<span class="search__tool-title">Опыт работы:<img src="../images/chevron-down.svg" ng-click="vm.toolToggle('xp')"></span>
+			<div class="search__tool-items" id="xp">
+				<div ng-repeat="xp in vm.xps">
+					<label ng-bind="xp.xpLength + vm.yearDefiner(xp.xpLength)"></label>
+					<input class="input-radio" type="radio" ng-attr-value="{{xp.xpLength}}" ng-model="vm.xpLength" ng-change="vm.showValue()">
+				</div>
+			</div>
+		</div>
+		
+
+		<div class="search__tool" ng-if="vm.chosenOption != 'Компании'">
+			<span class="search__tool-title">Заработная плата:<img src="../images/chevron-down.svg" ng-click="vm.toolToggle('salary')"></span>
+			<div class="search__tool-items" id="salary">
+				<div ng-repeat="salary in vm.salaries">
+					<label ng-bind="(salary.salary | salary)+' KZT'"></label>
+					<input class="input-radio" type="radio" ng-attr-value="{{salary.salary}}" ng-model="vm.salary" ng-change="vm.showValue()">
+				</div>
+			</div>
+		</div>
+
+		<div class="search__controls">
+			<button class="btn btn_disable" ng-click="vm.reset()">Сбросить фильтры</button>
+			<button class="btn btn_manager" ng-click="vm.search()">Найти</button>
 		</div>
 
 	</div>
 	<div class="search__results">
-		<span class="search__results-title" ng-bind="'Результаты поиска - найдено: ' + vm.count + ' '+vm.found"></span>
+		<span class="search__results-title" ng-bind="vm.chosenOption+': результаты поиска - найдено: ' + vm.count"></span>
 
 		<div class="search__results-head">
 			<div class="search__results-filters">
-				<select class="select" ng-change="vm.setFilter()" ng-options="filter as filter for filter in vm.filterOptions" ng-model="vm.filterOption"></select>
-				<img src="../images/sort-arrows.svg">
+				<select class="select" ng-change="vm.filterBy()" ng-options="filter as filter for filter in vm.filterOptions" ng-model="vm.filterOption">
+					<option value="" selected disabled>Сортировать по</option>
+				</select>
+				<img src="../images/filter.svg">
 			</div>
 
 			<div class="pagination" ng-if="vm.pages.length > 1">
@@ -43,17 +50,9 @@
 				<div class="pagination__item" ng-click="vm.nextPage()">></div>
 			</div>
 		</div>
-
-		<div class="search__result" ng-if="vm.notFound">По запросу ничего не найдено</div>
-
-		<div class="search__result" ng-repeat="result in vm.results | orderBy: vm.filter" ng-if="vm.results[0].position === undefined">
-			<a ng-bind="'Компания: '+result.name" ui-sref="employer({id: result._id})"></a>
-			<span ng-bind="'Сайт: '+result.site"></span>
-			<span ng-bind="'Сотрудники: '+result.employeesQuantity"></span>
-			<span ng-bind="'Город: '+result.city"></span>
-		</div>
-		
-		<div class="search__result" ng-repeat="result in vm.results | orderBy: vm.filter" ng-if="vm.results[0].name === undefined">
+		<img class="search__placeholder" src="../images/job-search.svg" ng-hide="vm.results.length > 0 || vm.notFound">
+		<div class="search__result" ng-if="vm.notFound">По запросу ничего не найдено</div>		
+		<div class="search__result" ng-repeat="result in vm.results">
 			<a ng-bind="result.position" ng-if="result.employer != undefined" ui-sref="vacancy({id: result._id})"></a>
 			<a ng-bind="result.position" ng-if="result.employer == undefined" ui-sref="cv({id: result._id, user_id: session._id})"></a>
 			<span ng-bind="'Оклад: '+(result.salary | salary)+' KZT'"></span>

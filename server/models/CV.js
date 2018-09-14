@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const CVSchema = mongoose.Schema({
+	firstname: String,
+	lastname: String,
+	phone: String,
+	email: String,
 	birthDate: {type: Date },
 	gender: String,
 	citizenship: String,
@@ -16,22 +20,25 @@ const CVSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
 	},
-	skills: [ 
-		{ 
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Skill'
-		}
-	],
-	responses: [
+	skills: [{ type: String }],
+	invites: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Employer'
+			employer_id: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Employer'
+			},
+			employer_name: String,
+			date: {type: Date, default: Date.now}
 		}
 	],
 	watches: [
 		{
+			employer_id: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Employer'
+			},
+			employer_name: String,
+			date: {type: Date, default: Date.now}
 		}
 	],
 	date: { 

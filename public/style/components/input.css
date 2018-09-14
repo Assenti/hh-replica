@@ -14,6 +14,20 @@
 		padding: 10px;
 	}
 
-	.input_newcv::placeholder {
-		color: lightgrey;
+	.input::placeholder {
+		color: silver;
+	}
+
+	.input:focus::placeholder {
+		opacity: 0;
+		transition: .3s ease;
+	}
+
+	.input.filled {
+		border-color: #82b74b;
+	}
+
+	.input-radio[type="radio"] {
+		outline: none;
+		cursor: pointer;
 	}

@@ -17,16 +17,10 @@ const UserSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Employer'
 	},
-	vacancies: [
+	sendedResponses: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Vacancy'	
-		}
-	],
-	cv: [
-		{ 
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'CV'
+			ref: 'Vacancy'
 		}
 	],
 	date: {

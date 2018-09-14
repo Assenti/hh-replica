@@ -4,7 +4,7 @@
 	font-family: Roboto;
 }
 
-	.vacancy input {
+	.vacancy > input {
 		width: 50%;
 		padding: 10px;
 		margin: 10px 0;
@@ -19,6 +19,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+	}
+
+	.vacancy__close-editor > input {
+		width: 50%;
+		padding: 10px;
+		margin: 10px 0;
 	}
 
 	.vacancy__closer {
@@ -106,7 +112,8 @@
 		margin: 10px 0;
 	}
 
-	.vacancy__content > input, textarea {
+	.vacancy__content > input, 
+	.vacancy__content > textarea {
 		width: 50%;
 		padding: 10px;
 		margin: 10px 0;

@@ -23,6 +23,46 @@
 		background-color: rgba(0, 0, 0, .2);
 	}
 
+	.signup-employer-question-downer,
+	.signup-employer-question-down,
+	.signup-employer-question {
+		display: inline-flex;
+		font-size: 16px;
+		color: white;
+		position: absolute;
+		top: 150px;
+		left: 70px;
+		z-index: 3;
+	}
+
+	.signup-employer-question-down {
+		top: 175px;
+	}
+
+	.signup-employer-question-downer {
+		top: 200px;
+	}
+
+	.signup-employer-question > a {
+		text-decoration: none;
+		color: white;
+		margin-left: 5px;
+	}
+
+	.signup-employer-question-downer > a,
+	.signup-employer-question-down > a {
+		text-decoration: none;
+		color: white;
+	}
+
+	.signup-employer-question-downer > a:hover,
+	.signup-employer-question-down > a:hover,
+	.signup-employer-question > a:hover {
+		color: crimson;
+		transition: .3s ease;
+		cursor: pointer;
+	}
+
 	.signup-employer__form {
 		width: 400px;
 		padding: 15px;

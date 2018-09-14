@@ -1,10 +1,13 @@
 <div class="signin">
 	<div class="signin_opacity"></div>
 	<img class="signin__logo" src="../images/headhunter-hh-kz.svg" ui-sref="home"></img>
+	<div class="signup-employer-question">Не зарегистрированы?</div>
+	<div class="signup-employer-question-down"><a ui-sref="signup-employer">Регистрация Работодателя</a></div>
+	<div class="signup-employer-question-downer"><a ui-sref="signup-employee">Регистрация Соискателя</a></div>
 	<div class="signin__content">
 		<div class="signin__title">Вход в личный кабинет</div>
 		<form class="signin__form" ng-submit="vm.signIn()">
-			<input class="input" type="email" ng-model="vm.email" placeholder="Email">
+			<input class="input" type="email" name="email" ng-model="vm.email" placeholder="Email">
 			<input class="input" type="password" ng-model="vm.password" placeholder="Пароль">
 			<button class="btn btn_signup-form" type="submit">Войти в личный кабинет</button>
 		</form>
@@ -12,6 +15,6 @@
 </div>
 
 <div ng-class="vm.status" class="message" ng-if="vm.message != null">
-	<span ng-bind="vm.message"></span>
-	<span class="message__close" ng-click="vm.message = null">&times;</span>
+	<div ng-bind="vm.message"></div>
+	<div class="message__close" ng-click="vm.message = null">&times;</div>
 </div>

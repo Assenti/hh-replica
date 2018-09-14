@@ -23,7 +23,7 @@ const LOGO = '/images/hh_kz.png';
 const LOCAL = 'localhost';
 const REMOTE = '142.93.229.118';
 
-// GET
+
 router.get('/', (req, res, next)=> {
 	Vacancy.find()
 	.populate('employer')
@@ -33,50 +33,91 @@ router.get('/', (req, res, next)=> {
 	})
 })
 
-router.get('/:id', (req, res, next)=> {
+router.get('/view/:id', (req, res, next)=> {
 	Vacancy.findById(req.params.id)
-	.populate('employer')
 	.exec((err, vacancy)=> {
 		if(err) return res.send(err)
-		Skill.find({ vacancy: req.params.id })
-		.exec((err, skills)=> {
+		Employer.findById(vacancy.employer)
+		.populate('users')
+		.exec((err, employer)=> {
 			if(err) return res.send(err)
-			Employer.findById(vacancy.employer)
-			.exec((err, employer)=> {
-				if(err) return res.send(err)
-				res.send({vacancy: vacancy, skills: skills, users: employer.users })
-			})
+			res.send({vacancy: vacancy, employer: employer })
 		})
 	})
 })
 
-router.get('/salary_filter/:param', (req, res, next)=> {
-	Vacancy.find({ salary: req.params.param })
-	.exec((err, vacancies)=> {
-		if(err) return res.send(err)
-		res.send(vacancies)
-	})
-})
-
-router.get('/xp_filter/:param', (req, res, next)=> {
-	Vacancy.find({ xpLength: req.params.param })
-	.exec((err, vacancies)=> {
-		if(err) return res.send(err)
-		res.send(vacancies)
-	})
+router.get('/search/filters', (req, res, next)=> {
+	if(req.query.salary != undefined && req.query.xp == undefined){
+		Vacancy.find({ salary: req.query.salary })
+		.sort({salary: req.query.salarysort})
+		.skip((req.query.page - 1) * 5)
+		.limit(5)
+		.exec((err, vacancies)=> {
+			if(err) return console.log(err)
+			Vacancy.count({ salary: req.query.salary })
+			.exec((err, count)=> {
+				if(err) return console.log(err)
+				res.send({results: vacancies, count: count})
+			})
+			
+		})
+	} else if(req.query.salary == undefined && req.query.xp != undefined){
+		Vacancy.find({ xpLength: req.query.xp })
+		.sort({salary: req.query.salarysort})
+		.skip((req.query.page - 1) * 5)
+		.limit(5)
+		.exec((err, vacancies)=> {
+			if(err) return console.log(err)
+			Vacancy.count({ xpLength: req.query.xp })
+			.exec((err, count)=> {
+				if(err) return console.log(err)
+				res.send({results: vacancies, count: count})
+			})
+			
+		})
+	} else if(req.query.salary == undefined && req.query.xp == undefined){
+		Vacancy.find()
+		.sort({salary: req.query.salarysort})
+		.skip((req.query.page - 1) * 5)
+		.limit(5)
+		.exec((err, vacancies)=> {
+			if(err) return console.log(err)
+			Vacancy.count()
+			.exec((err, count)=> {
+				if(err) return console.log(err)
+				res.send({results: vacancies, count: count})
+			})
+			
+		})
+	} else if(req.query.salary != undefined && req.query.xp != undefined){
+		Vacancy.find({ salary: req.query.salary, xpLength: req.query.xp })
+		.sort({salary: req.query.salarysort})
+		.skip((req.query.page - 1) * 5)
+		.limit(5)
+		.exec((err, vacancies)=> {
+			if(err) return console.log(err)
+			Vacancy.count({ salary: req.query.salary, xpLength: req.query.xp })
+			.exec((err, count)=> {
+				if(err) return console.log(err)
+				res.send({results: vacancies, count: count})
+			})
+			
+		})
+	}
 })
 
 router.get('/search/:page', (req, res, next)=>{
- 	Vacancy.find().skip((req.params.page - 1) * 5)
- 		.limit(5)
- 		.exec((err, vacancies)=>{
- 			if(err) return res.send(err);
- 			Vacancy.countDocuments().exec((err, count)=>{
- 				if(err) return res.send(err)
- 				res.send({results: vacancies, count: count});
- 			})
- 			
- 		})
+ 	Vacancy.find()
+ 	.skip((req.params.page - 1) * 5)
+	.limit(5)
+	.exec((err, vacancies)=>{
+		if(err) return res.send(err);
+		Vacancy.count().exec((err, count)=>{
+			if(err) return res.send(err)
+			res.send({results: vacancies, count: count});
+		})
+		
+	})
 })
 
 router.get('/search/common/:query', (req, res, next)=> {
@@ -89,130 +130,103 @@ router.get('/search/common/:query', (req, res, next)=> {
 	})
 })
 
-// POST
-router.post('/responsed/:id', (req, res, next)=> {
-	Vacancy.findById(req.params.id)
+router.post('/responsed', (req, res, next)=> {
+	Vacancy.findById(req.body.vacancy_id)
 	.exec((err, vacancy)=> {
-		vacancy.responses.push(req.body.user_id)
-		vacancy.save((err, result)=> {
-			if(err) return res.send(err)
-			Employer.findById(vacancy.employer)
-			.exec((err, employer)=> {
-				console.log(employer.invited)
-				if(err) return res.send(err)
-				console.log(req.body.cv_id)
-				employer.invited.push(req.body.cv_id)
-				console.log(employer.invited)
-				employer.save((err, employer)=> {
-					if(err) return res.send(err)
-					User.find({employer: employer._id})
-					.exec((err, users)=> {
-						if(err) return res.send(err)
-						User.findById(req.body.user_id)
-						.exec((err, responsed_user)=> {
-							if(err) return res.send(err)
-							let addresses = [];
-							for(var i = 0; i < users.length; i++){
-								addresses[i] = {
-							        from: SENDER, 
-							        to: users[i].email, 
-							        subject: 'Отклик на размещенную вакансию', 
-							        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${users[i].email}">
-							               <p style="font-size: 16px;">Здравствуйте, ${users[i].firstname},</p>
-							        	   <p style="font-size: 16px;">на размещенную Вами вакансию 
-							        	   <a href="http://${LOCAL}:3002/vacancy/${vacancy._id}">${vacancy.position}</a> 
-							        	   пришел отклик от ${responsed_user.firstname} ${responsed_user.lastname} c резюме ${req.body.cv_position}.</p>
-							        	   <div style="display: block;
-							        	        width: 150px;
-							        	        text-align: center;
-							        	        margin: 10px auto;
-							        	        background-color: cornflowerblue;
-							        	        border-radius: 3px;
-							        	        padding: 10px 15px;">
-		        	                        <a style="text-decoration: none;
-		        	                           font-size: 18px; color: white;"
-		        	                           href="http://${LOCAL}:3002/cv/${req.body.cv_id}">Посмотреть</a>
-		        	                       </div>`
-							        	   ,
-							        attachments: [
-							        	{
-							        		filename: 'hh_kz.png',
-							        		path: 'public' + LOGO,
-							        		cid: users[i].email
-							        	}
-							        ]   
-						    	}
-						    	transporter.sendMail(addresses[i], (error, info)=> {
-						    		if(err) return res.sendStatus(401).send(err)
-						    	})
-							}
-							res.sendStatus(200)
-						    
-						})
-					})
-				})
-				
-			})
+		vacancy.responses.push({
+			cv_id: req.body.cv_id,
+			employee_firstname: req.body.employee_firstname,
+			employee_lastname: req.body.employee_lastname
 		})
-	})
-})
-
-router.post('/:id', (req, res, next)=> {
-	Employer.findById(req.params.id)
-	.exec((err, employer)=> {
-		if(err) return res.send(err)
-		let skills = req.body.skills
-		let vacancy = new Vacancy({
-			position: req.body.position,
-			salary: req.body.salary,
-			xpLength: req.body.xpLength,
-			workSchedule: req.body.workSchedule,
-			requirements: req.body.requirements,
-			preferable: req.body.preferable,
-			conditions: req.body.conditions,
-			employer: employer._id
-		})
-
 		vacancy.save((err, vacancy)=> {
 			if(err) return res.send(err)
-			employer.vacancies.push(vacancy._id)
-			employer.save((err, employer)=> {
+			User.find({employer: req.body.employer_id})
+			.exec((err, managers)=> {
 				if(err) return res.send(err)
-				for(let i = 0; i < skills.length; i++){
-					let skill = new Skill({
-						skill: skills[i],
-						vacancy: vacancy._id
-					});
-					skill.save((err, skill)=> {
-						if(err) return res.send(err)
-					})
-				 }
-				 res.send(vacancy)
-				})
-			})
-		})			
-	})	
-
-// DELETE
-router.delete('/:employer_id/:vacancy_id', (req, res, next)=>{
-	Employer.findById(req.params.employer_id)
-	.exec((err, employer)=> {
-		if(err) return res.send(err)
-		let updatedVacancies = employer.vacancies.filter((vacancy) => vacancy != req.params.vacancy_id)
-		employer.vacancies = updatedVacancies
-		employer.invited = []
-		employer.save((err, result)=> {
-			Vacancy.remove({_id: req.params.vacancy_id })
-			.exec((err, result)=> {
-				if(err) return res.send(err)
+				let managersEmails = [];
+				
+				for(var i = 0; i < managers.length; i++){
+					managersEmails[i] = {
+				        from: SENDER, 
+				        to: managers[i].email, 
+				        subject: 'Отклик на размещенную вакансию', 
+				        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${managers[i].email}">
+				               <p style="font-size: 16px;">Здравствуйте, ${managers[i].firstname},</p>
+				        	   <p style="font-size: 16px;">на размещенную Вами вакансию 
+				        	   <a href="http://${LOCAL}:3002/vacancy/${vacancy._id}">${vacancy.position}</a> 
+				        	   пришел отклик от ${req.body.employee_firstname} ${req.body.employee_lastname} c резюме ${req.body.cv_position}.</p>
+				        	   <div style="display: block;
+				        	        width: 150px;
+				        	        text-align: center;
+				        	        margin: 10px auto;
+				        	        background-color: cornflowerblue;
+				        	        border-radius: 3px;
+				        	        padding: 10px 15px;">
+    	                        <a style="text-decoration: none;
+    	                           font-size: 18px; color: white;"
+    	                           href="http://${LOCAL}:3002/cv/${req.body.cv_id}">Посмотреть</a>
+    	                       </div>`
+				        	   ,
+				        attachments: [
+				        	{
+				        		filename: 'hh_kz.png',
+				        		path: 'public' + LOGO,
+				        		cid: managers[i].email
+				        	}
+				        ]   
+			    	}
+			    	
+			    	transporter.sendMail(managersEmails[i], (error, info)=> {
+			    		if(err) return res.sendStatus(401)
+			    	})
+				}
 				res.sendStatus(200)
 			})
+				
+			
+			
 		})
+				
 	})
 })
 
-// PUT
-router.put('/', (req, res, next)=> {
+router.post('/addvacancy', (req, res, next)=> {
+
+	let vacancy = new Vacancy({
+		position: req.body.position,
+		salary: req.body.salary,
+		xpLength: req.body.xpLength,
+		workSchedule: req.body.workSchedule,
+		requirements: req.body.requirements,
+		preferable: req.body.preferable,
+		conditions: req.body.conditions,
+		employer: req.body.employer_id,
+		employer_name: req.body.employer_name,
+		skills: req.body.skills
+	})	
+
+	vacancy.save((err, vacancy)=> {
+		if(err) return res.send(err)
+		let skills = []
+		for(let i = 0; i < vacancy.skills.length; i++){
+			skills.push({name: vacancy.skills[i]})
+		}
+		Skill.insertMany(skills, (err, result)=> {
+			if(err) res.send(err)
+			res.sendStatus(200)
+		})
+	})			
+})	
+
+router.delete('/deleting/:vacancy_id', (req, res, next)=>{
+	Vacancy.remove({_id: req.params.vacancy_id })
+	.exec((err, result)=> {
+		if(err) return res.send(err)
+		res.sendStatus(200)
+	})
+})
+
+router.put('/editing', (req, res, next)=> {
 	Vacancy.findById(req.body._id)
 	.exec((err, vacancy)=> {
 		if(err) return res.send(err)
@@ -223,36 +237,14 @@ router.put('/', (req, res, next)=> {
 		vacancy.requirements = req.body.requirements
 		vacancy.preferable = req.body.preferable
 		vacancy.conditions = req.body.conditions
-		vacancy.save((err, result)=> {
-			Skill.find({ vacancy: req.body._id })
-			.exec((err, skills)=> {
-				if(err) return res.send(err)
-				let skillsFromDb = [];
-				for(let i = 0; i < skills.length; i++){
-					skillsFromDb.push(skills[i].skill)
-				}
-				let uniqueSkills1 = skillsFromDb.filter((elem) => req.body.skills.indexOf(elem) === -1)
-				let uniqueSkills2 = req.body.skills.filter((elem) => skillsFromDb.indexOf(elem) === -1)
-				let newSkills = uniqueSkills1.concat(uniqueSkills2)
+		vacancy.skills = req.body.skills
 
-				for(var i = 0; i < newSkills.length; i++){
-					let skill = new Skill({
-						skill: newSkills[i],
-						vacancy: req.body._id
-					});
-					skill.save((err, skill)=> {
-						if(err) return res.send(err)
-						
-					})
-				}
-				res.sendStatus(200)
-			})
+		vacancy.save((err, result)=> {
+			if(err) return res.send(err)
+			res.sendStatus(200)
 		})	
 	})
 })
-
-
-
 
 
 

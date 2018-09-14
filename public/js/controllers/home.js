@@ -24,43 +24,43 @@ function MainCtrl($http, $scope, $rootScope, $state){
 			}
 			vm.status = 'success';
 			vm.message = 'Авторизация прошла успешно';
+			setTimeout(function(){ vm.message = null;}, 3000);
 		})
 		.error(function(err){
 			console.log(err);
 			vm.status = 'error';
 			vm.message = 'Не верно введены Email или пароль';
+			setTimeout(function(){ vm.message = null;}, 3000);
 		});
 	}
 
-	$http.get('/api/user')
-		.success(function(response){
-			vm.users = response;
-		})
-		.error(function(err){
-			console.log(err);
-		})
-
 	$http.get('/api/employer')
-		.success(function(response){
-			vm.employers = response;
-		})
-		.error(function(err){
-			console.log(err);
-		})
+	.success(function(response){
+		vm.employers = response;
+	})
+	.error(function(err){
+		console.log(err);
+	})
 
 	$http.get('/api/cv')
-		.success(function(response){
-			vm.cvs = response;
-		})
-		.error(function(err){
-			console.log(err);
-		})
+	.success(function(response){
+		vm.cvs = response;
+	})
+	.error(function(err){
+		console.log(err);
+	})
 
 	$http.get('/api/vacancy')
-		.success(function(response){
-			vm.vacancies = response;
-		})
-		.error(function(err){
-			console.log(err);
-		})
+	.success(function(response){
+		vm.vacancies = response;
+	})
+	.error(function(err){
+		console.log(err);
+	})
+
+	vm.yearDefiner = function(xp){
+		if(xp == 1) return ' год';
+		else if(xp > 1 && xp < 5) return ' года';
+		else return ' лет';
+	}
 }

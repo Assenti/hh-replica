@@ -7,37 +7,51 @@ const Vacancy = require('../models/Vacancy')
 const CV = require('../models/CV')
 
 
-// END POINTS
-router.get('/:id', (req, res, next)=>{
-	Employer.findById(req.params.id).populate('vacancies')
-	.exec((err, employer)=>{
-		if(err) return res.send(err);
-		User.find({ employer: req.params.id })
-		.exec((err, users)=> {
-			if(err) return res.send(err)
-			res.send({employer: employer, users: users })
-		})
-	})
-})
-
-router.get('/search/:page', (req, res, next)=>{
- 	Employer.find().skip((req.params.page - 1) * 5)
- 		.limit(5)
- 		.exec((err, employers)=>{
- 			if(err) return res.send(err);
- 			Employer.countDocuments().exec((err, count)=>{
- 				if(err) return res.send(err)
- 				res.send({results: employers, count: count});
- 			})
- 			
- 		})
-})
-
 router.get('/', (req, res, next)=> {
 	Employer.find()
 	.exec((err, employers)=> {
 		if(err) return res.send(err)
 		res.send(employers)
+	})
+})
+
+router.get('/view/:id/:page', (req, res, next)=>{
+	Employer.findById(req.params.id)
+	.populate('users')
+	.exec((err, employer)=>{
+		if(err) return res.send(err);
+		Vacancy.find({employer: req.params.id})
+		.skip((req.params.page - 1) * 5)
+		.limit(5)
+		.exec((err, vacancies)=> {
+			if(err) return res.send(err)
+			Vacancy.count({employer: req.params.id})
+			.exec((err, count)=> {
+				if(err) return res.send(err)
+				res.send({employer: employer, vacancies: vacancies, count: count})
+			})
+		})
+	})
+})
+
+router.get('/newvacancy/:user_id', (req, res, next)=> {
+	Employer.findOne({users: req.params.user_id})
+	.exec((err, employer)=> {
+		if(err) return console.log(err)
+		res.send(employer)
+	})
+})
+
+router.get('/search/:page', (req, res, next)=>{
+ 	Employer.find().skip((req.params.page - 1) * 5)
+	.limit(5)
+	.exec((err, employers)=>{
+		if(err) return res.send(err);
+		Employer.count().exec((err, count)=>{
+			if(err) return res.send(err)
+			res.send({results: employers, count: count});
+		})
+		
 	})
 })
 
@@ -51,30 +65,26 @@ router.get('/search/common/:query', (req, res, next)=> {
 	})
 })
 
-router.delete('/:employer_id/:invite_id/:vacancy_id', (req, res, next)=> {
-	Employer.findById(req.params.employer_id)
-	.exec((err, employer)=> {
+router.put('/editing', (req, res, next)=> {
+	Employer.findById(req.body._id).exec((err, employer)=> {
 		if(err) return res.send(err)
-		let invites = employer.invited.filter((invite)=> invite != req.params.invite_id)
-		employer.invited = invites;
+		employer.name = req.body.name
+		employer.site = req.body.site
+		employer.employeesQuantity = req.body.employeesQuantity
+		employer.city = req.body.city
 		employer.save((err, employer)=> {
 			if(err) return res.send(err)
-			Vacancy.findById(req.params.vacancy_id)
-			.exec((err, vacancy)=> {
-				if(err) return res.send(err)
-				CV.findById(req.params.invite_id)
-				.exec((err, cv)=> {
-					if(err) return res.send(err)
-					let index = vacancy.responses.indexOf(cv.user)
-					vacancy.responses.splice(index, 1)
-					vacancy.save((err, vacancy)=> {
-						if(err) return res.send(err)
-						res.sendStatus(200)
-					})
-				})
-				
-			})
-			
+			res.send(employer)
+		})
+	})
+})
+
+router.delete('/deleting/:id', (req, res, next)=> {
+	Employer.remove({_id: req.params.id}).exec((err, result)=> {
+		if(err) return res.send(err)
+		User.remove({employer: req.params.id}).exec((err, results)=> {
+			if(err) return res.send(err)
+			res.sendStatus(200)
 		})
 	})
 })

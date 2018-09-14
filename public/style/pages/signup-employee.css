@@ -1,6 +1,8 @@
 .signup-employee {
 	padding: 25px 0;
 	font-family: Roboto;
+	width: 100%;
+	min-height: calc(100vh - 120px);
 }
 
 	.signup__title {
@@ -20,6 +22,7 @@
 		display: inline-block;
 		width: 25%;
 		font-size: 14px;
+		cursor: pointer;
 	}
 
 	.signup__form-field > input {

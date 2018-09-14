@@ -1,15 +1,15 @@
-<div class="employee-dash">
+<div class="employee-dash" ng-if="session && !session.employerAccess">
 	<div class="employee-dash__events">
 		<div class="employee-dash__title">Мои события</div>
 
 		<div class="employee-dash__events-item">
 			<div ui-sref="responses({id: session._id})"><img src="../images/chat.svg">Отклики и приглашения</div>
-			<span ng-bind="vm.invites"></span>
+			<span ng-bind="vm.invitesCount"></span>
 		</div>
 
 		<div class="employee-dash__events-item">
 			<div ui-sref="responses({id: session._id})"><img src="../images/eye.svg">Просмотры резюме</div>
-			<span ng-bind="vm.watches"></span>
+			<span ng-bind="vm.watchesCount"></span>
 		</div>
 
 		<div class="employee-dash__events-item">

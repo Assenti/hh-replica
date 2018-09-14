@@ -169,17 +169,14 @@
 		margin: 10px 0;
 	}
 
-	.home__main-item-field > span:first-child {
+	.home__main-item-field > span {
 		font-size: 14px;
 		cursor: pointer;
 	}
 
-	.home__main-item-field > span:last-child {
-		color: lightgrey;
-	}
-
-	.home__main-item-field > span:first-child:hover {
+	.home__main-item-field > span:hover {
 		color: crimson;
+		transition: .3s ease;
 	}
 
 /* Small screen */

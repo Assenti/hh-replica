@@ -42,6 +42,18 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider){
 		controller: 'EmployerDashboardCtrl',
 		controllerAs: 'vm'
 	})
+	.state('newvacancy', {
+		url: '/newvacancy',
+		templateUrl: '/views/newvacancy.html',
+		controller: 'EmployerDashboardCtrl',
+		controllerAs: 'vm'
+	})
+	.state('addmanager', {
+		url: '/employee/addmanager',
+		templateUrl: '/views/addmanager.html',
+		controller: 'EmployerDashboardCtrl',
+		controllerAs: 'vm'
+	})
 	.state('user', {
 		url: '/user/:id',
 		templateUrl: '/views/employee-dashboard.html',
@@ -49,13 +61,13 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider){
 		controllerAs: 'vm'
 	})
 	.state('responses', {
-		url: '/responses/:id',
+		url: '/employee/responses/:id',
 		templateUrl: '/views/responses.html',
-		controller: 'ResponsesCtrl',
+		controller: 'EmployeeDashboardCtrl',
 		controllerAs: 'vm'
 	})
 	.state('cv', {
-		url: '/cv/:id/:user_id',
+		url: '/cv/view/:id/:user_id',
 		templateUrl: '/views/cv.html',
 		controller: 'CVCtrl',
 		controllerAs: 'vm'

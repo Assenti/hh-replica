@@ -8,7 +8,7 @@
 			<div ng-bind="vm.user.firstname + ' ' + vm.user.lastname"></div>
 			<div ng-bind="'Email: ' + vm.user.email"></div>
 			<div>
-				<span ng-bind="'Телефон: ' + vm.user.phone"></span>
+				<span ng-bind="'Телефон: +7 ' + vm.user.phone"></span>
 				<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session">
 			</div>
 			
@@ -26,13 +26,13 @@
 
 <div class="modal__backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
 	<div class="modal">
-		<span>Вы уверены что хотите удалить?</span>
+		<div class="modal__text">Вы уверены что хотите удалить?</div>
 		<button class="btn btn_manager" ng-click="vm.deleteAccount()">Удалить</button>
 		<button class="btn btn_disable" ng-click="vm.closeModal()">Отмена</button>
 	</div>
 </div>
 
-<span ng-class="vm.status" class="message" ng-if="vm.message != null">
-	<span ng-bind="vm.message"></span>
-	<span class="message-close" ng-click="vm.message = null">&times;</span>
-</span>
+<div ng-class="vm.status" class="message" ng-if="vm.message != null">
+	<div ng-bind="vm.message"></div>
+	<div class="message__close" ng-click="vm.message = null">&times;</div>
+</div>

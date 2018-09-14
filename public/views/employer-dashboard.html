@@ -1,130 +1,95 @@
 <div class="employer-dash">
-	<div class="employer-dash__title" ng-if="session && session.employerAccess">Личный кабинет Работодателя</div>
+	<div class="employer-dash__title-block" ng-if="session && session.employerAccess">
+		<div class="employer-dash__title">Личный кабинет Работодателя</div>
+		<img src="../images/trash.svg" ng-click="vm.openDeletation()" title="Удалить аккаунт Работодателя">
+	</div>
+	
 	<div class="employer-dash__header">
-
 		<div class="employer-dash__info">
-			<div class="employer-dash__subtitle">Информация о компании:</div>
-			<span ng-bind="'Наименование компании: ' + (vm.employer.name)"></span>
-			<span ng-bind="'Сайт компании: ' + (vm.employer.site)"></span>
-			<span ng-bind="'Количество сотрудников компании: ' + (vm.employer.employeesQuantity)+' сотрудников'"></span>
-			<span ng-bind="'Местонахождение головного офиса: ' + (vm.employer.city)"></span>
+			<div class="employer-dash__subtitle">Информация о компании: <img src="../images/edit.svg" ng-click="vm.openEmployerEditor()" ng-if="session && session.employerAccess" title="Редактировать"></div>
+			<span ng-bind="'Наименование компании: ' + vm.employer.name"></span>
+			<span ng-bind="'Сайт компании: ' + vm.employer.site"></span>
+			<span ng-bind="'Количество сотрудников компании: ' + (vm.employer.employeesQuantity | salary)+' сотрудников'"></span>
+			<span ng-bind="'Местонахождение головного офиса: ' + vm.employer.city"></span>
 
 			<div class="employer-dash__managers" ng-if="session && session.employerAccess">
 				<div class="employer-dash__subtitle">HR-менеджеры:</div>
-				<span class="employer-dash__item" ng-repeat="manager in vm.managers">
-					<span ng-bind="manager.firstname+' '+manager.lastname"></span>
-				</span>
+				<span class="employer-dash__item" ng-repeat="manager in vm.managers" ng-bind="manager.firstname+' '+manager.lastname"></span>
 			</div>
 
-			<div class="employer-dash__btns">
-				<button class="btn btn_dashboard" ng-click="vm.openVacancyMaker()" ng-if="session && session.employerAccess">Создать вакансию</button>
-				<button class="btn btn_manager" ng-click="vm.openManagerAdder()" ng-if="session && session.employerAccess">Добавить менеджера</button>
+			<div class="employer-dash__managers" ng-if="session && session.employerAccess">
+				<div class="employer-dash__subtitle" ng-bind="'Отклики на Вакансии ('+vm.responsesCount+'):'"></div>
+				<div class="employer-dash_vacancy-block" ng-repeat="vacancy in vm.vacancies" ng-if="vacancy.responses.length > 0">
+					<div class="employer-dash_vacancy" ng-bind="vacancy.position"></div> 
+					<div class="employer-dash__item" ng-repeat="response in vacancy.responses">
+						<span ng-bind="'Соискатель: '+response.employee_firstname + ' ' + response.employee_lastname" ui-sref="cv({id: response.cv_id })"></span>
+						<span ng-bind="'Дата отклика на вакансию: '+ (response.date | myDate)"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="employer-dash__managers" ng-if="session && session.employerAccess">
+				<div class="employer-dash__subtitle" ng-bind="'Приглашенные на собеседование ('+vm.employer.invited.length+'):'"></div>
+				<div class="employer-dash__item" ng-repeat="employee in vm.employer.invited">
+					<span ng-bind="'Соискатель: '+employee.employee_firstname + ' ' + employee.employee_lastname + ' (' + employee.cv_position+')'" ui-sref="cv({id: employee.cv_id })"></span>
+					<span ng-bind="' Дата отправки приглашения: ' + (employee.date | myDate)"></span>
+				</div>
 			</div>
 		</div>
 
 		<div class="employer-dash__vacancies">
-			<div class="employer-dash__subtitle">Открытые вакансии:</div>
-			<span class="employer-dash__item" ng-repeat="vacancy in vm.employer.vacancies">
+			<div class="employer-dash__item-head" >
+				<div class="employer-dash__subtitle">Открытые вакансии:</div>
+				<div class="pagination" ng-if="vm.pages.length > 1">
+					<div class="pagination__item" ng-click="vm.prevPage()"><</div>
+					<div ng-class="{'active': vm.currentPage === (page + 1)}" class="pagination__item" ng-repeat="page in vm.pages track by $index" ng-bind="page+1" ng-click="vm.displayPage(page+1)"></div>
+					<div class="pagination__item" ng-click="vm.nextPage()">></div>
+				</div>
+			</div>
+			<span class="employer-dash__item" ng-repeat="vacancy in vm.vacancies">
 				<div class="employer-dash__item-head">
 					<span ng-bind="vacancy.position"></span>
-					<img src="../images/external-link.svg" ui-sref="vacancy({id: vacancy._id})" title="Перейти к вакансии" ng-if="session">
+					<img src="../images/external-link.svg" ui-sref="vacancy({id: vacancy._id})" title="Перейти к вакансии">
 				<img src="../images/trash.svg" ng-click="vm.openModal(vacancy, $index)" title="Удалить" ng-if="session && session.employerAccess">
-				<img src="../images/invitation.svg" 
-					 ng-if="session && session.employerAccess && vacancy.responses.length > 0" 
-					 title="Отклик" 
-					 ng-repeat="invite in vm.employer.invited track by $index" 
-					 ui-sref="cv({id: invite })"
-					 ng-click="vm.removeInvite(invite, vacancy)"
-					 >
 				</div>	
 				<span ng-bind="(vacancy.salary | salary)+' KZT'"></span>
 			</span>
 		</div>
 	</div>
-	
-	<div class="employer-dash__content" id="vacancyForm">
-		<span class="employer-dash__content-title">Создание вакансии <span ng-click="vm.closeVacancyMaker()">&times;</span></span>
-		<form class="employer-dash__form" ng-submit="vm.createVacancy()">
-			<div class="employer-dash__form-group">
-				<input class="input" type="text" ng-model="vm.position" placeholder="Должность">
-				<span ng-bind="'Должность: '+(vm.position)"></span>
-			</div>
-			<div class="employer-dash__form-group">
-				<input class="input" type="number" ng-model="vm.salary" placeholder="Заработная плата">
-				<span ng-bind="'Заработная плата: '+(vm.salary)"></span>
-			</div>
-			<div class="employer-dash__form-group">
-				<input class="input" type="number" ng-model="vm.xpLength" placeholder="Стаж работы">
-				<span ng-bind="'Стаж работы: '+(vm.xpLength)"></span>
-			</div>
-			<div class="employer-dash__form-group">
-				<input class="input" type="text" ng-model="vm.workSchedule" placeholder="График работы">
-				<span ng-bind="'График работы: '+(vm.workSchedule)"></span>
-			</div>
-			<div class="employer-dash__form-group">
-				<textarea class="textarea" ng-model="vm.requirements" placeholder="Требования"></textarea>
-				<span ng-bind="'Требования: '+(vm.requirements)"></span>
-			</div>
-			<div class="employer-dash__form-group">
-				<textarea class="textarea" ng-model="vm.preferable" placeholder="Желательно"></textarea>
-				<span ng-bind="'Желательно: '+(vm.preferable)"></span>
-			</div>
-			<div class="employer-dash__form-group">
-				<textarea class="textarea" ng-model="vm.conditions" placeholder="Условия"></textarea>
-				<span ng-bind="'Условия: '+(vm.conditions)"></span>
-			</div>
-
-			<div class="employer-dash__skills-group">
-				<input class="input" type="text" ng-model="vm.skill" placeholder="Навык">
-				<div class="skills__add-btn" ng-click="vm.addSkill()" title="Добавить навык">&plus;</div>
-			</div>
-
-			<div class="employer-dash__skills">
-				<div class="skills" ng-repeat="skill in vm.skills">
-					<span ng-bind="skill"></span>
-					<span ng-click="vm.removeSkill($index)">&times;</span>
-				</div>
-			</div>
-			<button class="btn btn_dashboard" type="submit">Создать вакансию</button>
-			<button class="btn btn_disable" type="reset" ng-click="vm.closeVacancyMaker()">Отмена</button>
-		</form>
-	</div>
-
-	<div class="employer-dash__content" id="managerForm">
-		<span class="employer-dash__content-title">
-			Добавление менеджера
-		 	<span ng-click="vm.closeManagerAdder()">&times;</span>
-		</span>
-		<form class="employer-dash__form" ng-submit="vm.addManager()">
-			<input class="input" type="text" ng-model="vm.firstname" placeholder="Имя">
-			<input class="input" type="text" ng-model="vm.lastname" placeholder="Фамилия">
-			<span ng-bind="vm.firstname+' '+vm.lastname"></span>
-			<div class="employer-dash__form-group">
-				<input class="input" type="email" ng-model="vm.email" placeholder="Email">
-				<span ng-bind="'Email: '+vm.email"></span>
-			</div>
-			<div class="employer-dash__form-group">
-				<input class="input" type="text" ng-model="vm.phone" placeholder="Телефон">
-				<span ng-bind="'Телефон: '+vm.phone"></span>
-			</div>
-			<div class="employer-dash__form-group">
-				<input class="input" type="text" ng-model="vm.password" placeholder="Пароль">
-			</div>
-			<button class="btn btn_dashboard" type="submit">Добавить</button>
-			<button class="btn btn_disable" type="reset" ng-click="vm.closeManagerAdder()">Отмена</button>
-		</form>
-	</div>
 </div>
 
 <div class="modal__backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
 	<div class="modal">
-		<span>Вы уверены что хотите удалить?</span>
+		<div class="modal__text">Вы уверены что хотите удалить?</div>
 		<button class="btn btn_manager" ng-click="vm.deleteVacancy()">Удалить</button>
 		<button class="btn btn_disable" ng-click="vm.closeModal()">Отмена</button>
 	</div>
 </div>
 
+<div class="modal__backdrop" ng-if="vm.deletation">
+	<div class="modal">
+		<div class="modal__text">Вы уверены что хотите удалить?</div>
+		<button class="btn btn_manager" ng-click="vm.deleteEmployer()">Удалить</button>
+		<button class="btn btn_disable" ng-click="vm.closeDeletation()">Отмена</button>
+	</div>
+</div>
+
+<div class="modal__backdrop" ng-if="vm.editor">
+	<div class="modal">
+		<div class="modal__title">Редактирование информации о Компании</div>
+		<form class="modal__form" ng-submit="vm.editEmployer()">
+			<input class="input" type="text" name="name" ng-model="vm.objectToEdit.name">
+			<input class="input" type="text" name="site" ng-model="vm.objectToEdit.site">
+			<input class="input" type="number" name="employeesQuantity" ng-model="vm.objectToEdit.employeesQuantity">
+			<input class="input" type="text" name="city" ng-model="vm.objectToEdit.city">
+			<button class="btn btn_manager" type="submit">Сохранить</button>
+			<button class="btn btn_disable" type="reset" ng-click="vm.closeEmployerEditor()">Отмена</button>
+		</form>
+		
+	</div>
+</div>
+
 <div ng-class="vm.status" class="message" ng-if="vm.message != null">
-	<span ng-bind="vm.message"></span>
-	<span class="message__close" ng-click="vm.message = null">&times;</span>
+	<div ng-bind="vm.message"></div>
+	<div class="message__close" ng-click="vm.message = null">&times;</div>
 </div>

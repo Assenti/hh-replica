@@ -1,8 +1,21 @@
 .employer-dash {
 	padding: 2% 5%;
 	width: 100%;
+	min-height: calc(100vh - 120px);
 	font-family: Roboto;
-}
+}	
+
+	.employer-dash__title-block {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.employer-dash__title-block > img {
+		width: 20px;
+		height: 20px;
+		cursor: pointer;
+	}
 
 	.employer-dash__title {
 		font-size: 30px;
@@ -25,30 +38,69 @@
 	.employer-dash__info > span {
 		display: flex;
 		margin: 10px 0;
-		font-size: 16px;
-	}
-
-	.employer-dash__btns {
-		margin: 15px 0;
+		font-size: 14px;
 	}
 
 	.employer-dash__subtitle {
 		display: block;
 		font-size: 20px;
+		font-weight: 600;
 		width: 100%;
-		color: grey;
-		margin: 10px 0;
+		margin: 5px 0;
+	}
+
+	.employer-dash__subtitle > img {
+		width: 16px;
+		height: 16px;
+		margin-left: 10px;
+		cursor: pointer; 
+	}
+
+	.employer-dash_vacancy-block {
+		padding: 5px 0;
+		border-bottom: 1px solid #e7e7e7;
+	}
+
+	.employer-dash_vacancy {
+		font-size: 16px;
+		padding: 3px 0;
+		color: cornflowerblue;
 	}
 
 	.employer-dash__item {
 		display: block;
 		margin-bottom: 5px;
+		font-size: 16px;
 	}
 
 	.employer-dash__item > span {
-		display: block;
 		font-size: 14px;
-		color: grey;
+		display: block;
+		cursor: pointer;
+		line-height: 18px;
+	}
+	
+	.employer-dash__item > span:first-child:hover {
+		color: crimson;
+		transition: .3s ease;	
+	}
+
+	.employer-dash__item > img {
+		width: 14px;
+		height: 14px;
+		cursor: pointer;
+		margin-left: 5px; 
+	}
+
+	.employer-dash__item-responses {
+		cursor: pointer;
+		text-decoration: none;
+		color: cornflowerblue;
+	}
+
+	.employer-dash__item-responses:hover {
+		color: crimson;
+		transition: .3s ease;
 	}
 
 	.employer-dash__item-head {
@@ -76,7 +128,6 @@
 
 	.employer-dash__content {
 		width: 100%;
-		display: none;
 	}
 
 	.employer-dash__content-title {
@@ -96,47 +147,55 @@
 		width: 100%;
 	}
 
-	.employer-dash__form > input {
-		padding: 10px;
+	.employer-dash__form-controls {
+		display: flex;
+		align-items: center;
+		margin: 10px 20px;
+	}
+
+	.employer-dash__form-controls > button {
+		margin: 0 10px;
 	}
 
 	.employer-dash__form-group {
 		display: flex;
 		align-items: flex-start;
-		margin: 10px 0;
+		margin: 10px 20px;
 		width: 100%;
-	}
-
-	.employer-dash__form-group > span {
-		display: block;
-		margin-left: 10px;
-		font-size: 14px;
-		padding: 10px;
 	}
 	
 	.employer-dash__form-group > textarea,
 	.employer-dash__form-group > input {
-		width: 50%;
+		width: 400px;
 		display: block;
 		padding: 10px;
-		margin: 5px 0;
 	}
 
 	.employer-dash__skills-group {
 		display: flex;
 		align-items: center;
 		height: 40px;
+		position: relative;
+		margin: 10px 20px;
 	}
 
 	.employer-dash__skills-group > input {
 		padding: 10px;
-		width: calc(50% - 37px);
+		width: 363px;
 	}
 
 	.employer-dash__skills {
 		margin: 15px 0;
 		display: flex;
 		align-items: center;
+	}
+
+	.employer__form-skills-offers {
+		position: absolute;
+		background-color: white;
+		border: 1px solid lightgrey;
+		width: 363px;
+		top: 100%;
 	}
 
 

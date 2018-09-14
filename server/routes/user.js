@@ -154,7 +154,7 @@ router.post('/signup', (req, res, next)=> {
 			        subject: 'Подтверждение регистрации', 
 			        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${user.email}">
 			        	   <p style="font-size: 16px;">
-			        	    Здравствуйте ${user.firstname},пожалуйста активируйте Ваш аккаунт на HeadHunter.kz - Replica.
+			        	    Здравствуйте ${user.firstname}, пожалуйста активируйте Ваш аккаунт на HeadHunter.kz - Replica.
 			        	   </p>
 			        	   <div style="display: block;
 			        	   		width: 150px;
@@ -163,7 +163,7 @@ router.post('/signup', (req, res, next)=> {
 			        	        border-radius: 3px;
 			        	        padding: 10px 15px;">
 		        	        <a style="color: white; 
-		        	           font-size: 16px;" 
+		        	           font-size: 16px; text-decoration: none; display: block; text-align: center;" 
 		        	           href="http://${LOCAL}:3002/api/user/accept/${user._id}">Активировать</a>
 		        	       </div>` ,
 			        attachments: [
@@ -193,7 +193,7 @@ router.post('/signup', (req, res, next)=> {
 		        subject: 'Подтверждение регистрации', 
 		        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${user.email}">
 		        	   <p style="font-size: 16px;">
-		        	    Здравствуйте ${user.firstname},пожалуйста активируйте Ваш аккаунт на HeadHunter.kz - Replica.
+		        	    Здравствуйте ${user.firstname}, пожалуйста активируйте Ваш аккаунт на HeadHunter.kz - Replica.
 		        	   </p>
 		        	   <div style="display: block;
 		        	   		width: 150px;
@@ -202,7 +202,7 @@ router.post('/signup', (req, res, next)=> {
 		        	        border-radius: 3px;
 		        	        padding: 10px 15px;">
 	        	        <a style="color: white; 
-	        	           font-size: 16px;" 
+	        	           font-size: 16px; text-decoration: none; display: block; text-align: center;" 
 	        	           href="http://${LOCAL}:3002/api/user/accept/${user._id}">Активировать</a>
 	        	       </div>` ,
 		        attachments: [
@@ -224,52 +224,59 @@ router.post('/signup', (req, res, next)=> {
 })
 
 
-router.post('/signup/manager/:id', (req, res, next)=> {
-	let newUser = new User({
+router.post('/signup/manager', (req, res, next)=> {
+	let manager = new User({
 		firstname: req.body.firstname,
 		lastname: req.body.lastname,
 		email: req.body.email,
 		password: req.body.password,
 		phone: req.body.phone,
 		employerAccess: req.body.employerAccess,
-		employer: req.params.id
+		employer: req.body.employer_id
 	})
 
-	User.find({ employer: req.params.id })
-	.exec((err, user)=> {
+	Employer.findById(req.body.employer_id)
+	.exec((err, employer)=> {
 		if(err) return res.send(err)
-		Employer.findById(req.params.id)
-		.exec((err, employer)=> {
+		manager.save((err, manager)=> {
 			if(err) return res.send(err)
-			newUser.save((err, savedUser)=> {
+			employer.users.push(manager._id)
+			employer.save((err, employer)=> {
 				if(err) return res.send(err)
-				
 				let mailOptions = {
-			        from: '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>', 
-			        to: newUser.email, 
-			        subject: 'Подтверждение регистрации', 
-			        html: `<p>Здравствуйте ${newUser.firstname} ${newUser.lastname}.
-			        	 Пожалуйста закончите регистрацию на HeadHunter.kz - Replica пройдя по 
-			        	  <a href="http://142.93.229.118:3002/api/user/accept/${newUser._id}">ссылке.</a></p>`  
-			    }
+		        from: SENDER, 
+		        to: manager.email, 
+		        subject: 'Подтверждение регистрации', 
+		        html: `<img style="width: 150px; display: block; margin: 0 auto;" src="cid:${manager.email}">
+		        	   <p style="font-size: 16px;">
+		        	    Здравствуйте ${manager.firstname}, пожалуйста активируйте Ваш аккаунт на HeadHunter.kz - Replica.
+		        	   </p>
+		        	   <div style="display: block;
+		        	   		width: 150px;
+		        	        margin: 10px auto;
+		        	        background-color: cornflowerblue;
+		        	        border-radius: 3px;
+		        	        padding: 10px 15px;">
+	        	        <a style="color: white; 
+	        	           font-size: 16px; text-decoration: none; display: block; text-align: center;" 
+	        	           href="http://${LOCAL}:3002/api/user/accept/${manager._id}">Активировать</a>
+	        	       </div>` ,
+		        attachments: [
+		        	{
+		        		filename: 'hh_kz.png',
+		        		path: 'public' + LOGO,
+		        		cid: manager.email
+		        	}
+		        ]
+		    }
 
-			    transporter.sendMail(mailOptions, (error, info)=> {
-			    	if(err) return res.sendStatus(401).send(err)
-			    	if(employer.users.includes(user._id)){
-			    		employer.users.push(savedUser._id)
-			    	} else {
-						employer.users.push(user._id, savedUser._id)			    		
-			    	}
-					employer.save((err, result)=> {
-						if(err) return res.send(err)
-						res.sendStatus(200)
-						})
-			    	})
+		    	transporter.sendMail(mailOptions, (error, info)=> {
+		    		if(err) return res.sendStatus(401).send(err)
+		    		res.sendStatus(200)
 				})
-
 			})
-			
 		})
+	})
 })
 
 // Email confirmation End Point

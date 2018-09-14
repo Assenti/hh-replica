@@ -1,28 +1,27 @@
 <div class="cv">
-	<a class="cv__back-link" ui-sref="user({id: session._id})" ng-if="session._id == vm.cv.user && !session.employerAccess"><img src="../images/left-chevron.svg"> Назад в кабинет</a>
+	<a class="cv__back-link" ui-sref="user({id: session._id})" ng-if="session && session._id == vm.cv.user && !session.employerAccess"><img src="../images/left-chevron.svg"> Назад в кабинет</a>
 	
 	<div class="cv__header">
 		<div class="cv__info">
-			<img ng-src="{{ vm.cv.link || '../images/no-image.png' }}">
+			<div class="cv__info-img"><img ng-src="{{ vm.cv.link || '../images/user-bg.svg' }}"></div>
 			<div class="cv__info-contacts">
-				<span ng-bind="(vm.user.firstname)+' '+(vm.user.lastname)"></span>
+				<span ng-bind="vm.cv.firstname+' '+vm.cv.lastname"></span>
 				<span ng-bind="(vm.cv.gender)+', родился '+(vm.cv.birthDate | myDate)"></span>
-				<span ng-bind="'Контактный телефон: '+(vm.user.phone)"></span>
-				<span ng-bind="'Email: '+(vm.user.email)"></span>
-				<span ng-bind="'Адрес: ' + (vm.cv.address)"></span>
-				<span ng-bind="'Гражданство: ' + (vm.cv.citizenship)"></span>
+				<span ng-bind="'Контактный телефон: '+vm.cv.phone"></span>
+				<span ng-bind="'Email: '+vm.cv.email"></span>
+				<span ng-bind="'Адрес: ' + vm.cv.address"></span>
+				<span ng-bind="'Гражданство: ' + vm.cv.citizenship"></span>
 			</div>
 		</div>
 		<div class="cv__controls">
-			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session._id == vm.cv.user && !session.employerAccess">
-			<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session._id == vm.cv.user && !session.employerAccess">
-			<button class="btn btn_dashboard" ng-if="session.employerAccess" ng-click="vm.invite(session)">Пригласить</button>
+			<img src="../images/edit.svg" ng-click="vm.openEditor()" title="Редактировать" ng-if="session && session._id == vm.cv.user && !session.employerAccess">
+			<img src="../images/trash.svg" ng-click="vm.openModal()" title="Удалить" ng-if="session && session._id == vm.cv.user && !session.employerAccess">
+			<button class="btn btn_dashboard" ng-if="session.employerAccess" ng-click="vm.inviteEmployee()">Пригласить</button>
 		</div>
 	</div>
 
 	<div class="cv__editor-close">
-		<input class="input" type="date" ng-model="vm.objectToEdit.birthDate" ng-if="vm.editor">
-		<span class="cv__closer" ng-click="vm.closeEditor()" ng-if="vm.editor">&times;</span>
+		<span class="cv__closer" ng-click="vm.closeEditor()" ng-if="vm.editor" title="Закрыть">&times;</span>
 	</div>
 	<input class="input" type="text" ng-model="vm.objectToEdit.address" ng-if="vm.editor">
 	<div class="cv__position-info">
@@ -58,13 +57,16 @@
 	<div class="cv__skills-info">
 		<span>Ключевые навыки:</span>
 		<div class="cv__skills"	>
-			<div class="skills" ng-repeat="skill in vm.skills" ng-bind="skill.skill"></div>
+			<div class="skills" ng-repeat="skill in vm.cv.skills" ng-bind="skill"></div>
 		</div>
 	</div>
 
 	<div class="cv__add-skills">
-		<input class="input" type="text" ng-model="vm.skill" ng-if="vm.editor">
+		<input class="input" type="text" ng-model="vm.skill" ng-if="vm.editor" ng-keyup="vm.keyWatcher($event)">
 		<span class="skills__add-btn" ng-click="vm.addSkill()" title="Добавить навык" ng-if="vm.editor">&plus;</span>
+		<div class="cv__form-skills-offers" ng-if="vm.offersOpen">
+			<div class="newcv__form-skills-offer" ng-repeat="offer in vm.offers track by $index" ng-bind="offer.name" ng-click="vm.selectSkill(offer.name)"></div>
+		</div>
 	</div>
 
 	<div class="cv__edit-skills" ng-if="vm.editor">
@@ -81,7 +83,7 @@
 
 <div class="modal__backdrop" ng-if="vm.modal" ng-click="vm.closeModal()">
 	<div class="modal">
-		<span>Вы уверены что хотите удалить?</span>
+		<div class="modal__text">Вы уверены что хотите удалить?</div>
 		<button class="btn btn_manager" ng-click="vm.deleteCV()">Удалить</button>
 		<button class="btn btn_disable" ng-click="vm.closeModal()">Отмена</button>
 	</div>
@@ -92,7 +94,7 @@
 </div>
 
 
-<span ng-class="vm.status" class="message" ng-if="vm.message != null">
-	<span ng-bind="vm.message"></span>
-	<span class="message__close" ng-click="vm.message = null">&times;</span>
-</span>
+<div ng-class="vm.status" class="message" ng-if="vm.message != null">
+	<div ng-bind="vm.message"></div>
+	<div class="message__close" ng-click="vm.message = null">&times;</div>
+</div>

@@ -15,7 +15,6 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 		$http.post('/api/user/signin', data)
 		.success(function(response){
 			$rootScope.session = response;
-			console.log(response);
 			if(response.employerAccess){
 				$state.go('employer', {id: response.employer});
 			} else {
@@ -23,11 +22,13 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 			}
 			vm.status = 'success';
 			vm.message = 'Авторизация прошла успешно';
+			setTimeout(function(){ vm.message = null}, 3000);
 		})
 		.error(function(err){
 			console.log(err);
 			vm.status = 'error';
 			vm.message = 'Не верно введены Email или пароль';
+			setTimeout(function(){ vm.message = null}, 3000);
 		});
 	}
 
@@ -45,12 +46,14 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 			vm.isLoading = false;
 			vm.status = 'success';
 			vm.message = 'Регистрация прошла успешно, пройдите пожалуйста по ссылке указанной в письме отправленное вам на почту.';
+			setTimeout(function(){ vm.message = null}, 3000);
 		})
 		.error(function(err){
 			console.log(err);
 			vm.isLoading = false;
 			vm.status = 'error';
 			vm.message = 'Ошибка регистрации. Пожалуйста повторите снова.';
+			setTimeout(function(){ vm.message = null}, 3000);
 		});
 	}
 
@@ -75,12 +78,14 @@ function AuthCtrl($http, $scope, $state, $rootScope, $cookies){
 			vm.isLoading = false;
 			vm.status = 'success';
 			vm.message = 'Регистрация прошла успешно, пройдите пожалуйста по ссылке указанной в письме отправленное вам на почту.';
+			setTimeout(function(){ vm.message = null}, 3000);
 		})
 		.error(function(err){
 			console.log(err);
 			vm.isLoading = false;
 			vm.status = 'error';
 			vm.message = 'Ошибка регистрации. Пожалуйста повторите снова.';
+			setTimeout(function(){ vm.message = null}, 3000);
 		});
 	}
 }

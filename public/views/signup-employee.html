@@ -4,31 +4,31 @@
 		<form class="signup__form" ng-submit="vm.signUpEmployee()">
 			<div class="signup__form-field">
 				<label for="firstname">Имя *</label>
-				<input class="input" type="text" ng-model="vm.firstname" name="firstname" required>
+				<input class="input" id="firstname" type="text" ng-model="vm.firstname" name="firstname" placeholder="Иван" required>
 				<span>Введите пожалуйста Ваше имя</span>
 			</div>
 			
 			<div class="signup__form-field">
 				<label for="lastname">Фамилия *</label>
-				<input class="input" type="text" ng-model="vm.lastname" name="lastname" required>
+				<input class="input" id="lastname" type="text" ng-model="vm.lastname" name="lastname" placeholder="Иванов" required>
 				<span>Введите пожалуйста Вашу фамилию</span>
 			</div>
 
 			<div class="signup__form-field">
 				<label for="email">Email *</label>
-				<input class="input" type="email" ng-model="vm.email" name="email" required>
+				<input class="input" id="email" type="email" ng-model="vm.email" name="email" placeholder="example@example.com" required>
 				<span>Введите пожалуйста Ваш Email</span>
 			</div>
 
 			<div class="signup__form-field">
 				<label for="phone">Телефон *</label>
-				<input class="input" type="tel" pattern="[0-9]{10}" ng-model="vm.phone" name="phone" required>
+				<input class="input" id="phone" type="text" pattern="[0-9]{10}" ng-model="vm.phone" placeholder="1234567890" name="phone" required>
 				<span>Введите пожалуйста Ваш номер телефона (не менее 10 цифр, без "+7" или "8" в начале)</span>
 			</div>
 
 			<div class="signup__form-field">
 				<label for="password">Пароль *</label>
-				<input class="input" type="password" ng-model="vm.password" name="password" required>
+				<input class="input" id="password" type="password" ng-model="vm.password" name="password" placeholder="*****" required>
 				<span>Придумайте пожалуйста пароль</span>
 			</div>
 			<div class="signup__form-field">
@@ -54,6 +54,6 @@
 </div>
 
 <div ng-class="vm.status" class="message" ng-if="vm.message != null">
-	<span ng-bind="vm.message"></span>
-	<span class="message__close" ng-click="vm.message = null">&times;</span>
+	<div ng-bind="vm.message"></div>
+	<div class="message__close" ng-click="vm.message = null">&times;</div>
 </div>
