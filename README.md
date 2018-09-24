@@ -1,5 +1,5 @@
 # hh-replica
-HeadHunter-Replica: educational project on MEAN stack
+HeadHunter-Replica: educational project on MEAN stack (MongoDB, Express, AngularJS (1.5), Node.js)
 
 # Project Building
 
