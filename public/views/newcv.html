@@ -5,7 +5,8 @@
 		<div class="newcv__form-head">
 			<div class="newcv__form-file">
 				<input id="photo" type="file" ng-file-model="vm.file" accept="image/*">
-				<label ng-click="vm.getFile()">Загрузить фото к резюме</label>
+				<label ng-click="vm.getFile()" ng-if="!vm.file">Загрузить фото к резюме</label>
+				<label ng-click="vm.getFile()" ng-if="vm.file">{{vm.file.name}}</label>
 			</div>
 			<div class="newcv__form-personal">
 				<div class="newcv__form-field">

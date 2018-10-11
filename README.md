@@ -3,7 +3,7 @@ HeadHunter-Replica: educational project on MEAN stack (MongoDB, Express, Angular
 
 # Project Building
 
-Requirements:
+Requirements to server side:
 - Node.js
 - MongoDB
 
@@ -12,6 +12,6 @@ Requirements:
 $ npm install
 
 # run server
-$ node server
+$ npm start
 
 ```
