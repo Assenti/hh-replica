@@ -4,6 +4,7 @@ const path = require('path')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const nodemailer = require('nodemailer')
+const config = require('../config/config')
 
 const User = require('../models/User')
 const CV = require('../models/CV')
@@ -16,12 +17,12 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false, 
     auth: {
-        user: '172.3itstep2017@gmail.com', 
-        pass: 'fsnihgdmbxfwhptq' 
+        user: config.email, 
+        pass: config.pass  
     }
 });
 
-const SENDER = '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>';
+const SENDER = '"HeadHunter.kz - Replica" <' + config.email + '>';
 const LOGO = '/images/hh_kz.png';
 const LOCAL = 'localhost';
 const REMOTE = '142.93.229.118';

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "./node_modules/nodemon/bin/nodemon.js server.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,5 +23,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "nodemon": "^1.18.4"
+  }
 }

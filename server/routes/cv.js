@@ -17,12 +17,12 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false, 
     auth: {
-        user: '172.3itstep2017@gmail.com', 
-        pass: 'fsnihgdmbxfwhptq' 
+        user: 'mystoretk2018@gmail.com', 
+        pass: 'ahydmuowqcmblmmz'   
     }
 });
 
-const SENDER = '"HeadHunter.kz - Replica" <172.3itstep2017@gmail.com>';
+const SENDER = '"HeadHunter.kz - Replica" <mystoretk2018@gmail.com>';
 const LOGO = '/images/hh_kz.png';
 const LOCAL = 'localhost';
 const REMOTE = '142.93.229.118';
